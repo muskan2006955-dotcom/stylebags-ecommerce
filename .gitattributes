@@ -1,0 +1,3 @@
+*.html linguist-detectable=false
+*.cshtml linguist-detectable=false
+*.cs linguist-detectable=true
