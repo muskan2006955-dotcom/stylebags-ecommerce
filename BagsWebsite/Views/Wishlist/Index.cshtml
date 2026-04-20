@@ -1,0 +1,100 @@
+﻿@{
+    ViewData["Title"] = "My Wishlist";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">My Wishlist</h2>
+
+    <div id="wishlist-loader" class="text-center d-none">
+        <div class="spinner-border text-dark" role="status"></div>
+    </div>
+
+    <div class="row g-4" id="wishlistContainer">
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            loadWishlist();
+        });
+
+        // 1. Data Load karne wala function
+        function loadWishlist() {
+            let wishlist = JSON.parse(localStorage.getItem("guestWishlist")) || [];
+            let container = document.getElementById("wishlistContainer");
+
+            if (wishlist.length === 0) {
+                container.innerHTML = "<div class='col-12 text-center py-5'><h4>Your wishlist is empty!</h4></div>";
+                return;
+            }
+
+            fetch('/Wishlist/GetWishlistItems', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(wishlist)
+            })
+            .then(res => {
+                if (!res.ok) throw new Error('Server error: ' + res.status);
+                return res.json();
+            })
+            .then(response => {
+                if (response.success) {
+                    // Yahan se function call ho raha hai
+                    renderWishlist(response.data);
+                } else {
+                    console.error("Server returned error:", response.message);
+                }
+            })
+            .catch(err => console.error("Error loading wishlist:", err));
+        }
+
+        // 2. HTML Render karne wala function (Isko define karna lazmi hai)
+        function renderWishlist(products) {
+            let html = '';
+            if(!products || products.length === 0) {
+                document.getElementById("wishlistContainer").innerHTML = "<h4>Your wishlist is empty!</h4>";
+                return;
+            }
+
+            products.forEach(p => {
+                html += `
+                    <div class="col-lg-3 col-md-4 col-6" id="wishlist-item-${p.id}">
+                        <div class="product-wrapper border p-2 shadow-sm rounded">
+                            <div class="position-relative overflow-hidden">
+                                <img src="${p.imageUrl}" class="w-100" style="height:200px; object-fit:cover; border-radius:8px;">
+                                ${p.discount > 0 ? `<span class="badge bg-danger position-absolute top-0 start-0 m-2">-${p.discount}%</span>` : ''}
+                            </div>
+                            <div class="mt-2 text-center">
+                                <h6 class="text-truncate">${p.name}</h6>
+                                <p class="fw-bold mb-2">Rs. ${p.price.toLocaleString()}</p>
+                                <button class="btn btn-outline-danger btn-sm w-100" onclick="removeFromWishlist(${p.id})">
+                                    <i class="fa fa-trash me-1"></i> Remove
+                                </button>
+                            </div>
+                        </div>
+                    </div>`;
+            });
+            document.getElementById("wishlistContainer").innerHTML = html;
+        }
+
+        // 3. Remove karne wala function
+        function removeFromWishlist(id) {
+            let wishlist = JSON.parse(localStorage.getItem("guestWishlist")) || [];
+            let sId = id.toString().trim();
+
+            wishlist = wishlist.filter(prodId => prodId != sId);
+            localStorage.setItem("guestWishlist", JSON.stringify(wishlist));
+
+            let itemElement = document.getElementById(`wishlist-item-${id}`);
+            if(itemElement) itemElement.remove();
+
+            if(wishlist.length === 0) {
+                document.getElementById("wishlistContainer").innerHTML = "<div class='col-12 text-center py-5'><h4>Your wishlist is empty!</h4></div>";
+            }
+
+            // Agar layout mein renderHearts hai toh count update karne ke liye
+            if(typeof renderHearts === 'function') renderHearts();
+        }
+    </script>
+}

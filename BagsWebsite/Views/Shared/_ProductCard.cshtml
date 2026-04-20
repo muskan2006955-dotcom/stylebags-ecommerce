@@ -1,0 +1,214 @@
+﻿<style>
+    /* --- Desktop & Mobile Common Heart Style --- */
+    .heart-pos {
+        position: absolute !important;
+        top: 10px !important;
+        left: 10px !important; /* Yahan se left control ho raha hai */
+        right: auto !important; /* Right side ki saari purani settings khatam */
+        width: 35px !important; /* Container ki width fix kar di */
+        z-index: 99 !important; /* Sabse upar nazar aaye */
+        list-style: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        transform: none !important; /* Agar koi transition hila rahi ho toh */
+    }
+
+        .heart-pos li {
+            list-style: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+            .heart-pos li a {
+                background: #fff !important;
+                color: #111 !important;
+                height: 35px !important;
+                width: 35px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                border-radius: 50% !important;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important;
+                text-decoration: none !important;
+            }
+
+    /* --- Baqi Desktop Styles --- */
+    .product__item__pic {
+        position: relative;
+        overflow: hidden;
+        height: 270px;
+    }
+
+    .enshee-card {
+        margin-bottom: 45px;
+        transition: transform 0.3s ease;
+    }
+
+    .discount-badge, .discount-circle {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #e01e5a;
+        color: #fff;
+        font-size: 12px;
+        padding: 4px 8px;
+        border-radius: 20px;
+        z-index: 10;
+    }
+
+    .hover-overlay-enshee {
+        position: absolute;
+        left: 0;
+        bottom: -100px;
+        width: 100%;
+        padding: 15px 0;
+        background: rgba(255,255,255,0.9);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.4s ease-in-out;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .enshee-card:hover .hover-overlay-enshee {
+        bottom: 0;
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .enshee-btn {
+        width: 85%;
+        height: 38px;
+        position: relative;
+        overflow: hidden;
+        color: #fff !important;
+        font-size: 12px;
+        font-weight: 700;
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    .quick-view {
+        background: #444;
+    }
+
+    .quick-add {
+        background: #e01e5a;
+    }
+
+    .btn-text, .btn-icon {
+        position: absolute;
+        transition: all 0.3s ease;
+    }
+
+    .btn-icon {
+        top: 40px;
+        font-size: 16px;
+    }
+
+    .enshee-btn:hover .btn-text {
+        top: -40px;
+    }
+
+    .enshee-btn:hover .btn-icon {
+        top: 10px;
+    }
+
+    /* --- Mobile Specific (max-width: 575px) --- */
+    @@media (max-width: 575px) {
+        .property__gallery .col-sm-6 {
+            width: 50% !important;
+            flex: 0 0 50%;
+            max-width: 50%;
+            padding: 0 5px;
+        }
+        /* Heart Left (Mobile par bhi confirm) */
+        .heart-pos {
+            left: 8px !important;
+            top: 8px !important;
+        }
+        /* Mobile Right Icons (Circles) */
+        .hover-overlay-enshee {
+            opacity: 1 !important;
+            visibility: visible !important;
+            bottom: auto !important;
+            left: auto !important;
+            right: 8px !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            width: auto !important;
+            background: transparent !important;
+            gap: 8px !important;
+        }
+
+        .enshee-btn {
+            width: 35px !important;
+            height: 35px !important;
+            border-radius: 50% !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .btn-text {
+            display: none !important;
+        }
+
+        .btn-icon {
+            position: static !important;
+            transform: none !important;
+            font-size: 14px !important;
+            display: block !important;
+        }
+    }
+</style>
+
+@model BagsWebsite.Models.Product
+
+<div class="enshee-card">
+    <div class="product__item__pic">
+        <a asp-controller="Products" asp-action="Details" asp-route-id="@Model.Id">
+            <img src="@(Model.ProductImages.FirstOrDefault()?.ImageUrl ?? "/img/no-image.jpg")" 
+                 class="w-100 h-100" style="object-fit: cover;" alt="@Model.Name">
+        </a>
+
+        <ul class="heart-pos">
+            <li>
+                <a href="javascript:void(0)" onclick="addToWishlist(@Model.Id)">
+                    <i class="fa fa-heart"></i>
+                </a>
+            </li>
+        </ul>
+
+        @if (Model.Discount > 0)
+        {
+            <div class="discount-badge">-@Model.Discount%</div>
+        }
+        else if (DateTime.Now.Subtract(Model.CreatedAt ?? DateTime.Now).TotalDays < 7)
+        {
+            <div class="discount-badge" style="background: #2ecc71;">NEW</div>
+        }
+
+        <div class="hover-overlay-enshee">
+            <a href="javascript:void(0)" class="enshee-btn quick-view" data-id="@Model.Id">
+                <span class="btn-text">QUICK VIEW</span>
+                <i class="fa fa-eye btn-icon"></i>
+            </a>
+            <a href="javascript:void(0)" onclick="addToCart(@Model.Id)" class="enshee-btn quick-add">
+                <span class="btn-text">ADD TO CART</span>
+                <i class="fa fa-shopping-cart btn-icon"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="product__item__text mt-3 text-center">
+        <a asp-controller="Products" asp-action="Details" asp-route-id="@Model.Id" 
+           class="text-decoration-none text-dark fw-bold d-block mb-1">
+            @Model.Name
+        </a>
+        <div class="product__price text-danger fw-bold">Rs. @Model.Price.ToString("N0")</div>
+    </div>
+</div>

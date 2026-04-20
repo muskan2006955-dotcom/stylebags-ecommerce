@@ -1,0 +1,122 @@
+﻿@model BagsWebsite.Areas.Admin.Models.ProductViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Create Product";
+}
+
+<div class="container mt-4">
+    <div class="card shadow border-0">
+        <div class="card-header  text-white" style="background-color:#005555">
+            <h4 class="mb-0">Add New Bag Details</h4>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="fw-bold">Product Name</label>
+                        <input asp-for="Name" class="form-control" placeholder="e.g. Leather Handbag" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="fw-bold">Category</label>
+                        <select asp-for="CategoryId" class="form-select">
+                            <option value="">-- Select Category --</option>
+                            @if (ViewBag.CategoryList != null)
+                            {
+                                foreach (var item in (SelectList)ViewBag.CategoryList)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label class="fw-bold">Price ($)</label>
+                        <input asp-for="Price" type="number" step="0.01" class="form-control" />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="fw-bold">Stock Quantity</label>
+                        <input asp-for="Stock" type="number" class="form-control" />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="fw-bold">Discount (%)</label>
+                        <input asp-for="Discount" type="number" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label class="fw-bold">Default Color Name</label>
+                        <input asp-for="Color" class="form-control" placeholder="e.g. Red / Black" />
+                    </div>
+                    <div class="col-md-8">
+                        <label class="fw-bold">Description</label>
+                        <textarea asp-for="Description" class="form-control" rows="1"></textarea>
+                    </div>
+                </div>
+
+                <div class="card p-3 bg-light mb-4 border-dashed">
+                    <h6 class="fw-bold  mb-3" style="color:#005555">Product Gallery (Group by Color)</h6>
+                    <div id="group-area">
+                        <div class="group-box border p-3 mb-3 bg-white shadow-sm rounded">
+                            <div class="row align-items-center">
+                                <div class="col-md-3">
+                                    <label class="small fw-bold">Group Color:</label>
+                                    <input type="color" name="ImageVariants[0].ColorCode" class="form-control form-control-color w-100" />
+                                </div>
+                                <div class="col-md-7">
+                                    <label class="small fw-bold">Select All Angles (Front, Side, etc.):</label>
+                                    <input type="file" name="ImageVariants[0].Files" class="form-control" multiple required />
+                                </div>
+                                <div class="col-md-2 text-end pt-3">
+                                    <span class="badge bg-info text-dark">Group 1</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" onclick="addNewGroup()" class="btn btn-outline-primary btn-sm">
+                        + Add Another Color Variant
+                    </button>
+                </div>
+
+                <div class="d-flex gap-2 border-top pt-3">
+                    <button type="submit" class="btn btn-success px-5 fw-bold shadow-sm">SAVE PRODUCT</button>
+                    <a asp-action="Index" class="btn btn-secondary px-4">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let gIdx = 1;
+        function addNewGroup() {
+            const area = document.getElementById('group-area');
+            const html = `
+                <div class="group-box border p-3 mb-3 bg-white shadow-sm rounded animate__animated animate__fadeIn">
+                    <div class="row align-items-center">
+                        <div class="col-md-3">
+                            <input type="color" name="ImageVariants[${gIdx}].ColorCode" class="form-control form-control-color w-100" value="#000000" />
+                        </div>
+                        <div class="col-md-7">
+                            <input type="file" name="ImageVariants[${gIdx}].Files" class="form-control" multiple />
+                        </div>
+                        <div class="col-md-2 text-end">
+                            <button type="button" class="btn btn-danger btn-sm" onclick="this.closest('.group-box').remove()">Remove</button>
+                        </div>
+                    </div>
+                </div>`;
+            area.insertAdjacentHTML('beforeend', html);
+            gIdx++;
+        }
+    </script>
+}

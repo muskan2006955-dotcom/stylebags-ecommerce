@@ -1,0 +1,2016 @@
+﻿@model IEnumerable<BagsWebsite.Models.Product>
+
+
+<head>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <style>
+        body {
+            background-color: #fcfcfc;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        a{
+            text-decoration:none;
+        }
+
+        .view-switcher-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .view-btn {
+            border: 1px solid #ddd;
+            background: #fff;
+            padding: 6px 15px;
+            margin: 2px;
+            cursor: pointer;
+            transition: 0.3s;
+            border-radius: 4px;
+        }
+
+            .view-btn.active {
+                background: #000;
+                color: #fff;
+                border-color: #000;
+            }
+
+        /* --- Desktop/Tablet Button Visibility --- */
+        @@media (max-width: 768px) {
+            .btn-grid-6
+
+        {
+            display: none !important;
+        }
+
+        }
+
+        @@media (max-width: 576px) {
+            .btn-grid-4, .btn-grid-3
+
+        {
+            display: none !important;
+        }
+
+        }
+
+        /* --- Card Wrapper --- */
+        /* --- Card Container & Gap Fix --- */
+        .product-container {
+            padding: 10px; /* Is se 4 cards ke beech barabar 20px ka gap banega */
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        /* Row ke margin ko compensate karne ke liye (Parent Row par lagayein) */
+        .row {
+            margin-left: -10px;
+            margin-right: -10px;
+        }
+
+        /* --- Height Adjustment (Without Zooming) --- */
+       
+
+        /* --- Mobile Fix for 2 Columns Gap --- */
+        @@media (max-width: 576px) {
+            .product-container
+
+        {
+            padding: 5px; /* Mobile par gap thoda kam taake space bache */
+        }
+
+        .enshee-card-img-box {
+            aspect-ratio: 4 / 5.5; /* Mobile par thodi portrait look behtar lagti hai */
+        }
+
+        }
+
+        /* --- Details Below --- */
+        .product-details {
+            padding-top: 10px;
+            text-align: left;
+        }
+
+        .product-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: #111;
+            text-decoration: none;
+            display: block;
+        }
+
+        .product-price {
+            font-size: 15px;
+            font-weight: 700;
+            color: #333;
+            margin-top: 4px;
+        }
+
+        /* --- Mobile Specific: Grid-1 (Single Card) Image Small Fix --- */
+        @@media (max-width: 576px) {
+            .grid-1-active-mobile .enshee-card-img-box
+
+        {
+            width: 80%;
+            margin: 0 auto;
+            aspect-ratio: 1 / 1;
+        }
+
+        .grid-1-active-mobile .product-details {
+            text-align: center;
+        }
+
+        }
+
+        /* --- Desktop List View (Grid 1) --- */
+        @@media (min-width: 769px) {
+            .grid-1-active-desktop
+
+        {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .grid-1-active-desktop .enshee-card-img-box {
+            width: 250px;
+            flex-shrink: 0;
+        }
+
+        }
+
+        /* Hide buttons on mobile hover, show always */
+        .hover-actions {
+            position: absolute;
+            bottom: -100%; /* Initially hide at the bottom */
+            left: 0;
+            width: 100%;
+            display: flex;
+            flex-direction: column; /* Position buttons vertically */
+            opacity: 0;
+            transition: bottom 0.3s ease, opacity 0.3s ease; /* Animate bottom position and opacity */
+        }
+
+        .enshee-card-img-box:hover .hover-actions {
+            bottom: 0; /* Slide buttons up from the bottom on hover */
+            opacity: 1;
+        }
+
+        .action-btn {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            border: none;
+            padding: 8px;
+            font-size: 10px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        @@media (max-width: 576px) {
+            .hover-actions
+
+        {
+            opacity: 1;
+            position: static;
+            margin-top: 5px;
+            flex-direction: row; /* Position buttons horizontally on mobile */
+        }
+
+        .action-btn {
+            padding: 5px;
+            background: #000;
+        }
+
+        }
+
+        @@media (min-width: 992px) {
+            .btn-grid-6, .btn-grid-4, .btn-grid-3, .btn-grid-2, .btn-grid-1
+
+        {
+            display: inline-block;
+        }
+
+        }
+
+        @@media (min-width: 577px) and (max-width: 991px) {
+            .btn-grid-6
+
+        {
+            display: none !important;
+        }
+
+        .btn-grid-4,
+        .btn-grid-3,
+        .btn-grid-2,
+        .btn-grid-1 {
+            display: inline-block;
+        }
+
+        }
+
+        @@media (max-width: 576px) {
+            .btn-grid-6, .btn-grid-4, .btn-grid-3
+
+        {
+            display: none !important;
+        }
+
+        }
+
+        /* --- Mobile Grid-1 (Single Card) Image Styling --- */
+        @@media (max-width: 576px) {
+            .grid-1-mobile-view .enshee-card-img-box
+
+        {
+            width: 85% !important;
+            margin: 0 auto;
+            aspect-ratio: 1 / 1;
+        }
+
+        .grid-1-mobile-view .product-details {
+            text-align: center;
+        }
+
+        }
+
+        /* --- Standard Image Box --- */
+        .enshee-card-img-box {
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            overflow: hidden;
+            background: #f4f4f4;
+        }
+
+            .enshee-card-img-box img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+        /* --- Desktop/Tablet Button Visibility --- */
+        /* 1. Desktop: Saare buttons dikhao (992px se upar) */
+        @@media (min-width: 992px) {
+            .view-btn
+
+        {
+            display: inline-block;
+        }
+
+        }
+
+        /* 2. Tablet & Large Mobile: 600px par buttons dikhane ke liye breakpoint adjust kiya */
+        @@media (max-width: 991px) and (min-width: 577px) {
+            .btn-grid-6
+
+        {
+            display: none !important;
+        }
+
+        .btn-grid-4,
+        .btn-grid-3,
+        .btn-grid-2,
+        .btn-grid-1 {
+            display: inline-block !important;
+           
+        }
+
+        }
+
+        /* 3. Small Mobile: (576px se niche) */
+        @@media (max-width: 576px) {
+            .btn-grid-6, .btn-grid-4, .btn-grid-3
+
+        {
+            display: none !important;
+        }
+
+        .btn-grid-2,
+        .btn-grid-1 {
+            display: inline-block !important;
+        }
+
+        }
+
+        /* Discount Rate Styling */
+        /* --- Updated Card Styles (Only changing the product part) --- */
+
+        /* --- Refined Card Elements --- */
+
+        /* --- Base Image Box --- */
+        .enshee-card-img-box {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            overflow: hidden;
+            background-color: #f9f9f9;
+        }
+
+        /* --- Heart Icon Base --- */
+        .heart-icon {
+            position: absolute !important;
+            top: 15px !important;
+            left: -60px !important; /* Default: Chhupa hua */
+            background: #fff !important;
+            color: #d9534f !important;
+            height: 35px !important;
+            width: 35px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            border-radius: 50% !important;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15) !important;
+            z-index: 15;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+            text-decoration: none;
+        }
+
+        /* 1. Hover par show karne ke liye (Jo pehle se tha) */
+        .enshee-card-img-box:hover .heart-icon {
+            left: 15px !important;
+            opacity: 1 !important;
+        }
+
+        /* 2. Wishlist add hone par bina hover ke dikhane ke liye (The Fix) */
+        /* Jab JS 'is-active' class lagaye, toh heart hamesha dikhayi dega */
+        .heart-icon.is-active {
+            left: 15px !important;
+            opacity: 1 !important;
+            color: #ff4d4d !important; /* Iska color hamesha red rahega */
+        }
+
+            /* Heart icon ke andar ka color pakka karne ke liye */
+            .heart-icon.is-active i {
+                color: #ff4d4d !important;
+            }
+        /* Jab wishlist mein item ho, toh ye class use hogi */
+        .heart-icon.is-active, .wishlist-btn.is-active {
+            left: 15px !important; /* Index card ke liye */
+            opacity: 1 !important;
+            color: #ff4d4d !important;
+        }
+
+            .heart-icon.is-active i, .wishlist-btn.is-active i {
+                font-weight: 900 !important; /* Solid heart */
+                color: #ff4d4d !important;
+            }
+
+
+        /* --- Discount Badge --- */
+        .discount-rate {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #d9534f;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            height: 42px;
+            width: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            z-index: 10;
+            text-align: center;
+            line-height: 1.1;
+        }
+
+        /* --- Desktop Hover Actions (Slide Up) --- */
+        .hover-actions {
+            position: absolute;
+            bottom: -100px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 10px 0;
+            z-index: 5;
+        }
+
+        .enshee-card-img-box:hover .hover-actions {
+            bottom: 0;
+            opacity: 1;
+            visibility: visible;
+            height:100px;
+        }
+
+        /* --- Button Styling (Text to Icon Animation) --- */
+        .action-btn {
+            width: 85%;
+            height: 36px;
+            margin: 4px auto;
+            border: none;
+            color: #fff !important;
+            text-decoration: none;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .quick-view-btn {
+            background: #8e8e8e !important;
+            height:100px;
+            background:gray !important;
+        }
+        /* Gray */
+        .cart-btn {
+            background:brown !important;
+        }
+        /* Brown */
+
+        .btn-text {
+            position: absolute;
+            transition: transform 0.4s ease, opacity 0.3s ease;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .btn-icon {
+            position: absolute;
+            transform: translateY(40px);
+            transition: transform 0.4s ease;
+            font-size: 16px;
+        }
+
+        .action-btn:hover .btn-text {
+            transform: translateY(-40px);
+            opacity: 0;
+        }
+
+        .action-btn:hover .btn-icon {
+            transform: translateY(0);
+        }
+
+        /* --- Color Palette --- */
+        .color-palette {
+            margin-top: 12px;
+            border-top: 1px solid #eee;
+            padding-top: 8px;
+        }
+
+        .color-options {
+            display: flex;
+            gap: 8px;
+            margin-top: 5px;
+        }
+
+        .color-option {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+            .color-option:hover {
+                transform: scale(1.3);
+                box-shadow: 0 0 0 1px #000;
+            }
+
+        /* =============================================
+           MOBILE STYLES (Always Visible Icons)
+           ============================================= */
+        @@media (max-width: 576px) {
+            /* 1. Heart always visible on left */
+            .heart-icon
+
+        {
+            left: 10px !important;
+            opacity: 1 !important;
+            transform: scale(0.9) !important;
+            top: 10px !important;
+        }
+
+        /* 2. Quick View & Cart become circles on the Right */
+        .hover-actions {
+            position: absolute !important;
+            bottom: auto !important;
+            top: 60px !important; /* Discount ke niche */
+            right: 10px !important;
+            left: auto !important;
+            width: auto !important;
+            background: transparent !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            gap: 8px !important;
+            padding: 0 !important;
+            height:200px
+        }
+
+        .action-btn {
+            width: 35px !important;
+            height: 35px !important;
+            border-radius: 50% !important;
+            margin: 0 !important;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Hide text, only show icon on mobile */
+        .btn-text {
+            display: none !important;
+        }
+
+        .btn-icon {
+            position: static !important;
+            transform: none !important;
+            font-size: 14px !important;
+        }
+
+        .discount-rate {
+            height: 38px;
+            width: 38px;
+            font-size: 9px;
+            top: 10px;
+            right: 10px;
+        
+
+        }
+        }
+        /* --- Mini Banner (200px Height) --- */
+        .mini-banner {
+            position: relative;
+            width: 100%;
+            height: 200px; /* Aapki required height */
+            /* background-image: url('~/img/banner/hero.webp'); /* <-- Image path yahan change karein */ */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            overflow: hidden;
+            background-color:brown;
+        }
+
+        /* Overlay for text contrast */
+        .banner-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Black overlay with 50% transparency */
+            z-index: 1;
+        }
+
+        /* Content Styling */
+        .banner-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #ffffff;
+            padding: 0 15px;
+        }
+
+        .banner-heading {
+            font-size: 32px; /* Thora chota size kyunke banner height kam hai */
+            font-weight: 800;
+            text-transform: uppercase;
+            margin: 0 0 8px 0;
+            letter-spacing: 1.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+        }
+
+        .banner-description {
+            font-size: 16px;
+            font-weight: 300;
+            margin: 0;
+            color: rgba(255, 255, 255, 0.9);
+            letter-spacing: 0.5px;
+        }
+
+        /* Mobile Responsive */
+        @@media (max-width: 576px) {
+            .mini-banner
+
+        {
+            height: 180px; /* Mobile par thora aur sleek */
+        }
+
+        .banner-heading {
+            font-size: 24px;
+        }
+
+        .banner-description {
+            font-size: 14px;
+        }
+
+        }
+
+        .view-switcher-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px; /* Thoda gap barha diya taake clean lage */
+        margin: 25px 0;
+        width: 100%;
+    }
+
+    .view-btn {
+        background: transparent; /* Background hata diya */
+        border: 1px solid #eee; /* Bilkul halki line */
+        width: 36px; /* Size thoda chota kiya taake delicate lage */
+        height: 36px;
+        cursor: pointer;
+        border-radius: 4px; /* Kam roundness, modern look */
+        color: #999; /* Light gray icons */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease-in-out;
+        box-shadow: none; /* Shadow khatam kar di */
+    }
+
+    /* Active State - Soft Brown Touch */
+    .view-btn.active {
+        background: #fdfaf8 !important; /* Bahut halka brown tint background */
+        color: #6F4E37 !important; /* Brown text color */
+        border-color: #6F4E37 !important; /* Brown border */
+        /* Niche ek choti line ya simple border hi kafi hai */
+    }
+
+    /* Hover State */
+    .view-btn:hover:not(.active) {
+        border-color: #333;
+        color: #333;
+        background: transparent;
+    }
+
+    .view-btn i {
+        font-size: 18px; /* Icons thode baarik kar diye */
+    }
+
+    /* Mobile Adjustment */
+    @@media (max-width: 576px) {
+        .view-switcher-container {
+            gap: 10px;
+        }
+        .view-btn {
+            width: 40px;
+            height: 42px;
+        }
+        .view-btn i {
+            font-size: 12px;
+        }
+    }
+        /* Tablet par Grid-3 dikhao, lekin bahut chote mobile par ise hide kar sakte hain */
+        @@media (max-width: 576px) {
+            .btn-grid-6, .btn-grid-4, .btn-grid-3
+
+        {
+            display: none !important; /* Mobile par sirf 1 aur 2 columns ka option best hota hai */
+        }
+
+        }
+
+        @@media (min-width: 577px) and (max-width: 991px) {
+            .btn-grid-6
+
+        {
+            display: none !important;
+        }
+
+        .btn-grid-4, .btn-grid-3, .btn-grid-2, .btn-grid-1 {
+            display: inline-flex !important;
+        }
+
+        }
+        /* --- Desktop (Laptops & Large Screens) --- */
+        @@media (min-width: 1200px) {
+            .btn-grid-6, .btn-grid-5, .btn-grid-4, .btn-grid-3, .btn-grid-2, .btn-grid-1
+
+        {
+            display: inline-flex !important;
+        }
+
+        }
+
+        /* --- Tablets & Mid-size Screens --- */
+        @@media (max-width: 1199px) and (min-width: 768px) {
+            .btn-grid-6, .btn-grid-5
+
+        {
+            display: none !important; /* In screens par 5/6 columns bahut chote ho jayenge */
+        }
+
+        .btn-grid-4, .btn-grid-3, .btn-grid-2, .btn-grid-1 {
+            display: inline-flex !important;
+        }
+
+        }
+
+        /* --- Mobile Screens --- */
+        @@media (max-width: 767px) {
+            .btn-grid-6, .btn-grid-5, .btn-grid-4, .btn-grid-3
+
+        {
+            display: none !important; /* Mobile par sirf 1 ya 2 columns best hain */
+        }
+
+        .btn-grid-2, .btn-grid-1 {
+            display: inline-flex !important;
+        }
+
+        }
+
+        /* Grid-5 Active State (Aapka Brown Theme) */
+        .view-btn.active {
+            background: #fdfaf8 !important;
+            color: #6F4E37 !important;
+            border-color: #6F4E37 !important;
+        }
+        /* Custom 5 Column Grid for Desktop */
+        @@media (min-width: 992px) {
+            .col-grid-5
+
+        {
+            flex: 0 0 20% !important;
+            max-width: 20% !important;
+        }
+
+        }
+
+        /* Taake Row ke andar 5 cards wrap na hon balkay line mein rahein */
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        /* 1. Image Box (Fixed Height & Position) */
+        .enshee-card-img-box {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 5; /* Card ko lamba hone se rokega */
+            overflow: hidden;
+            background-color: #f8f8f8;
+        }
+
+            /* 2. Dono Images ki Shared Setting */
+            .enshee-card-img-box img {
+                position: absolute; /* Dono images ek dusre ke upar hongi */
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover; /* Image box mein fit rahegi */
+                transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+        /* Main Image Default */
+        .main-img {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        /* Hover Image (Angle Variant) Default */
+        .hover-img {
+            opacity: 0;
+            z-index: 0;
+            transform: scale(1.05); /* Halki si bari taake zoom-out effect aaye */
+        }
+
+        /* --- THE HOVER ACTION --- */
+
+        /* Jab mouse card par aaye: Main gayab, Hover nazar aaye */
+        .product-wrapper:hover .main-img {
+            opacity: 0;
+        }
+
+        .product-wrapper:hover .hover-img {
+            opacity: 1;
+            z-index: 2;
+            transform: scale(1); /* Wapis normal size par aye */
+        }
+
+        /* Card Darkness Effect */
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.08); /* Bohat halka dark shade */
+            opacity: 0;
+            z-index: 3; /* Images ke upar dark layer */
+            transition: opacity 0.4s ease;
+            pointer-events: none; /* Mouse clicks ko block na kare */
+        }
+
+        .product-wrapper:hover .card-overlay {
+            opacity: 1;
+        }
+
+        /* 3. Details (Compact) */
+        .product-details {
+            padding: 10px 5px;
+            text-align: center;
+        }
+
+        .product-name {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 2px !important;
+            display: block;
+            color: #333;
+        }
+        /* Image Box Setup */
+        .enshee-card-img-box {
+            position: relative;
+            aspect-ratio: 4/5;
+            overflow: hidden;
+            background-color: #f8f8f8;
+            border-radius: 4px;
+        }
+
+        /* Smooth Image Swap */
+        .main-img, .hover-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: all 0.9s cubic-bezier(0.4, 0, 0.2, 1); /* Luxury smooth timing */
+        }
+
+        .hover-img {
+            opacity: 0;
+            transform: scale(1.08);
+        }
+
+        .product-wrapper:hover .main-img {
+            opacity: 0;
+            transform: scale(1.08);
+        }
+
+        .product-wrapper:hover .hover-img {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Dim Overlay */
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.35);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 2;
+        }
+
+        .product-wrapper:hover .card-overlay {
+            opacity: 1;
+        }
+
+        /* Static Heart (Left Side) */
+        .static-heart {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 10;
+            color: #333;
+            background: white;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+            .static-heart:hover {
+                transform: scale(1.1);
+                color: #dc3545;
+            }
+
+        /* Discount Circle (Right Side) */
+        .discount-circle {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            z-index: 10;
+            background: #ff4757;
+            color: white;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 10px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(255, 71, 87, 0.3);
+        }
+
+        /* Oval Vertical Buttons */
+        /* --- 1. Image Box & Base Card --- */
+        .enshee-card-img-box {
+            position: relative;
+            aspect-ratio: 4 / 5;
+            overflow: hidden;
+            background-color: #f8f8f8;
+            border-radius: 4px;
+        }
+
+        .main-img, .hover-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: all 0.9s cubic-bezier(0.4, 0, 0.2, 1); /* Luxury Smooth Transition */
+        }
+
+        .hover-img {
+            opacity: 0;
+            transform: scale(1.05);
+        }
+
+        /* Hover Effects */
+        .product-wrapper:hover .main-img {
+            opacity: 0;
+            transform: scale(1.05);
+        }
+
+        .product-wrapper:hover .hover-img {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); /* Screen Dim Effect */
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .product-wrapper:hover .card-overlay {
+            opacity: 1;
+        }
+
+        /* --- 2. Badges & Icons --- */
+        .static-heart {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 10;
+            background: white;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            color: #333;
+            transition: 0.3s;
+        }
+
+            .static-heart:hover {
+                color: #ff4757;
+                transform: scale(1.1);
+            }
+
+        .status-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            z-index: 10;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+            font-weight: 800;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        /* --- 3. Desktop Oval Buttons (Animated) --- */
+        .hover-actions-vertical {
+            position: absolute;
+            top: 55%; /* Initial position slightly lower */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 15;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 80%;
+        }
+
+        .product-wrapper:hover .hover-actions-vertical {
+            opacity: 1;
+            top: 50%; /* Slides up to center */
+        }
+
+        /* --- Desktop Oval Buttons (Height Fix & Icon Color) --- */
+        .oval-btn {
+            position: relative;
+            overflow: hidden;
+            background: #ffffff;
+            color: #000000;
+            /* Exact 50px Height as per requirement */
+            height: 37px !important;
+            min-width: 160px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+
+        /* Text default color black */
+        .btn-text {
+            color: #000000;
+            transition: transform 0.4s ease, opacity 0.3s ease;
+        }
+
+        /* Icon default color black, hidden below */
+        .btn-icon {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ffffff; /* Jab niche se nikle toh white ho */
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 18px;
+        }
+
+        /* --- THE HOVER FIX --- */
+        .oval-btn:hover {
+            background: #000000; /* Button background black */
+        }
+
+            /* Hover par text gayab */
+            .oval-btn:hover .btn-text {
+                transform: translateY(-40px);
+                opacity: 0;
+            }
+
+            /* Hover par icon center mein aur WHITE nazar aaye */
+            .oval-btn:hover .btn-icon {
+                bottom: 16px; /* 50px height ke hisab se exact center */
+                color: #ffffff !important;
+            }
+
+        /* Optional: Button par thora sa lift effect */
+        .product-wrapper:hover .oval-btn {
+            transform: translateY(0);
+        }
+        /* --- 4. Mobile & Tablet Responsive --- */
+        /* --- 4. Mobile & Tablet Responsive (Icons Centering Fix) --- */
+        @@media (max-width: 991px) {
+            .card-overlay
+
+        {
+            display: none;
+        }
+
+        .hover-actions-vertical {
+            top: auto !important;
+            bottom: 15px !important;
+            right: 10px !important;
+            left: auto !important;
+            transform: none !important;
+            width: auto !important;
+            opacity: 1 !important;
+            gap: 8px;
+            display: flex !important;
+            flex-direction: column !important;
+        }
+
+        .oval-btn {
+            width: 40px !important; /* Thora sa size barhaya taake icon pyara lage */
+            height: 40px !important;
+            min-width: 40px !important;
+            padding: 0 !important;
+            border-radius: 50% !important;
+            background: rgba(255, 255, 255, 0.95) !important;
+            display: flex !important;
+            align-items: center !important; /* Vertical center */
+            justify-content: center !important; /* Horizontal center */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .btn-text {
+            display: none !important; /* Mobile par text bilkul khatam */
+        }
+
+        .btn-icon {
+            position: static !important; /* Absolute position khatam taake center ho sake */
+            margin: 0 !important;
+            padding: 0 !important;
+            font-size: 16px !important;
+            color: #333 !important;
+            display: block !important;
+            line-height: 1 !important; /* Extra space khatam */
+            transform: none !important; /* Purani animations reset */
+        }
+
+        .hover-img {
+            display: none !important;
+        }
+
+        .product-wrapper:hover .main-img {
+            opacity: 1 !important;
+        }
+
+        }
+        /* Mobile par screen dim nahi hogi */
+
+        /* Color dots ko hamesha clickable rakhein */
+        .color-palette {
+            position: relative;
+            z-index: 30; /* Sab se upar */
+        }
+
+        .color-seed {
+            transition: transform 0.2s;
+        }
+
+            .color-seed:hover {
+                transform: scale(1.2);
+                border: 1px solid #000 !important;
+            }
+
+        /* Image transition fix */
+        .main-img {
+            transition: opacity 0.4s ease-in-out !important;
+            z-index: 1;
+        }
+
+
+
+
+        /* 5 Columns Grid - Desktop */
+        .col-grid-5 {
+            flex: 0 0 20%;
+            max-width: 20%;
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+
+        /* Tablet */
+        @@media (max-width: 991px) {
+            .col-grid-5
+
+        {
+            flex: 0 0 33.333333%;
+            max-width: 33.333333%;
+        }
+
+        }
+
+        /* Mobile */
+        @@media (max-width: 767px) {
+            .col-grid-5
+
+        {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+
+        }
+
+        /* ==========================================
+               ALL GRID CLASSES - COMPLETE
+               ========================================== */
+        /* 6 Columns - 16.66% */
+        .col-grid-6 {
+            flex: 0 0 16.666667% !important;
+            max-width: 16.666667% !important;
+            padding-left: 6px;
+            padding-right: 6px;
+        }
+
+        /* 5 Columns - 20% (DEFAULT) */
+        .col-grid-5 {
+            flex: 0 0 20% !important;
+            max-width: 20% !important;
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+
+        /* 4 Columns - 25% */
+        .col-grid-4 {
+            flex: 0 0 25% !important;
+            max-width: 25% !important;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        /* 3 Columns - 33.33% */
+        .col-grid-3 {
+            flex: 0 0 33.333333% !important;
+            max-width: 33.333333% !important;
+            padding-left: 12px;
+            padding-right: 12px;
+        }
+
+        /* 2 Columns - 50% */
+        .col-grid-2 {
+            flex: 0 0 50% !important;
+            max-width: 50% !important;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        /* 1 Column - 100% */
+        .col-grid-1 {
+            flex: 0 0 100% !important;
+            max-width: 100% !important;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        /* ==========================================
+               TABLET (768px to 991px)
+               ========================================== */
+        @@media (max-width: 991px) {
+            .col-grid-6, .col-grid-5, .col-grid-4
+
+        {
+            flex: 0 0 33.333333% !important;
+            max-width: 33.333333% !important;
+        }
+
+        .col-grid-3,
+        .col-grid-2 {
+            flex: 0 0 50% !important;
+            max-width: 50% !important;
+        }
+
+        }
+
+        /* ==========================================
+               MOBILE (below 768px)
+               ========================================== */
+        @@media (max-width: 767px) {
+            .col-grid-6, .col-grid-5, .col-grid-4, .col-grid-3
+
+        {
+            flex: 0 0 50% !important;
+            max-width: 50% !important;
+        }
+
+        .col-grid-2,
+        .col-grid-1 {
+            flex: 0 0 100% !important;
+            max-width: 100% !important;
+        }
+
+        }
+
+        <style >
+        /* 🎨 Red-Brown Gradient Pagination */
+        .custom-pagination {
+            display: inline-block;
+        }
+
+        .pagination-list {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .page-item {
+            display: inline-block;
+        }
+
+        /* 🔢 Number Buttons */
+        .number-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            color: #8B4513; /* Brown text */
+            background: linear-gradient(145deg, #fff5f5 0%, #ffe0e0 100%);
+            border: 2px solid #D2691E; /* Chocolate brown border */
+            box-shadow: 0 4px 15px rgba(139, 69, 19, 0.15), inset 0 1px 0 rgba(255,255,255,0.8);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+            .number-btn:hover {
+                background: linear-gradient(145deg, #B22222 0%, #8B4513 100%); /* Firebrick to Brown */
+                color: #fff;
+                border-color: #8B0000; /* Dark red */
+                transform: translateY(-3px);
+                box-shadow: 0 8px 25px rgba(178, 34, 34, 0.4), 0 4px 10px rgba(139, 69, 19, 0.3);
+            }
+
+        /* ⭐ Active Button */
+        .page-item.active .number-btn {
+            background: linear-gradient(145deg, #DC143C 0%, #8B4513 100%); /* Crimson to Brown */
+            color: #fff;
+            border-color: #8B0000;
+            box-shadow: 0 6px 20px rgba(220, 20, 60, 0.4), inset 0 2px 4px rgba(0,0,0,0.2);
+            transform: scale(1.05);
+        }
+
+        /* ⬅️➡️ Arrow Buttons */
+        .arrow-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            text-decoration: none;
+            color: #fff;
+            background: linear-gradient(145deg, #CD5C5C 0%, #8B4513 100%); /* Indian Red to Brown */
+            border: 2px solid #8B0000;
+            box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
+            transition: all 0.3s ease;
+        }
+
+            .arrow-btn:hover {
+                background: linear-gradient(145deg, #B22222 0%, #A0522D 100%); /* Firebrick to Sienna */
+                transform: scale(1.1) rotate(5deg);
+                box-shadow: 0 6px 20px rgba(178, 34, 34, 0.5);
+            }
+
+        /* Hover glow effect */
+        .page-link::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            opacity: 0;
+            transition: opacity 0.3s;
+            background: radial-gradient(circle, rgba(255,200,200,0.4) 0%, transparent 70%);
+        }
+
+        .page-link {
+            position: relative;
+            overflow: hidden;
+        }
+
+            .page-link:hover::before {
+                opacity: 1;
+            }
+        /* ==========================================
+                       RED-BROWN PRODUCT INFO SECTION
+                       ========================================== */
+
+        .product-info-section {
+            background: #fafafa;
+            padding: 40px 0;
+            margin-top: 30px;
+            border-top: 3px solid #c0392b;
+        }
+
+        .info-block {
+            background: white;
+            border-radius: 8px;
+            padding: 20px 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(139, 69, 19, 0.08);
+            border-left: 4px solid #8b4513;
+        }
+
+        /* Headings - Red Brown Gradient */
+        .info-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #c0392b 0%, #8b4513 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+            .info-title::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+            
+                /* ya */
+                height: 1px !important;
+                opacity: 0.6 !important; /* 🔥 Halki si transparent */
+                background: linear-gradient(90deg, #c0392b, #8b4513);
+            }
+
+        /* Body Text */
+        .info-text {
+            font-size: 13px;
+            line-height: 1.7;
+            color: #555;
+            margin: 0;
+        }
+
+            .info-text .highlight {
+                color: #c0392b;
+                font-weight: 600;
+            }
+
+        /* List Style */
+        .info-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            .info-list li {
+                font-size: 13px;
+                color: #555;
+                padding: 6px 0;
+                border-bottom: 1px dotted #eee;
+            }
+
+                .info-list li:last-child {
+                    border-bottom: none;
+                }
+
+                .info-list li i {
+                    color: #8b4513;
+                    margin-right: 8px;
+                    font-size: 11px;
+                }
+
+        /* Usage Grid */
+        .usage-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .usage-item {
+            text-align: center;
+            padding: 15px 10px;
+            background: linear-gradient(145deg, #fff5f5 0%, #fff0e6 100%);
+            border-radius: 6px;
+            border: 1px solid #e0d0c8;
+        }
+
+            .usage-item i {
+                font-size: 20px;
+                background: linear-gradient(135deg, #c0392b 0%, #8b4513 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                margin-bottom: 6px;
+                display: block;
+            }
+
+            .usage-item span {
+                font-size: 11px;
+                font-weight: 600;
+                color: #555;
+                text-transform: uppercase;
+            }
+
+        /* FAQ Section */
+        .faq-section .faq-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+            .faq-section .faq-item:last-child {
+                border-bottom: none;
+            }
+
+        .faq-q {
+            font-size: 13px;
+            font-weight: 600;
+            color: #8b4513;
+            margin-bottom: 6px;
+            cursor: pointer;
+        }
+
+        .faq-a {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.6;
+            margin: 0;
+            padding-left: 15px;
+            border-left: 2px solid #e0d0c8;
+        }
+
+        /* Collection Links */
+        .collections-links {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(139, 69, 19, 0.08);
+        }
+
+        .collections-label {
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+            margin-right: 10px;
+        }
+
+        .collection-link {
+            display: inline-block;
+            padding: 6px 14px;
+            margin: 3px;
+            background: linear-gradient(135deg, #c0392b 0%, #8b4513 100%);
+            color: white !important;
+            text-decoration: none !important;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+            .collection-link:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
+            }
+
+        /* Mobile Responsive */
+        @@media (max-width: 768px) {
+            .usage-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .info-block {
+                padding: 15px;
+            }
+
+            .collections-links {
+                text-align: left;
+            }
+        }
+    </style>
+
+</head>
+<body>
+    <partial name="_CategorySliderPartial" />
+
+<div class="mini-banner" style="background-color:orangered">
+    <div class="banner-overlay"></div>
+    <div class="banner-content">
+        @* Agar ViewBag mein naam hai toh wo dikhaye, warna default *@
+        <h2 class="banner-heading text-light">@ViewBag.CategoryName</h2>
+        
+        <p class="banner-description">
+            @if (!string.IsNullOrEmpty(ViewBag.CategoryDesc))
+            {
+                @ViewBag.CategoryDesc
+            }
+            else
+            {
+                @:Find the perfect bag for every occasion from our curated collection.
+            }
+        </p>
+    </div>
+</div>
+    <div class="container-fluid px-0">
+
+
+            <div class="container-fluid px-3 px-md-5 mt-4">
+            <div class="view-switcher-container mb-4">
+                <button class="view-btn btn-grid-5 active" onclick="changeView(this,'grid-5')" title="5 Columns"><i class="fa fa-th"></i></button>
+                <button class="view-btn btn-grid-6" onclick="changeView(this,'grid-6')" title="6 Columns"><i class="fa fa-th"></i></button>
+                <button class="view-btn btn-grid-4" onclick="changeView(this,'grid-4')" title="4 Columns"><i class="fa fa-th-large"></i></button>
+                <button class="view-btn btn-grid-3" onclick="changeView(this,'grid-3')" title="3 Columns"><i class="fa fa-th-list"></i></button>
+                <button class="view-btn btn-grid-2" onclick="changeView(this,'grid-2')" title="2 Columns"><i class="fa fa-columns"></i></button>
+                <button class="view-btn btn-grid-1" onclick="changeView(this,'grid-1')" title="List View"><i class="fa fa-bars"></i></button>
+            </div>
+
+            <div class="row g-3 mx-0 w-100" id="mainProductGallery" style="margin-left: 0 !important; margin-right: 0 !important;">
+                @{
+                    int pageSize = 20;
+                    int currentPage = Context.Request.Query["page"].Count > 0 ? int.Parse(Context.Request.Query["page"]) : 1;
+
+                    var pagedProducts = Model?.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+                    int totalProducts = Model?.Count() ?? 0;
+                    int totalPages = (int)Math.Ceiling((double)totalProducts / pageSize);
+                }
+
+                @if (pagedProducts != null && pagedProducts.Count > 0)
+                {
+                    @foreach (var item in pagedProducts)
+                    {
+                        <div class="col-6 col-md-4 col-lg-3 product-container">
+                            <div class="product-wrapper">
+                                <div class="enshee-card-img-box">
+                                    <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id">
+                                        <img class="main-img" src="@(item.ProductImages.FirstOrDefault()?.ImageUrl ?? "/img/no-image.jpg")">
+                                        <img class="hover-img" src="@(item.ProductImages.Skip(1).FirstOrDefault()?.ImageUrl ?? item.ProductImages.FirstOrDefault()?.ImageUrl)">
+                                        <div class="card-overlay"></div>
+                                    </a>
+
+                                    <a href="javascript:void(0)" class="static-heart" onclick="addToWishlist('@item.Id', this)" data-product-id="@item.Id">
+                                        <i class="fa-regular fa-heart"></i>
+                                    </a>
+
+                                    <div class="status-badge @(item.Discount > 0 ? "bg-danger" : "bg-danger")">
+                                        <span>@(item.Discount > 0 ? $"-{item.Discount}%" : "HOT")</span>
+                                    </div>
+
+                                    <div class="hover-actions-vertical">
+                                        <a href="javascript:void(0)" class="oval-btn quick-view-btn" data-id="@item.Id">
+                                            <span class="btn-text">Quick View</span>
+                                            <i class="fa fa-eye btn-icon"></i>
+                                        </a>
+                                        <a href="javascript:void(0)" onclick="addToCart(@item.Id)" class="oval-btn add-to-cart">
+                                            <span class="btn-text">Add to Cart</span>
+                                            <i class="fa fa-shopping-cart btn-icon"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="product-info-footer d-flex justify-content-between align-items-end mt-2 px-1">
+                                    <div class="product-price-section">
+                                        @if (item.Discount > 0)
+                                        {
+                                            <h6 class="mb-0" style="font-size: 14px;">@item.Name</h6>
+                                            <span class="text-muted text-decoration-line-through" style="font-size: 12px;">
+                                                Rs. @item.Price.ToString("N0")
+                                            </span>
+                                            <span class="ms-1 fw-bold text-danger" style="font-size: 13px;">
+                                                @{
+                                                    decimal originalPrice = (decimal)item.Price;
+                                                    decimal discountPercent = (decimal)item.Discount;
+                                                    decimal finalAmount = originalPrice * (1 - (discountPercent / 100));
+                                                }
+                                                Rs. @finalAmount.ToString("N0")
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <h6 class="mb-0" style="font-size: 14px;">@item.Name</h6>
+                                            <span class="fw-bold" style="font-size: 13px;">Rs. @item.Price.ToString("N0")</span>
+                                        }
+                                    </div>
+
+                                    <div class="color-palette-outer">
+                                        <div class="d-flex gap-1">
+                                            @foreach (var colorGroup in item.ProductImages.Where(x => !string.IsNullOrEmpty(x.ColorCode)).GroupBy(x => x.ColorCode))
+                                            {
+                                                <div class="color-seed"
+                                                     style="background: @colorGroup.Key; width:14px; height:14px; border-radius:50%; cursor:pointer; border: 1px solid #ddd; box-shadow: inset 0 0 2px rgba(0,0,0,0.1);"
+                                                     onclick="changeColorDirect(this, '@colorGroup.First().ImageUrl')">
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="col-12 text-center py-5">
+                        <div class="no-products-found">
+                            <i class="fa fa-shopping-bag fa-3x text-muted mb-3"></i>
+                            <h4 class="text-muted">No Products Found!</h4>
+                            <p class="text-muted">Sorry, we couldn't find any products in this category.</p>
+                            <a href="@Url.Action("Index", "Products")" class="btn btn-dark btn-sm mt-2">View All Collection</a>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- 🔢 Numeric Pagination Buttons -->
+            <!-- 🔥 Stylish Red-Brown Pagination -->
+            @if (totalPages > 1)
+            {
+                <div class="d-flex justify-content-center mt-5">
+                    <nav class="custom-pagination">
+                        <ul class="pagination-list">
+                            <!-- Previous Button -->
+                            @if (currentPage > 1)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link arrow-btn" href="?page=@(currentPage - 1)">
+                                        <i class="fa fa-chevron-left"></i>
+                                    </a>
+                                </li>
+                            }
+
+                            <!-- Numeric Buttons -->
+                            @for (int i = 1; i <= totalPages; i++)
+                            {
+                                <li class="page-item @(i == currentPage ? "active" : "")">
+                                    <a class="page-link number-btn" href="?page=@i">@i</a>
+                                </li>
+                            }
+
+                            <!-- Next Button -->
+                            @if (currentPage < totalPages)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link arrow-btn" href="?page=@(currentPage + 1)">
+                                        <i class="fa fa-chevron-right"></i>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </nav>
+                </div>
+            }
+
+       
+        </div>
+        </div>
+
+
+    <!-- Product Images ke Baad Yeh Section -->
+
+    <section class="product-info-section" >
+        <div class="container" style="margin-top:30px">
+
+            <!-- Material & Build -->
+            <div class="info-block">
+                <h3 class="info-title">Material & Build Quality</h3>
+                <p class="info-text">
+                    Crafted from durable <strong>PU leather</strong> and premium imported materials.
+                    Lightweight, easy to maintain, and resistant to daily wear.
+                    <span class="highlight">Blum Premium</span> range features smoother, structured finish
+                    with gold-tone or silver hardware.
+                </p>
+            </div>
+
+            <!-- Sizes & Compartments -->
+            <div class="info-block">
+                <h3 class="info-title">Size & Compartments</h3>
+                <ul class="info-list">
+                    <li><i class="fa fa-check"></i> 7.5"–10" wide | 6"–10" tall</li>
+                    <li><i class="fa fa-check"></i> Inside zippered pocket + main compartment</li>
+                    <li><i class="fa fa-check"></i> Exterior pocket for phone, wallet, keys</li>
+                    <li><i class="fa fa-check"></i> Adjustable strap: 32"–42"</li>
+                </ul>
+            </div>
+
+            <!-- Usage Guide -->
+            <div class="info-block">
+                <h3 class="info-title">Perfect For</h3>
+                <div class="usage-grid">
+                    <div class="usage-item">
+                        <i class="fa fa-graduation-cap"></i>
+                        <span>University</span>
+                    </div>
+                    <div class="usage-item">
+                        <i class="fa fa-briefcase"></i>
+                        <span>Office</span>
+                    </div>
+                    <div class="usage-item">
+                        <i class="fa fa-moon-o"></i>
+                        <span>Eid Events</span>
+                    </div>
+                    <div class="usage-item">
+                        <i class="fa fa-shopping-bag"></i>
+                        <span>Daily Use</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ -->
+            <div class="info-block faq-section">
+                <h3 class="info-title">Common Questions</h3>
+
+                <div class="faq-item">
+                    <h4 class="faq-q">What material is used?</h4>
+                    <p class="faq-a">Durable PU leather with premium imported materials. Easy to clean, lightweight, and long-lasting.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h4 class="faq-q">What's the price range?</h4>
+                    <p class="faq-a">Starting at <strong>Rs. 1,799</strong>. Pack deals: 2 bags for Rs. 3,499 | 3 bags special pack available.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h4 class="faq-q">Crossbody vs Sling?</h4>
+                    <p class="faq-a">Both terms used in Pakistan. Our bags have adjustable 42" straps - wear either way comfortably.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h4 class="faq-q">Delivery available?</h4>
+                    <p class="faq-a">Yes! All cities including Karachi, Lahore, Islamabad. Free delivery on 2 & 3 bag packs.</p>
+                </div>
+            </div>
+
+            <!-- Related Collections -->
+            <div class="collections-links">
+                <span class="collections-label">Shop Similar:</span>
+                <a href="/Products?categoryId=1" class="collection-link">Handbags</a>
+                <a href="/Products?categoryId=2" class="collection-link">Shoulder Bags</a>
+                <a href="/Products?categoryId=3" class="collection-link">Mini Bags</a>
+                <a href="/Products?categoryId=4" class="collection-link">Tote Bags</a>
+            </div>
+
+        </div>
+    </section>
+
+
+
+        <div class="modal fade" id="quickViewModal" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content border-0 rounded-0 p-3">
+                <div class="text-end" >
+
+                    </div>
+
+                    <div class="modal-body pt-0" id="quickViewContent">
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        @section Scripts {
+            <script>
+                $(document).ready(function () {
+                    // Quick View Button Click
+                    $('.quick-view-btn').on('click', function (e) {
+                        e.preventDefault
+                        var productId = $(this).data('id');
+
+                        // Show modal and loading spinner
+                        $('#quickViewModal').modal('show');
+                        $('#quickViewContent').html('<div class="text-center py-5"><div class="spinner-border text-dark"></div><p class="mt-2">Fetching details...</p></div>');
+
+                        // Call Controller Action
+                        $.get('/Products/GetQuickView/' + productId, function (data) {
+                            $('#quickViewContent').html(data);
+                        }).fail(function () {
+                            $('#quickViewContent').html('<p class="text-danger text-center">Sorry, could not load product details.</p>');
+                        });
+                    });
+                });
+                                $(document).on('click', '[data-bs-dismiss="modal"]', function() {
+                    $('#quickViewModal').modal('hide');
+                });
+
+                // Popup ke andar image change karne ka function
+                function changeQuickViewImage(src, element) {
+                    $('#qvMainDisplay').attr('src', src);
+                    $('.qv-thumb').css('opacity', '0.5').css('border-color', 'transparent');
+                    $(element).css('opacity', '1').css('border-color', '#111');
+                }
+            </script>
+        }
+
+
+  <script>
+    // Page load pe 5 grid active karein
+    document.addEventListener('DOMContentLoaded', function() {
+        const btn5 = document.querySelector('.btn-grid-5');
+        if(btn5) {
+            changeView(btn5, 'grid-5');
+        }
+    });
+
+    function changeView(btn, view) {
+        const containers = document.querySelectorAll('.product-container');
+        const wrappers = document.querySelectorAll('.product-wrapper');
+        const width = window.innerWidth;
+
+        containers.forEach((item, index) => {
+            // 🔥 Bootstrap classes bhi add karo - yeh zaroori hai!
+            item.className = 'product-container'; // Reset
+            
+            // View ke hisaab se classes add karo
+            if(view === 'grid-6') {
+                // 6 columns - Desktop: 2 per row (col-6), Mobile: 2 per row
+                item.classList.add('col-6', 'col-md-4', 'col-lg-2');
+            }
+            else if(view === 'grid-5') {
+                // 5 columns - Desktop: custom 20%, Mobile: 2 per row
+                item.classList.add('col-6', 'col-md-4', 'col-lg-3', 'col-grid-5');
+            }
+            else if(view === 'grid-4') {
+                // 4 columns - Desktop: 3 per row, Tablet: 4 per row, Mobile: 2 per row
+                item.classList.add('col-6', 'col-md-4', 'col-lg-3');
+            }
+            else if(view === 'grid-3') {
+                // 3 columns - Desktop: 4 per row, Tablet: 3 per row, Mobile: 2 per row
+                item.classList.add('col-6', 'col-md-4');
+            }
+            else if(view === 'grid-2') {
+                // 2 columns - Desktop: 6 per row, Mobile: 2 per row (col-6)
+                item.classList.add('col-6', 'col-md-6');
+            }
+            else if(view === 'grid-1') {
+                // 1 column - Full width
+                item.classList.add('col-12');
+                
+                if(width <= 600) {
+                    wrappers[index].classList.add('grid-1-active-mobile');
+                } else {
+                    wrappers[index].classList.add('grid-1-active-desktop');
+                }
+            }
+        });
+
+        // Update Active Button
+        document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+
+    // Window resize pe bhi check karein
+    window.addEventListener('resize', function() {
+        const activeBtn = document.querySelector('.view-btn.active');
+        if(activeBtn) {
+            const view = activeBtn.classList.contains('btn-grid-6') ? 'grid-6' :
+                        activeBtn.classList.contains('btn-grid-5') ? 'grid-5' :
+                        activeBtn.classList.contains('btn-grid-4') ? 'grid-4' :
+                        activeBtn.classList.contains('btn-grid-3') ? 'grid-3' :
+                        activeBtn.classList.contains('btn-grid-2') ? 'grid-2' : 'grid-1';
+            changeView(activeBtn, view);
+        }
+    });
+</script>
+    <script>
+        function changeColorDirect(element, newImageUrl) {
+            // 1. Us specific card ka container dhoondein
+            var wrapper = element.closest('.product-wrapper');
+
+            // 2. Us card ki main aur hover images dhoondein
+            var mainImg = wrapper.querySelector('.main-img');
+            var hoverImg = wrapper.querySelector('.hover-img');
+
+            if (mainImg) {
+                // Smooth transition ke liye halki si opacity kam karein (Optional)
+                mainImg.style.opacity = '0.5';
+
+                // Nayi image set karein
+                mainImg.src = newImageUrl;
+
+                // Jab image load ho jaye toh wapis full opacity
+                mainImg.onload = function() {
+                    mainImg.style.opacity = '1';
+                };
+            }
+
+            // Agar aap chahte hain ke hover karne par bhi wahi color dikhe
+            if (hoverImg) {
+                hoverImg.src = newImageUrl;
+            }
+        }
+    </script>
+    <script>
+        function quickChangeImage(pId, newUrl) {
+            // Image dhoondna ID ke zariye
+            var targetImg = document.getElementById('cardImg-' + pId);
+
+            if (targetImg) {
+                // Animation reset
+                targetImg.style.transition = 'none';
+                targetImg.style.opacity = '0';
+                targetImg.style.transform = 'translateX(-20px)';
+
+                // Halka sa pause taake browser reset ko pakar sakay
+                setTimeout(function() {
+                    targetImg.src = newUrl;
+                    targetImg.style.transition = 'all 0.4s ease-out';
+                    targetImg.style.opacity = '1';
+                    targetImg.style.transform = 'translateX(0)';
+                }, 50);
+            }
+        }
+    </script>
+</body>
+</html>

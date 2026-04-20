@@ -1,0 +1,809 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\views\\shared\\_cartpartialview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\views\\shared\\_cartpartialview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\views\\products\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\views\\products\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\views\\shared\\_categorysliderpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\views\\shared\\_categorysliderpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\views\\shared\\_quickviewpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\views\\shared\\_quickviewpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\models\\herosection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\models\\herosection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\controllers\\wishlistcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\controllers\\wishlistcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\areas\\admin\\views\\categories\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\areas\\admin\\views\\categories\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\areas\\admin\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\areas\\admin\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\areas\\admin\\views\\products\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\areas\\admin\\views\\products\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\controllers\\reviewscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\controllers\\reviewscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\models\\bagdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\models\\bagdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\areas\\admin\\views\\products\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\areas\\admin\\views\\products\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\views\\reviews\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\views\\reviews\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\views\\products\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\views\\products\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\models\\searchresultsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\models\\searchresultsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\views\\about\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\views\\about\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\views\\cart\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\views\\cart\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\controllers\\aboutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\controllers\\aboutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\areas\\admin\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\areas\\admin\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\areas\\admin\\views\\orders\\history.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\areas\\admin\\views\\orders\\history.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\areas\\admin\\views\\orders\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\areas\\admin\\views\\orders\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\areas\\admin\\views\\categories\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\areas\\admin\\views\\categories\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\views\\shared\\_adminlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\views\\shared\\_adminlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\areas\\admin\\controllers\\admindashboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\areas\\admin\\controllers\\admindashboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\areas\\admin\\views\\systemlog\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\areas\\admin\\views\\systemlog\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\areas\\admin\\views\\admindashboard\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\areas\\admin\\views\\admindashboard\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\areas\\admin\\views\\categories\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\areas\\admin\\views\\categories\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\areas\\admin\\views\\categories\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\areas\\admin\\views\\categories\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\areas\\admin\\controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\areas\\admin\\controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\areas\\admin\\views\\products\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\areas\\admin\\views\\products\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\areas\\admin\\views\\products\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\areas\\admin\\views\\products\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\views\\account\\forgotpassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\views\\account\\forgotpassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\views\\account\\resetpassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\views\\account\\resetpassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\areas\\admin\\views\\users\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\areas\\admin\\views\\users\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\areas\\admin\\views\\users\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\areas\\admin\\views\\users\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\models\\resetpasswordviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\models\\resetpasswordviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\areas\\admin\\views\\users\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\areas\\admin\\views\\users\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\areas\\admin\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\areas\\admin\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|c:\\users\\admin\\source\\repos\\bagswebsite\\bagswebsite\\models\\productcomment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95523722-533B-4D88-8AC7-38057DB178A4}|BagsWebsite\\BagsWebsite.csproj|solutionrelative:bagswebsite\\models\\productcomment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ProductsController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Controllers\\ProductsController.cs",
+              "RelativeDocumentMoniker": "BagsWebsite\\Controllers\\ProductsController.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Controllers\\ProductsController.cs",
+              "RelativeToolTip": "BagsWebsite\\Controllers\\ProductsController.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABIAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-08T14:37:30.694Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAACoGAAAAAAAAAAAwwEQGAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-08T14:18:49.403Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "_CartPartialView.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\Shared\\_CartPartialView.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Views\\Shared\\_CartPartialView.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\Shared\\_CartPartialView.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Views\\Shared\\_CartPartialView.cshtml",
+              "ViewState": "AgIAALABAAAAAAAAAAAQwMsBAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-09T05:27:37.895Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\Products\\Index.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Views\\Products\\Index.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\Products\\Index.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Views\\Products\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAALUGAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-06T15:13:40.382Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "HeroSection.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Models\\HeroSection.cs",
+              "RelativeDocumentMoniker": "BagsWebsite\\Models\\HeroSection.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Models\\HeroSection.cs",
+              "RelativeToolTip": "BagsWebsite\\Models\\HeroSection.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-11T04:47:30.69Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "BagsWebsite\\Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "BagsWebsite\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAvwBgAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-08T14:29:13.667Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CartController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Controllers\\CartController.cs",
+              "RelativeDocumentMoniker": "BagsWebsite\\Controllers\\CartController.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Controllers\\CartController.cs",
+              "RelativeToolTip": "BagsWebsite\\Controllers\\CartController.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAuwNEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-08T21:36:58.279Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAK4DAAAAAAAAAAAgwJ0EAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-06T19:32:45.047Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "_CategorySliderPartial.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\Shared\\_CategorySliderPartial.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Views\\Shared\\_CategorySliderPartial.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\Shared\\_CategorySliderPartial.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Views\\Shared\\_CategorySliderPartial.cshtml",
+              "ViewState": "AgIAAGMAAAAAAAAAAAAAAG0AAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-11T04:43:35.813Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "_QuickViewPartial.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\Shared\\_QuickViewPartial.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Views\\Shared\\_QuickViewPartial.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\Shared\\_QuickViewPartial.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Views\\Shared\\_QuickViewPartial.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-06T15:10:53.054Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "BagDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Models\\BagDbContext.cs",
+              "RelativeDocumentMoniker": "BagsWebsite\\Models\\BagDbContext.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Models\\BagDbContext.cs",
+              "RelativeToolTip": "BagsWebsite\\Models\\BagDbContext.cs",
+              "ViewState": "AgIAAL0AAAAAAAAAAAAAANAAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-06T16:56:56.057Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "WishlistController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Controllers\\WishlistController.cs",
+              "RelativeDocumentMoniker": "BagsWebsite\\Controllers\\WishlistController.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Controllers\\WishlistController.cs",
+              "RelativeToolTip": "BagsWebsite\\Controllers\\WishlistController.cs",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAAAFcAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-11T03:49:40.266Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ProductsController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Controllers\\ProductsController.cs",
+              "RelativeDocumentMoniker": "BagsWebsite\\Areas\\Admin\\Controllers\\ProductsController.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Controllers\\ProductsController.cs",
+              "RelativeToolTip": "BagsWebsite\\Areas\\Admin\\Controllers\\ProductsController.cs",
+              "ViewState": "AgIAAEoAAAAAAAAAAAAiwDcAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-10T04:51:00.679Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\Categories\\Details.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Areas\\Admin\\Views\\Categories\\Details.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\Categories\\Details.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Areas\\Admin\\Views\\Categories\\Details.cshtml",
+              "ViewState": "AgIAAEwAAAAAAAAAAAAAAJ0AAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-07T17:08:37.064Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\appsettings.json",
+              "RelativeDocumentMoniker": "BagsWebsite\\appsettings.json",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\appsettings.json",
+              "RelativeToolTip": "BagsWebsite\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-04-10T14:48:53.681Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\Products\\Create.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Areas\\Admin\\Views\\Products\\Create.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\Products\\Create.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Areas\\Admin\\Views\\Products\\Create.cshtml",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAIwGsAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-07T15:00:57.151Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "ReviewsController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Controllers\\ReviewsController.cs",
+              "RelativeDocumentMoniker": "BagsWebsite\\Controllers\\ReviewsController.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Controllers\\ReviewsController.cs",
+              "RelativeToolTip": "BagsWebsite\\Controllers\\ReviewsController.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAwBEAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-08T20:59:55.845Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "BagsWebsite\\Controllers\\AccountController.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "BagsWebsite\\Controllers\\AccountController.cs",
+              "ViewState": "AgIAAGIAAAAAAAAAAAAswGUAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-06T12:42:29.779Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\Products\\Index.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Areas\\Admin\\Views\\Products\\Index.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\Products\\Index.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Areas\\Admin\\Views\\Products\\Index.cshtml",
+              "ViewState": "AgIAAOAAAAAAAAAAAAAAwPkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-07T14:58:38.814Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\Products\\Details.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Views\\Products\\Details.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\Products\\Details.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Views\\Products\\Details.cshtml",
+              "ViewState": "AgIAAOkBAAAAAAAAAAAAAPkBAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-06T12:49:07.895Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\Reviews\\Index.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Views\\Reviews\\Index.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\Reviews\\Index.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Views\\Reviews\\Index.cshtml",
+              "ViewState": "AgIAAMsBAAAAAAAAAAAmwNcBAABeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-08T21:07:32.647Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "SearchResultsViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Models\\SearchResultsViewModel.cs",
+              "RelativeDocumentMoniker": "BagsWebsite\\Models\\SearchResultsViewModel.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Models\\SearchResultsViewModel.cs",
+              "RelativeToolTip": "BagsWebsite\\Models\\SearchResultsViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-09T04:45:00.23Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\About\\Index.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Views\\About\\Index.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\About\\Index.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Views\\About\\Index.cshtml",
+              "ViewState": "AgIAAFcAAAAAAAAAAAAAAG0AAABIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-08T20:40:41.953Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\Cart\\Index.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Views\\Cart\\Index.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\Cart\\Index.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Views\\Cart\\Index.cshtml",
+              "ViewState": "AgIAADYBAAAAAAAAAAAAAH8BAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-08T21:37:28.901Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "AboutController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Controllers\\AboutController.cs",
+              "RelativeDocumentMoniker": "BagsWebsite\\Controllers\\AboutController.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Controllers\\AboutController.cs",
+              "RelativeToolTip": "BagsWebsite\\Controllers\\AboutController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-08T20:40:25.337Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "OrderController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Controllers\\OrderController.cs",
+              "RelativeDocumentMoniker": "BagsWebsite\\Controllers\\OrderController.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Controllers\\OrderController.cs",
+              "RelativeToolTip": "BagsWebsite\\Controllers\\OrderController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-08T07:46:25.957Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "OrdersController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Controllers\\OrdersController.cs",
+              "RelativeDocumentMoniker": "BagsWebsite\\Areas\\Admin\\Controllers\\OrdersController.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Controllers\\OrdersController.cs",
+              "RelativeToolTip": "BagsWebsite\\Areas\\Admin\\Controllers\\OrdersController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-08T07:57:49.425Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "_AdminLayout.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\Shared\\_AdminLayout.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Views\\Shared\\_AdminLayout.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\Shared\\_AdminLayout.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Views\\Shared\\_AdminLayout.cshtml",
+              "ViewState": "AgIAAKsAAAAAAAAAAIBJwN8AAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-07T14:16:45.977Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\Categories\\Edit.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Areas\\Admin\\Views\\Categories\\Edit.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\Categories\\Edit.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Areas\\Admin\\Views\\Categories\\Edit.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-07T17:09:43.901Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "History.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\Orders\\History.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Areas\\Admin\\Views\\Orders\\History.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\Orders\\History.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Areas\\Admin\\Views\\Orders\\History.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-08T08:18:43.339Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\Orders\\Index.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Areas\\Admin\\Views\\Orders\\Index.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\Orders\\Index.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Areas\\Admin\\Views\\Orders\\Index.cshtml",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAiwDcAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-08T08:01:12.448Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\SystemLog\\Index.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Areas\\Admin\\Views\\SystemLog\\Index.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\SystemLog\\Index.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Areas\\Admin\\Views\\SystemLog\\Index.cshtml",
+              "ViewState": "AgIAAIEAAAAAAAAAAIBJwIgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-08T07:16:35.355Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "AdminDashboard.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Controllers\\AdminDashboard.cs",
+              "RelativeDocumentMoniker": "BagsWebsite\\Areas\\Admin\\Controllers\\AdminDashboard.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Controllers\\AdminDashboard.cs",
+              "RelativeToolTip": "BagsWebsite\\Areas\\Admin\\Controllers\\AdminDashboard.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAIBJwBEAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-07T14:50:29.789Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\AdminDashboard\\Index.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Areas\\Admin\\Views\\AdminDashboard\\Index.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\AdminDashboard\\Index.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Areas\\Admin\\Views\\AdminDashboard\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-07T14:31:44.36Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "CategoriesController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Controllers\\CategoriesController.cs",
+              "RelativeDocumentMoniker": "BagsWebsite\\Areas\\Admin\\Controllers\\CategoriesController.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Controllers\\CategoriesController.cs",
+              "RelativeToolTip": "BagsWebsite\\Areas\\Admin\\Controllers\\CategoriesController.cs",
+              "ViewState": "AgIAAFQAAAAAAAAAAAAowFwAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-07T16:49:34.677Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\Categories\\Index.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Areas\\Admin\\Views\\Categories\\Index.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\Categories\\Index.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Areas\\Admin\\Views\\Categories\\Index.cshtml",
+              "ViewState": "AgIAAGYAAAAAAAAAAADwv4EAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-07T16:54:41.964Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\Categories\\Create.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Areas\\Admin\\Views\\Categories\\Create.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\Categories\\Create.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Areas\\Admin\\Views\\Categories\\Create.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-07T17:02:36.594Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\Products\\Details.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Areas\\Admin\\Views\\Products\\Details.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\Products\\Details.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Areas\\Admin\\Views\\Products\\Details.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-07T16:29:07.089Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\Products\\Edit.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Areas\\Admin\\Views\\Products\\Edit.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\Products\\Edit.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Areas\\Admin\\Views\\Products\\Edit.cshtml",
+              "ViewState": "AgIAADAAAAAAAAAAAIBJwEYAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-07T16:23:16.601Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "ResetPassword.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\Account\\ResetPassword.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Views\\Account\\ResetPassword.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\Account\\ResetPassword.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Views\\Account\\ResetPassword.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-06T15:01:47.522Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "ForgotPassword.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\Account\\ForgotPassword.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Views\\Account\\ForgotPassword.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\Account\\ForgotPassword.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Views\\Account\\ForgotPassword.cshtml",
+              "ViewState": "AgIAAAMAAAAAAAAAAIBJwBoAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-06T15:00:27.632Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\Users\\Details.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Areas\\Admin\\Views\\Users\\Details.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\Users\\Details.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Areas\\Admin\\Views\\Users\\Details.cshtml",
+              "ViewState": "AgIAAC0AAAAAAAAAAIBJwAkAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-06T12:47:21.272Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "Register.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\Account\\Register.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Views\\Account\\Register.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\Account\\Register.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Views\\Account\\Register.cshtml",
+              "ViewState": "AgIAAKAAAAAAAAAAAIBJwJEAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-06T14:31:31.13Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\Users\\Edit.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Areas\\Admin\\Views\\Users\\Edit.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\Users\\Edit.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Areas\\Admin\\Views\\Users\\Edit.cshtml",
+              "ViewState": "AgIAABoAAAAAAAAAAAAwwDsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-06T12:48:20.844Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\Account\\Login.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Views\\Account\\Login.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Views\\Account\\Login.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Views\\Account\\Login.cshtml",
+              "ViewState": "AgIAAI8AAAAAAAAAAIBJwJkAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-06T12:46:03.436Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\Users\\Index.cshtml",
+              "RelativeDocumentMoniker": "BagsWebsite\\Areas\\Admin\\Views\\Users\\Index.cshtml",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Views\\Users\\Index.cshtml",
+              "RelativeToolTip": "BagsWebsite\\Areas\\Admin\\Views\\Users\\Index.cshtml",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAwwIUAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-06T12:48:41.494Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "ResetPasswordViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Models\\ResetPasswordViewModel.cs",
+              "RelativeDocumentMoniker": "BagsWebsite\\Models\\ResetPasswordViewModel.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Models\\ResetPasswordViewModel.cs",
+              "RelativeToolTip": "BagsWebsite\\Models\\ResetPasswordViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-06T14:49:29.042Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 47,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "BagsWebsite\\Areas\\Admin\\Controllers\\UsersController.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Areas\\Admin\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "BagsWebsite\\Areas\\Admin\\Controllers\\UsersController.cs",
+              "ViewState": "AgIAAFUAAAAAAAAAAAAYwHUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-06T12:46:31.897Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 48,
+              "Title": "ProductComment.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Models\\ProductComment.cs",
+              "RelativeDocumentMoniker": "BagsWebsite\\Models\\ProductComment.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\BagsWebsite\\BagsWebsite\\Models\\ProductComment.cs",
+              "RelativeToolTip": "BagsWebsite\\Models\\ProductComment.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAUAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-06T12:39:39.502Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

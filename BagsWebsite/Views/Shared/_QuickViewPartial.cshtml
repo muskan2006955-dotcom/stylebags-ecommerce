@@ -1,0 +1,313 @@
+﻿@model BagsWebsite.Models.Product
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+<style>
+    a{
+        text-decoration:none
+    }
+</style>
+
+<div class="row g-0" style="max-height: 550px;">
+    <!-- Left Side - Image (Fixed, No Scroll) -->
+    <div class="col-md-6 position-relative bg-light d-flex flex-column">
+        <div class="main-image-area d-flex align-items-center justify-content-center flex-grow-1"
+             style="min-height: 400px; position: relative; overflow: hidden;">
+
+            <img id="qvMainDisplay" src="@(Model.ProductImages.FirstOrDefault()?.ImageUrl ?? "/img/placeholder.jpg")"
+                 class="img-fluid" style="max-height: 380px; max-width: 100%; object-fit: contain;">
+
+            <!-- Wishlist Button -->
+            <button class="wishlist-btn" onclick="addToWishlist('@Model.Id', this)" data-product-id="@Model.Id">
+                <i class="fa-regular fa-heart"></i>
+            </button>
+        </div>
+
+        <!-- Thumbnails Bottom (Fixed) -->
+        <div id="qvThumbSlider" class="d-flex gap-2 p-2 justify-content-center"
+             style="height: 70px; flex-shrink: 0;">
+            @foreach (var img in Model.ProductImages)
+            {
+                <img src="@img.ImageUrl" class="qv-thumb bg-white"
+                     style="width: 50px; height: 50px; object-fit: cover; cursor: pointer; border: 2px solid transparent; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"
+                     onclick="changeQuickViewImage('@img.ImageUrl', this)">
+            }
+        </div>
+    </div>
+
+    <!-- Right Side - Details (Scrollable if content is long) -->
+    <div class="col-md-6 p-4 bg-white" style="overflow-y: auto; max-height: 550px;">
+        <div class="d-flex justify-content-between align-items-start mb-2">
+            <span class="text-uppercase text-muted small fw-bold" style="font-size: 11px; letter-spacing: 1px;">
+                @Model.Category?.Name Collection
+            </span>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <h3 class="fw-bold mb-2" style="color: #111; font-size: 20px;">@Model.Name</h3>
+
+        <div class="mb-3">
+            <span class="h4 fw-bold" style="color: #111;">Rs. @Model.Price.ToString("N0")</span>
+        </div>
+
+        <!-- Description -->
+        <div class="product-description mb-3">
+            <p class="text-secondary small mb-2" style="line-height: 1.6; font-size: 14px;">
+                @if (Model.Description?.Length > 100)
+                {
+                    <span id="shortText">@Model.Description.Substring(0, 100)</span>
+                    <span id="dots">...</span>
+                    <span id="moreText" style="display: none;">@Model.Description.Substring(100)</span>
+                    <a href="javascript:void(0)" onclick="toggleDescription()" id="readMoreBtn"
+                       class="text-dark fw-bold ms-1" style="text-decoration: underline; font-size: 12px;">Read more</a>
+                }
+                else
+                {
+                    @Model.Description
+                }
+            </p>
+        </div>
+
+        <!-- Color Selection -->
+        @if (Model.ProductImages.Any(x => !string.IsNullOrEmpty(x.ColorCode)))
+        {
+            <div class="mb-3">
+                <label class="fw-bold small d-block mb-2 text-uppercase" style="font-size: 11px; letter-spacing: 1px;">Select Color:</label>
+                <div class="d-flex gap-2 flex-wrap">
+                    @foreach (var img in Model.ProductImages.Where(x => !string.IsNullOrEmpty(x.ColorCode)).GroupBy(x => x.ColorCode).Select(g => g.First()))
+                    {
+                        <div class="color-circle-wrapper" onclick="selectColorVariant('@img.ImageUrl', '@img.ColorCode', this)"
+                             style="border: 2px solid #ddd; padding: 2px; border-radius: 50%; cursor: pointer; transition: 0.2s;">
+                            <div style="width: 24px; height: 24px; background: @img.ColorCode; border-radius: 50%;"></div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
+        <!-- Quantity Selector -->
+        <div class="mb-3">
+            <label class="fw-bold small d-block mb-2 text-uppercase" style="font-size: 11px; letter-spacing: 1px;">Quantity:</label>
+            <div class="d-flex align-items-center border" style="width: fit-content; border-radius: 25px; padding: 3px;">
+                <button class="btn btn-link text-dark text-decoration-none px-3 py-0" onclick="updateQuantity(-1)" style="font-size: 16px;">−</button>
+                <input type="number" id="quantityInput" value="1" min="1" max="@Model.Stock"
+                       class="form-control border-0 text-center p-0" style="width: 40px; font-weight: bold; font-size: 14px;" readonly>
+                <button class="btn btn-link text-dark text-decoration-none px-3 py-0" onclick="updateQuantity(1)" style="font-size: 16px;">+</button>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="mt-3">
+            <div class="d-flex gap-2 mb-3 align-items-center">
+                <button class="btn btn-info text-white flex-grow-1 rounded-pill py-2 fw-bold text-uppercase"
+                        style="background: #17a2b8; border: none; font-size: 14px;"
+                        onclick="addToCart(@Model.Id)" @(Model.Stock <= 0 ? "disabled" : "")>
+                    Add to Cart
+                </button>
+                <button class="btn btn-outline-secondary rounded-circle" style="width: 40px; height: 40px;" onclick="addToWishlist('@Model.Id', this)">
+                    <i class="fa-regular fa-heart"></i>
+                </button>
+            </div>
+
+            <button class="btn btn-dark w-100 rounded-pill py-2 fw-bold text-uppercase mb-3"
+                    style="font-size: 14px;"
+                    onclick="buyNow(@Model.Id)" @(Model.Stock <= 0 ? "disabled" : "")>
+                Buy It Now
+            </button>
+
+            <!-- Stock Status -->
+            <div class="text-center mb-2">
+                @if (Model.Stock > 0)
+                {
+                    <span class="small text-success">
+                        <i class="fa fa-circle-check me-1"></i> Availability: <span class="fw-bold">In stock</span>
+                    </span>
+                }
+                else
+                {
+                    <span class="small text-danger">
+                        <i class="fa fa-circle-exclamation me-1"></i> Availability: Out of stock
+                    </span>
+                }
+            </div>
+
+            <!-- Ask a Question -->
+            <div class="text-center mb-2">
+                <a href="javascript:void(0)" class="text-dark text-decoration-none small fw-bold">
+                    <i class="fa-regular fa-circle-question me-1"></i> Ask a Question
+                </a>
+            </div>
+
+            <!-- Categories -->
+            <div class="border-top pt-2 mt-2">
+                <p class="small text-muted mb-0" style="font-size: 11px;">
+                    <span class="fw-bold text-dark">Categories:</span>
+                    @(Model.Category?.Name ?? "All Bags") Collection, Bags, Accessories
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .col-md-6::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .col-md-6::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    .col-md-6::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 3px;
+    }
+
+        .col-md-6::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+    .main-image-area {
+        background: #f8f9fa;
+    }
+
+    .wishlist-btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: white;
+        border: none;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        transition: all 0.3s;
+        z-index: 10;
+    }
+
+        .wishlist-btn:hover {
+            color: #ff4d4d;
+            transform: scale(1.1);
+        }
+
+        .wishlist-btn i {
+            font-size: 16px;
+        }
+
+    .qv-thumb:hover, .qv-thumb.active {
+        border-color: #111 !important;
+    }
+
+    .color-circle-wrapper:hover, .color-circle-wrapper.active-color {
+        border-color: #111 !important;
+    }
+
+    .btn-info {
+        background-color: #17a2b8 !important;
+    }
+
+    .btn-dark {
+        background: #1a1a1a;
+        border: none;
+    }
+
+        .btn-dark:hover {
+            background: #333;
+        }
+
+    .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Modal sizing */
+    .modal-dialog {
+        max-width: 800px;
+    }
+
+    .modal-content {
+        border-radius: 8px;
+        overflow: hidden;
+    }
+</style>
+
+<script>
+    function updateQuantity(change) {
+        const input = document.getElementById('quantityInput');
+        let newValue = parseInt(input.value) + change;
+        const max = parseInt(input.max) || 99;
+        const min = parseInt(input.min) || 1;
+
+        if (newValue >= min && newValue <= max) {
+            input.value = newValue;
+        }
+    }
+
+    function selectColorVariant(imageUrl, colorCode, element) {
+        document.querySelectorAll('.color-circle-wrapper').forEach(el => {
+            el.classList.remove('active-color');
+            el.style.borderColor = '#ddd';
+        });
+        element.classList.add('active-color');
+        element.style.borderColor = '#111';
+
+        const mainImg = document.getElementById('qvMainDisplay');
+        mainImg.style.opacity = '0.5';
+        setTimeout(() => {
+            mainImg.src = imageUrl;
+            mainImg.style.opacity = '1';
+        }, 150);
+
+        document.querySelectorAll('.qv-thumb').forEach(thumb => {
+            thumb.classList.remove('active');
+            if (thumb.getAttribute('src') === imageUrl) {
+                thumb.classList.add('active');
+            }
+        });
+    }
+
+    function changeQuickViewImage(imageUrl, element) {
+        const mainImg = document.getElementById('qvMainDisplay');
+        mainImg.style.opacity = '0.5';
+        setTimeout(() => {
+            mainImg.src = imageUrl;
+            mainImg.style.opacity = '1';
+        }, 150);
+
+        document.querySelectorAll('.qv-thumb').forEach(t => t.classList.remove('active'));
+        element.classList.add('active');
+    }
+
+    function toggleDescription() {
+        var moreText = document.getElementById("moreText");
+        var dots = document.getElementById("dots");
+        var btnText = document.getElementById("readMoreBtn");
+
+        if (dots.style.display === "none") {
+            dots.style.display = "inline";
+            btnText.innerHTML = "Read more";
+            moreText.style.display = "none";
+        } else {
+            dots.style.display = "none";
+            btnText.innerHTML = "Read less";
+            moreText.style.display = "inline";
+        }
+    }
+
+    function buyNow(productId) {
+        const qty = document.getElementById('quantityInput').value;
+        addToCart(productId, qty);
+        window.location.href = '/Checkout';
+    }
+</script>

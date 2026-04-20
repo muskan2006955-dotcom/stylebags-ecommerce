@@ -1,0 +1,384 @@
+﻿@model List<BagsWebsite.Models.CartItem>
+
+@{
+    ViewData["Title"] = "Shopping Cart";
+    var subTotal = (decimal)ViewBag.SubTotal;
+    var shipping = (decimal)ViewBag.Shipping;
+    var total = (decimal)ViewBag.Total;
+    var itemCount = (int)ViewBag.ItemCount;
+}
+
+<style>
+    .cart-page {
+        background: #f8f9fa;
+        min-height: 100vh;
+        padding: 40px 0;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .cart-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .cart-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+        .cart-header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .cart-header p {
+            color: #7f8c8d;
+            font-size: 16px;
+        }
+
+    .cart-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 30px;
+    }
+
+    /* Cart Items */
+    .cart-items {
+        background: #fff;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .cart-item {
+        display: grid;
+        grid-template-columns: 120px 1fr auto;
+        gap: 20px;
+        padding: 25px 0;
+        border-bottom: 1px solid #ecf0f1;
+        align-items: center;
+    }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+    .item-image {
+        width: 120px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 12px;
+    }
+
+    .item-details h3 {
+        font-size: 18px;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 8px;
+    }
+
+    .item-price {
+        color: #e74c3c;
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    .item-original-price {
+        color: #95a5a6;
+        text-decoration: line-through;
+        font-size: 14px;
+        margin-left: 10px;
+    }
+
+    .quantity-control {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-top: 15px;
+    }
+
+    .qty-btn {
+        width: 35px;
+        height: 35px;
+        border: 2px solid #ecf0f1;
+        background: #fff;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: all 0.3s;
+    }
+
+        .qty-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+    .qty-input {
+        width: 50px;
+        text-align: center;
+        border: none;
+        font-weight: 600;
+        font-size: 16px;
+    }
+
+    .remove-btn {
+        color: #e74c3c;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 20px;
+        transition: all 0.3s;
+    }
+
+        .remove-btn:hover {
+            transform: scale(1.2);
+        }
+
+    /* Cart Summary */
+    .cart-summary {
+        background: #fff;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        height: fit-content;
+        position: sticky;
+        top: 20px;
+    }
+
+    .summary-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #2c3e50;
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #ecf0f1;
+    }
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        color: #7f8c8d;
+        font-size: 15px;
+    }
+
+        .summary-row.total {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c3e50;
+            border-top: 2px solid #ecf0f1;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+
+    .checkout-btn {
+        width: 100%;
+        padding: 18px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 25px;
+        transition: all 0.3s;
+    }
+
+        .checkout-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+        }
+
+    .continue-shopping {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        color: #667eea;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    /* Empty Cart */
+    .empty-cart {
+        text-align: center;
+        padding: 80px 20px;
+    }
+
+        .empty-cart i {
+            font-size: 100px;
+            color: #bdc3c7;
+            margin-bottom: 30px;
+        }
+
+        .empty-cart h3 {
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .empty-cart p {
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+
+    .shop-btn {
+        display: inline-block;
+        padding: 15px 40px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 600;
+    }
+
+    @@media (max-width: 768px) {
+        .cart-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .cart-item {
+            grid-template-columns: 100px 1fr;
+        }
+    }
+</style>
+
+<div class="cart-page">
+    <div class="cart-container">
+        <div class="cart-header">
+            <h1>Shopping Cart</h1>
+            <p>You have @itemCount items in your cart</p>
+        </div>
+    
+
+        @if (Model != null && Model.Any())
+        {
+            <div class="cart-grid">
+                <!-- Cart Items -->
+                <div class="cart-items">
+                    @foreach (var item in Model)
+                    {
+                        var product = item.Product;
+                        var image = product?.ProductImages?.FirstOrDefault()?.ImageUrl ?? "/img/no-image.jpg";
+                        var price = product?.Price ?? 0;
+
+                        <div class="cart-item" data-id="@item.Id">
+                            <img src="@image" alt="@product?.Name" class="item-image">
+
+                            <div class="item-details">
+                                <h3>@product?.Name</h3>
+                                <div>
+                                    <span class="item-price">$@price</span>
+                                    @if (product?.Discount > 0)
+                                    {
+                                        <span class="item-original-price">$@(price + (price * product.Discount / 100))</span>
+                                    }
+                                </div>
+                                <div class="quantity-control">
+                                    <button class="qty-btn" onclick="updateQty(@item.Id, -1)">-</button>
+                                    <input type="text" class="qty-input" value="@item.Quantity" readonly>
+                                    <button class="qty-btn" onclick="updateQty(@item.Id, 1)">+</button>
+                                </div>
+                            </div>
+
+                            <div>
+                                <span class="item-price">$@(price* item.Quantity)</span>
+                                <button class="remove-btn" onclick="removeItem(@item.Id)">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!-- Cart Summary -->
+                <div class="cart-summary">
+                    <h3 class="summary-title">Order Summary</h3>
+
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span>$@subTotal</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Shipping</span>
+                        <span>@(shipping == 0 ? "Free" : "$" + shipping)</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Tax</span>
+                        <span>Calculated at checkout</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total</span>
+                        <span>$@total</span>
+                    </div>
+
+                    <button class="checkout-btn" onclick="checkout()">
+                        Proceed to Checkout <i class="fa fa-arrow-right ms-2"></i>
+                    </button>
+
+                    <a href="/" class="continue-shopping">
+                        <i class="fa fa-arrow-left me-2"></i>Continue Shopping
+                    </a>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="empty-cart">
+                <i class="fa fa-shopping-cart"></i>
+                <h3>Your cart is empty</h3>
+                <p>Looks like you haven't added anything yet</p>
+                <a href="/" class="shop-btn">Start Shopping</a>
+            </div>
+        }
+    </div>
+</div>
+@section Scripts {
+<script>
+    function addToCart(productId) {
+        // Button loading state
+        var btn = event.target;
+        var originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Adding...';
+        btn.disabled = true;
+
+        fetch('/Cart/AddToCart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `productId=${productId}&quantity=1`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Success message
+                alert(data.message);
+
+                // Cart count update
+                var cartBadge = document.getElementById('cartCount');
+                if (cartBadge) {
+                    cartBadge.innerText = data.count;
+                    cartBadge.style.display = 'inline';
+                }
+
+                // Redirect to cart page (optional)
+                // window.location.href = '/Cart';
+            } else {
+                alert('Failed to add to cart');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Something went wrong!');
+        })
+        .finally(() => {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        });
+    }
+</script>
+}

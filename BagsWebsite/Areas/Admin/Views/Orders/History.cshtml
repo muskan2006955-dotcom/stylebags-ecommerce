@@ -1,0 +1,54 @@
+﻿@model IEnumerable<BagsWebsite.Models.Order>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Order History";
+    Layout = "_AdminLayout";
+}
+
+<div class="container-fluid px-4 mt-4 mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold text-dark mb-0">Order History</h3>
+            <p class="text-muted mb-0">Viewing completed and cancelled orders.</p>
+        </div>
+        <a asp-action="Index" class="btn btn-outline-primary shadow-sm">
+            <i class="fa fa-arrow-left me-2"></i>Back to Active Orders
+        </a>
+    </div>
+
+    <div class="card glass-card border-0 shadow-sm overflow-hidden">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="bg-light">
+                    <tr class="text-muted small">
+                        <th class="ps-4">ORDER ID</th>
+                        <th>CUSTOMER</th>
+                        <th>TOTAL</th>
+                        <th>FINAL STATUS</th>
+                        <th>DATE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="ps-4 fw-bold text-primary">#@item.Id</td>
+                            <td>
+                                <div class="fw-bold">@item.User?.FirstName @item.User?.LastName</div>
+                                <div class="small text-muted">@item.User?.Email</div>
+                            </td>
+                            <td class="fw-bold">Rs. @item.TotalAmount?.ToString("N0")</td>
+                            <td>
+                                <span class="badge @(item.Status == "Delivered" ? "bg-success" : "bg-danger") px-3 py-2 rounded-pill">
+                                    @item.Status
+                                </span>
+                            </td>
+                            <td class="small text-muted">@item.OrderDate?.ToString("MMM dd, yyyy")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

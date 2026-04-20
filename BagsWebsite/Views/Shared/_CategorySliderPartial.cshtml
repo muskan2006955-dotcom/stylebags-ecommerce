@@ -1,0 +1,154 @@
+﻿@inject BagsWebsite.Models.BagDbContext _context
+@{
+    // Database se saari categories fetch karna
+    var categories = _context.Categories.ToList();
+
+    // Check karna ke current select ki hui category konsi hai (for active class)
+    var currentCatId = Context.Request.Query["categoryId"].ToString();
+}
+
+<style>
+    /* Aapka original CSS yahan rahega (No changes) */
+    .category-nav-wrapper {
+        background: #ffffff;
+        padding: 8px 0;
+        border-top: 1px solid #f2f2f2;
+        border-bottom: 1px solid #f2f2f2;
+        position: sticky;
+        top: 0;
+        z-index: 99;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    }
+
+    .category-slider-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .category-slider {
+        display: flex !important;
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        gap: 10px;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+        padding: 5px 35px;
+        width: 100%;
+    }
+
+        .category-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+    .cat-item {
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        color: #555;
+        text-transform: capitalize;
+        letter-spacing: 0.3px;
+        transition: all 0.3s ease;
+        padding: 6px 15px;
+        border-radius: 4px;
+        border: none !important;
+    }
+
+        .cat-item:hover, .cat-item.active {
+            color: #000;
+            background: #f5f5f5;
+            border-bottom: none !important;
+        }
+
+    .slider-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255,255,255,0.9);
+        border: none;
+        font-size: 14px;
+        color: #999;
+        cursor: pointer;
+        z-index: 10;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .left-arrow {
+        left: 0;
+    }
+
+    .right-arrow {
+        right: 0;
+    }
+
+    @@media (max-width: 575px) {
+        .category-slider {
+            gap: 8px;
+            padding: 5px 10px;
+        }
+
+        .cat-item {
+            font-size: 11px;
+            padding: 5px 10px;
+        }
+
+        .slider-arrow {
+            display: none;
+        }
+    }
+
+    @@media (max-width: 575px) {
+        .category-nav-wrapper {
+            z-index: 10;
+        }
+    }
+</style>
+
+<div class="category-nav-wrapper">
+    <div class="container">
+        <div class="category-slider-container">
+            <button type="button" class="slider-arrow left-arrow" onclick="scrollCatSlider(-200)">
+                <i class="fa fa-chevron-left"></i>
+            </button>
+
+            <div class="category-slider" id="catSliderComponent">
+                <a asp-controller="Products" asp-action="Index"
+                   class="cat-item @(string.IsNullOrEmpty(currentCatId) ? "active" : "")">
+                    All Collection
+                </a>
+
+                @foreach (var item in categories)
+                {
+                    <a asp-controller="Products"
+                       asp-action="Index"
+                       asp-route-categoryId="@item.Id"
+                       class="cat-item @(currentCatId == item.Id.ToString() ? "active" : "")">
+                        @item.Name
+                    </a>
+                }
+            </div>
+
+            <button type="button" class="slider-arrow right-arrow" onclick="scrollCatSlider(200)">
+                <i class="fa fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function scrollCatSlider(distance) {
+        const slider = document.getElementById('catSliderComponent');
+        if (slider) {
+            slider.scrollBy({
+                left: distance,
+                behavior: 'smooth'
+            });
+        }
+    }
+</script>

@@ -1,0 +1,117 @@
+﻿@model IEnumerable<BagsWebsite.Models.Order>
+@{
+    ViewData["Title"] = "Manage Orders";
+    Layout = "_AdminLayout";
+}
+
+<style>
+    .glass-card {
+        border-radius: 15px;
+        background: #ffffff;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        border: 1px solid #f1f5f9;
+    }
+
+    .order-id {
+        font-weight: 700;
+        color: #6366f1;
+    }
+
+    .status-badge {
+        padding: 5px 12px;
+        border-radius: 30px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+    /* Status Colors */
+    .bg-pending {
+        background: #fef3c7;
+        color: #92400e;
+    }
+    /* Yellow */
+    .bg-shipped {
+        background: #dbeafe;
+        color: #1e40af;
+    }
+    /* Blue */
+    .bg-delivered {
+        background: #dcfce7;
+        color: #166534;
+    }
+    /* Green */
+    .bg-cancelled {
+        background: #fee2e2;
+        color: #991b1b;
+    }
+    /* Red */
+</style>
+
+<div class="container-fluid px-4 mt-4 mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold text-dark mb-0">Order Management</h3>
+            <p class="text-muted mb-0">Overview of all customer orders for Galaxy Bags.</p>
+        </div>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success border-0 shadow-sm mb-4">@TempData["Success"]</div>
+    }
+
+    <div class="glass-card overflow-hidden">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="bg-light">
+                    <tr class="text-muted small">
+                        <th class="ps-4">ORDER ID</th>
+                        <th>CUSTOMER</th>
+                        <th>DATE</th>
+                        <th>TOTAL AMOUNT</th>
+                        <th>STATUS</th>
+                        <th class="text-center">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="ps-4 order-id">#@item.Id</td>
+                            <td>
+                                <div class="fw-bold text-dark">@item.User?.FirstName @item.User?.LastName</div>
+                                <div class="small text-muted">@item.User?.Email</div>
+                            </td>
+                            <td class="small">@item.OrderDate?.ToString("MMM dd, yyyy")</td>
+                            <td class="fw-bold">Rs. @item.TotalAmount?.ToString("N0")</td>
+                            <td>
+                                @{
+                                    var statusClass = item.Status?.ToLower() switch
+                                    {
+                                        "pending" => "bg-pending",
+                                        "shipped" => "bg-shipped",
+                                        "delivered" => "bg-delivered",
+                                        _ => "bg-cancelled"
+                                    };
+                                }
+                                <span class="status-badge @statusClass">@item.Status</span>
+                            </td>
+                            <td class="text-center">
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-light border dropdown-toggle" data-bs-toggle="dropdown">
+                                        Update
+                                    </button>
+                                    <ul class="dropdown-menu shadow border-0">
+                                        <li><form asp-action="UpdateStatus" method="post"><input type="hidden" name="id" value="@item.Id" /><input type="hidden" name="status" value="Pending" /><button class="dropdown-item">Pending</button></form></li>
+                                        <li><form asp-action="UpdateStatus" method="post"><input type="hidden" name="id" value="@item.Id" /><input type="hidden" name="status" value="Shipped" /><button class="dropdown-item">Shipped</button></form></li>
+                                        <li><form asp-action="UpdateStatus" method="post"><input type="hidden" name="id" value="@item.Id" /><input type="hidden" name="status" value="Delivered" /><button class="dropdown-item">Delivered</button></form></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

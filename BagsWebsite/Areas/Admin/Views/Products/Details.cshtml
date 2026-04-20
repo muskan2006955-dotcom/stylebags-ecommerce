@@ -1,0 +1,197 @@
+﻿@model BagsWebsite.Models.Product
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Product Details";
+    var imageGroups = Model.ProductImages.GroupBy(img => img.ColorCode).ToList();
+}
+
+<style>
+    .product-details-container {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        margin: 20px auto;
+        max-width: 1100px;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+
+    /* Normal Height Header */
+    .details-header {
+        background-color: #f8f9fa;
+        padding: 15px 25px;
+        border-bottom: 1px solid #dee2e6;
+        border-radius: 10px 10px 0 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .details-header h4 {
+            margin: 0;
+            color: #333;
+            font-weight: 500; /* Normal Boldness */
+            font-size: 1.25rem;
+        }
+
+    /* Main Info Grid */
+    .info-section {
+        padding: 25px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        border-bottom: 1px solid #f1f1f1;
+    }
+
+    .info-box {
+        padding: 10px;
+    }
+
+    .info-label {
+        color: #6c757d;
+        font-size: 0.85rem;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .info-value {
+        color: #212529;
+        font-size: 1.05rem;
+        font-weight: 500; /* Readable but not heavy */
+    }
+
+    /* Description Section */
+    .description-container {
+        padding: 20px 25px;
+        background-color: #fafafa;
+    }
+
+    .description-title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .description-text {
+        color: #555;
+        line-height: 1.6;
+        margin-bottom: 0;
+        font-size: 0.95rem;
+    }
+
+    /* Images Section at Bottom */
+    .images-footer {
+        padding: 25px;
+        border-top: 1px solid #dee2e6;
+    }
+
+    .variant-group {
+        margin-bottom: 25px;
+    }
+
+    .variant-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        font-size: 0.9rem;
+        color: #333;
+    }
+
+    .color-circle {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        margin-right: 10px;
+        border: 1px solid #ccc;
+    }
+
+    .product-img {
+        width: 130px;
+        height: 130px;
+        object-fit: cover;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+        .product-img:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #007bff;
+        }
+
+    .btn-custom {
+        padding: 6px 18px;
+        font-size: 0.9rem;
+        border-radius: 5px;
+    }
+</style>
+
+<div class="product-details-container">
+    <div class="details-header" style="background-color:#005555">
+        <h3><i class="bi bi-box-seam me-2 " style="color:white"></i>@Model.Name</h3>
+        <div class="btn-group">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-light btn-custom me-2">Edit Product</a>
+            <a asp-action="Index" class="btn btn-outline-secondary text-white btn-custom">Back</a>
+        </div>
+    </div>
+
+    <div class="info-section">
+        <div class="info-box">
+            <span class="info-label">Price</span>
+            <span class="info-value text-primary">Rs. @Model.Price.ToString("N0")</span>
+        </div>
+        <div class="info-box">
+            <span class="info-label">Inventory</span>
+            <span class="info-value">@Model.Stock <small class="fw-normal text-muted">Items left</small></span>
+        </div>
+        <div class="info-box">
+            <span class="info-label">Category</span>
+            <span class="info-value">@(Model.Category?.Name ?? "General")</span>
+        </div>
+        <div class="info-box">
+            <span class="info-label">Added Date</span>
+            <span class="info-value">@Model.CreatedAt?.ToString("MMM dd, yyyy")</span>
+        </div>
+    </div>
+
+    <div class="description-container">
+        <span class="description-title">Product Details & Specs</span>
+        <p class="description-text">@Model.Description</p>
+    </div>
+
+    <div class="images-footer">
+        <h6 class="mb-4" style="font-weight: 600; color: #333;">Available Variants & Gallery</h6>
+
+        @if (!imageGroups.Any())
+        {
+            <div class="alert alert-light border text-center py-4">
+                <p class="text-muted mb-0">No images have been uploaded for this product.</p>
+            </div>
+        }
+        else
+        {
+            @foreach (var group in imageGroups)
+            {
+                <div class="variant-group">
+                    <div class="variant-header">
+                        <div class="color-circle" style="background-color: @group.Key"></div>
+                        <span><strong>Color Code:</strong> @(group.Key ?? "Standard")</span>
+                    </div>
+                    <div class="d-flex flex-wrap gap-3">
+                        @foreach (var img in group)
+                        {
+                            <a href="@img.ImageUrl" target="_blank">
+                                <img src="@img.ImageUrl" class="product-img" title="Click to enlarge" />
+                            </a>
+                        }
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

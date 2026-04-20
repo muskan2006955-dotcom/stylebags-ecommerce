@@ -1,0 +1,250 @@
+﻿@model IEnumerable<BagsWebsite.Models.Product>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Product Inventory";
+    Layout = "_AdminLayout";
+}
+
+<style>
+    .glass-card {
+        border-radius: 12px;
+        background: #ffffff;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        border: 1px solid #f1f5f9;
+    }
+
+    .search-section {
+        background: #f8fafc;
+        border-bottom: 1px solid #e2e8f0;
+        padding: 20px;
+        border-radius: 12px 12px 0 0;
+    }
+
+    .table thead th {
+        background-color: #ffffff;
+        color: #64748b;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 11px;
+        padding: 15px;
+        border-bottom: 2px solid #f1f5f9;
+        text-align: left;
+    }
+
+    .product-img {
+        width: 45px;
+        height: 45px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid #e2e8f0;
+    }
+
+    .product-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .product-sku {
+        font-size: 10px;
+        color: #94a3b8;
+        font-weight: 700;
+    }
+
+    .category-badge {
+        background: #eff6ff;
+        color: #1e40af;
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 600;
+        display: inline-block;
+    }
+
+    .status-active {
+        background: #dcfce7;
+        color: #15803d;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: bold;
+    }
+
+    .status-low {
+        background: #fee2e2;
+        color: #b91c1c;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: bold;
+    }
+
+    .price-text {
+        color: #10b981;
+        font-weight: 700;
+        font-size: 14px;
+    }
+</style>
+
+<div class="container-fluid px-4 mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold text-dark mb-0">Bag Inventory</h3>
+            <p class="text-muted mb-0">Manage your product stock, prices, and categories</p>
+        </div>
+        <a asp-action="Create" class="btn btn-success px-4 py-2 shadow-sm" style="border-radius: 8px;">
+            <i class="fa fa-plus me-2"></i>Add New Bag
+        </a>
+    </div>
+
+    <div class="glass-card">
+        <div class="search-section">
+            @* Update: Form method="get" aur asp-action="Index" *@
+            <form method="get" asp-action="Index" class="row g-2">
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white border-end-0 text-muted">
+                            <i class="fa fa-search"></i>
+                        </span>
+                        @* Update: value field mein ViewBag.SearchTerm rakha hai *@
+                        <input type="text" name="searchTerm" class="form-control border-start-0 shadow-none"
+                               placeholder="Search by Bag Name, Category, or Color..."
+                               value="@ViewBag.SearchTerm">
+                    </div>
+                </div>
+                <div class="col-md-4 d-flex gap-2">
+                    <button type="submit" class="btn btn-dark flex-grow-1">Search Inventory</button>
+                    <a asp-action="Index" class="btn btn-outline-secondary px-3">
+                        <i class="fa fa-sync-alt"></i>
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Bag Details</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Stock Level</th>
+                        <th>Status</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center py-5 text-muted">
+                                <i class="fa fa-box-open d-block mb-2 fs-3"></i>
+                                No products found matching "@ViewBag.SearchTerm"
+                            </td>
+                        </tr>
+                    }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center gap-3">
+                                    @if (item.ProductImages != null && item.ProductImages.Any())
+                                    {
+                                        <img src="@item.ProductImages.First().ImageUrl" class="product-img" alt="bag">
+                                    }
+                                    else
+                                    {
+                                        <div class="product-img bg-light d-flex align-items-center justify-content-center">
+                                            <i class="fa fa-image text-muted"></i>
+                                        </div>
+                                    }
+                                    <div class="product-info">
+                                        <span class="product-sku">ID: #@item.Id</span>
+                                        <span class="fw-bold text-dark">@item.Name</span>
+                                        <span class="text-muted" style="font-size: 11px;">Color: @(item.Color ?? "N/A")</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="category-badge">
+                                    <i class="fa fa-tag me-1" style="font-size: 9px;"></i> @(item.Category?.Name ?? "Uncategorized")
+                                </div>
+                            </td>
+                            <td>
+                                <span class="price-text">Rs. @item.Price.ToString("N2")</span>
+                                @if (item.Discount > 0)
+                                {
+                                    <div class="text-danger" style="font-size: 10px;">@item.Discount% Off</div>
+                                }
+                            </td>
+                            <td class="fw-bold">
+                                <span class="text-dark">@item.Stock</span> <small class="text-muted">Units</small>
+                            </td>
+                            <td>
+                                @if (item.Stock <= 5)
+                                {
+                                    <span class="status-low">
+                                        <i class="fa fa-exclamation-triangle me-1"></i> Low Stock
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="status-active">
+                                        <i class="fa fa-check-circle me-1"></i> Healthy
+                                    </span>
+                                }
+                            </td>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center gap-2">
+                                    <a asp-action="Edit" asp-route-id="@item.Id"
+                                       class="btn btn-sm btn-primary px-3" style="font-size: 11px; font-weight: 600; border-radius: 6px;">
+                                        Edit
+                                    </a>
+                                    <a asp-action="Details" asp-route-id="@item.Id"
+                                       class="btn btn-sm text-white px-3" style="font-size: 11px; font-weight: 600; background-color: #8b5cf6; border-radius: 6px;">
+                                        View
+                                    </a>
+                                    <button onclick="deleteProduct(@item.Id)"
+                                            class="btn btn-sm btn-danger px-3" style="font-size: 11px; font-weight: 600; border-radius: 6px;">
+                                        Delete
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function deleteProduct(id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "This product and its images will be permanently removed!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ef4444',
+                cancelButtonColor: '#64748b',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '@Url.Action("Delete", "Products")/' + id,
+                        type: 'POST',
+                        success: function (response) {
+                            if (response.success) {
+                                location.reload();
+                            } else {
+                                Swal.fire('Error!', 'Could not delete product.', 'error');
+                            }
+                        }
+                    });
+                }
+            })
+        }
+    </script>
+}

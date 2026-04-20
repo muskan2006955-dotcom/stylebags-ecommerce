@@ -1,0 +1,726 @@
+﻿@model BagsWebsite.Models.Product
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    Layout = "_Layout";
+    var sessUserId = HttpContextAccessor.HttpContext.Session.GetString("UserId");
+    var sessUserRole = HttpContextAccessor.HttpContext.Session.GetString("UserRole");
+    int currentUserId = 0;
+    int.TryParse(sessUserId, out currentUserId);
+}
+
+<style>
+    :root {
+        --main-color: #111;
+        --soft-bg: #f9f9f9;
+        --danger: #e74c3c;
+    }
+
+    body {
+        background-color: white;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .detail-section {
+        padding: 60px 0;
+    }
+
+    /* --- GALLERY SECTION --- */
+    .gallery-container {
+        display: flex;
+        gap: 15px;
+        height: 600px;
+    }
+
+    .thumb-column {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        overflow-y: auto;
+        width: 90px;
+        flex-shrink: 0;
+    }
+
+        .thumb-column img {
+            width: 100%;
+            height: 110px;
+            object-fit: cover;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: 0.3s;
+            border: 1px solid transparent;
+        }
+
+            .thumb-column img.active, .thumb-column img:hover {
+                opacity: 1;
+                border-color: var(--main-color);
+            }
+
+    .main-image-area {
+        flex: 1;
+        overflow: hidden;
+        background: var(--soft-bg);
+    }
+
+        .main-image-area img {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+        }
+
+    /* --- CONTENT SECTION --- */
+    .product-details-content {
+        padding-left: 30px;
+    }
+
+    .product-category {
+        text-transform: uppercase;
+        font-size: 12px;
+        color: #888;
+        letter-spacing: 2px;
+        font-weight: 600;
+    }
+
+    .product-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 10px 0;
+        color: var(--main-color);
+    }
+
+    .product-price {
+        font-size: 1.8rem;
+        color: #444;
+        margin-bottom: 25px;
+    }
+
+    .btn-action {
+        background: var(--main-color);
+        color: white;
+        border: none;
+        padding: 18px;
+        width: 100%;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+        .btn-action:hover {
+            background: #333;
+            transform: translateY(-2px);
+        }
+
+    /* --- TABS SECTION --- */
+    .nav-custom {
+        border-bottom: 1px solid #eee;
+        margin-top: 50px;
+        display: flex;
+        gap: 40px;
+    }
+
+    .nav-link-custom {
+        border: none;
+        background: none;
+        padding: 15px 0;
+        font-weight: 600;
+        font-size: 14px;
+        text-transform: uppercase;
+        color: #999;
+        position: relative;
+    }
+
+        .nav-link-custom.active {
+            color: var(--main-color);
+        }
+
+            .nav-link-custom.active::after {
+                content: '';
+                position: absolute;
+                bottom: -1px;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                background: var(--main-color);
+            }
+
+    .tab-panel {
+        display: none;
+        padding: 40px 0;
+    }
+
+        .tab-panel.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+    /* --- RELATED PRODUCTS GRID --- */
+    .related-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 25px;
+    }
+
+    .product-card-simple {
+        text-align: center;
+        transition: 0.3s;
+    }
+
+        .product-card-simple img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+    /* --- COMMENTS SECTION --- */
+    .comment-box {
+        background: var(--soft-bg);
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        position: relative;
+    }
+
+    .delete-comment {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        color: var(--danger);
+        cursor: pointer;
+        border: none;
+        background: none;
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    /* --- RESPONSIVE LOGIC (Mobile Friendly) --- */
+    @@media (max-width: 768px) {
+        .gallery-container {
+            flex-direction: column-reverse;
+            height: auto;
+            gap: 10px;
+        }
+
+        .thumb-column {
+            flex-direction: row;
+            width: 100%;
+            height: auto;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+            .thumb-column img {
+                width: 80px;
+                height: 80px;
+                flex: 0 0 auto;
+            }
+
+        .main-image-area img {
+            height: 400px;
+            width: 100%;
+        }
+
+        .product-details-content {
+            padding-left: 0;
+            margin-top: 30px;
+        }
+
+        .product-title {
+            font-size: 1.8rem;
+        }
+
+        .nav-custom {
+            gap: 20px;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+    }
+
+    @@media (max-width: 550px) {
+        .main-image-area img {
+            height: 320px;
+        }
+
+        .related-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .product-card-simple img {
+            height: 180px;
+        }
+    }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+    /* Image Animation */
+    .slide-in-left {
+        animation: slideInLeft 0.5s ease-out;
+    }
+
+    @@keyframes slideInLeft {
+        0%
+
+    {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    }
+
+    .color-circle.active-color {
+        border-color: var(--main-color) !important;
+        transform: scale(1.2);
+        box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
+    /* --- GALLERY SECTION UPDATED --- */
+
+    /* --- BUTTON UPDATED --- */
+    .btn-action {
+        background: var(--main-color);
+        color: white;
+        border: none;
+        padding: 15px 30px; /* Padding adjust ki */
+        width: auto; /* Full width khatam kar di */
+        min-width: 200px; /* Ek decent size rakha */
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+        transition: 0.3s;
+        display: inline-block;
+    }
+
+    /* --- RESPONSIVE UPDATES --- */
+    @@media (max-width: 768px) {
+        .gallery-container
+
+    {
+        height: auto;
+    }
+
+    .main-image-area img {
+        height: 300px; /* Mobile par image mazeed choti kar di */
+        object-fit: contain;
+    }
+
+    .btn-action {
+        width: 100%; /* Agar aap mobile par full chahte hain to 100% rakhen,
+                           warna 'auto' karden center alignment ke sath */
+        padding: 12px;
+    }
+
+    .product-title {
+        font-size: 1.6rem;
+    }
+
+    }
+    @@media (max-width: 768px) {
+        /* Isse button poori screen nahi gheray ga */
+        .btn-action
+
+    {
+        width: auto !important; /* Full width khatam */
+        padding: 12px 25px !important; /* Side se space */
+        min-width: 180px; /* Ek munasib size */
+        font-size: 14px;
+        display: inline-block; /* Taake wo content ke hisab se size le */
+    }
+
+    /* Agar aap button ko mobile par center karna chahte hain */
+    .product-details-content {
+        text-align: left; /* Ya 'center' agar aapko center pasand hai */
+    }
+
+    }
+    /* Quantity Box Styling */
+    .qty-input-wrapper {
+        display: flex;
+        align-items: center;
+        border: 1px solid #ddd;
+        width: fit-content;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    .qty-btn {
+        background: #f8f8f8;
+        border: none;
+        padding: 8px 15px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.2s;
+    }
+
+        .qty-btn:hover {
+            background: #eee;
+        }
+
+    .qty-input {
+        width: 50px;
+        border: none;
+        text-align: center;
+        font-weight: 600;
+        outline: none;
+    }
+
+    /* Star Rating Styling */
+    .static-stars {
+        color: #ffc107;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .review-count {
+        font-size: 13px;
+        color: #777;
+        margin-left: 8px;
+    }
+
+    /* Mobile Button Fix */
+    /* --- STYLISH & ANIMATED BUTTON --- */
+    .btn-action {
+        background: #111; /* Black theme */
+        color: white;
+        border: none;
+        padding: 18px 60px; /* Width barhane ke liye horizontal padding zyada ki */
+        min-width: 280px; /* Minimum width set ki taake bara lage */
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 700;
+        font-size: 14px;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.4s ease;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        border-radius: 2px;
+        /* Animation trigger */
+        animation: vibrate 3s infinite; /* Har 3 second baad vibrate hoga */
+    }
+
+        /* Hover Effect: Glow aur Scale */
+        .btn-action:hover {
+            background: #222;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            letter-spacing: 3px; /* Hover par text thora phailay ga */
+        }
+
+    /* Vibrate (Left to Right) Animation */
+    @@keyframes vibrate {
+        0%, 90%
+
+    {
+        transform: translateX(0);
+    }
+
+    91% {
+        transform: translateX(-5px);
+    }
+
+    92% {
+        transform: translateX(5px);
+    }
+
+    93% {
+        transform: translateX(-5px);
+    }
+
+    94% {
+        transform: translateX(5px);
+    }
+
+    95% {
+        transform: translateX(0);
+    }
+
+    }
+
+    /* Mobile adjustments */
+    @@media (max-width: 768px) {
+        .btn-action
+
+    {
+        width: 90% !important; /* Mobile par width zyada rakhi par full screen nahi */
+        padding: 15px 40px;
+        min-width: unset;
+        margin: 10px auto;
+        display: block;
+    }
+
+    }
+    .product-details-content {
+        text-align: left;
+    }
+
+    }
+    @@keyframes slideInLeft {
+        0%
+
+    {
+        transform: translateX(-30px); /* 100% ki jagah 30px zyada natural lagta hai */
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    }
+</style>
+
+<div class="container detail-section">
+    <div class="row">
+        <div class="col-lg-7">
+            <div class="gallery-container">
+                <div class="thumb-column custom-scrollbar">
+                    @foreach (var img in Model.ProductImages)
+                    {
+                        <img src="@img.ImageUrl" onclick="changeImage(this, '@img.ImageUrl')" class="@(img == Model.ProductImages.First() ? "active" : "")">
+                    }
+                </div>
+                <div class="main-image-area shadow-sm">
+                    <img id="mainDisplay" src="@(Model.ProductImages.FirstOrDefault()?.ImageUrl ?? "/img/placeholder.jpg")">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="product-details-content">
+                <span class="product-category">Premium / @Model.Category?.Name</span>
+                <h1 class="product-title" style="color:brown">@Model.Name</h1>
+
+                <div class="static-stars">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-half-o"></i>
+                    <span class="review-count">(4.5/5 based on @(Model.ProductComments?.Count ?? 0) reviews)</span>
+                </div>
+
+                <p class="product-price">Rs. @Model.Price.ToString("N0")</p>
+
+                <div class="mb-4">
+                    <label class="fw-bold mb-2 d-block small text-uppercase">Available Color</label>
+                    <div class="d-flex gap-2 align-items-center">
+                        @foreach (var colorGroup in Model.ProductImages.Where(x => !string.IsNullOrEmpty(x.ColorCode)).GroupBy(x => x.ColorCode))
+                        {
+                            var colorVal = colorGroup.Key.Trim();
+                            <div class="color-circle"
+                                 style="background-color: @colorVal; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; border: 2px solid #ddd;"
+                                 data-color-name="@colorVal"
+                                 onclick="selectColor(this, '@colorGroup.First().ImageUrl')">
+                            </div>
+                        }
+                        <span id="activeColorText" class="ms-2 small fw-bold text-muted">Select a shade</span>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="fw-bold mb-2 d-block small text-uppercase">Quantity</label>
+                    <div class="qty-input-wrapper">
+                        <button type="button" class="qty-btn" onclick="this.parentNode.querySelector('input').stepDown()">-</button>
+                        <input type="number" value="1" min="1" class="qty-input">
+                        <button type="button" class="qty-btn" onclick="this.parentNode.querySelector('input').stepUp()">+</button>
+                    </div>
+                </div>
+
+             
+
+                <div class="mb-4">
+                    <h6 class="fw-bold text-uppercase border-bottom pb-2 mb-3" style="font-size: 13px; letter-spacing: 1px;">Product Description</h6>
+                    <p class="text-muted small" style="line-height: 1.8;">@Model.Description</p>
+                </div>
+                <!-- Simple link without JavaScript -->
+                <div class="mb-5"  >
+                    <a href="/Cart/Add?productId=@Model.Id" class="btn-action shadow-sm text-decoration-none" style="background-color:brown">
+                        <i class="fa fa-shopping-bag me-2"></i>Add to Shopping Bag
+                    </a>
+                </div>
+                <div class="border-top pt-3 small text-muted">
+                    <p><i class="fa fa-truck me-2"></i> Fast Delivery (3-5 Days)</p>
+                    <p><i class="fa fa-refresh me-2"></i> 7 Days Exchange Policy</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-custom">
+        <button class="nav-link-custom active" onclick="switchTab(event, 'tab-related')">Related Items</button>
+        <button class="nav-link-custom" onclick="switchTab(event, 'tab-comments')">Reviews (@(Model.ProductComments?.Count ?? 0))</button>
+    </div>
+
+    <div id="tab-related" class="tab-panel active">
+        <div class="related-grid">
+            @if (ViewBag.RelatedProducts != null)
+            {
+                foreach (var item in (List<BagsWebsite.Models.Product>)ViewBag.RelatedProducts)
+                {
+                    <div class="product-card-simple border p-2 bg-white">
+                        <a href="/Products/Details/@item.Id">
+                            <img src="@(item.ProductImages.FirstOrDefault()?.ImageUrl ?? "/img/placeholder.jpg")">
+                        </a>
+                        <h6 class="fw-bold mt-2 text-uppercase" style="font-size: 12px;">@item.Name</h6>
+                        <p class="text-muted small">Rs. @item.Price.ToString("N0")</p>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+    <div id="tab-comments" class="tab-panel">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                @if (sessUserId != null)
+                {
+                    <div class="mb-5 p-4 border bg-light shadow-sm">
+                        <h6 class="fw-bold mb-3 uppercase">Write Your Feedback</h6>
+                        <form asp-action="AddComment" method="post">
+                            <input type="hidden" name="ProductId" value="@Model.Id" />
+                            <select name="Rating" class="form-select rounded-0 border-dark mb-3">
+                                <option value="5">⭐⭐⭐⭐⭐ 5/5</option>
+                                <option value="4">⭐⭐⭐⭐ 4/5</option>
+                                <option value="3">⭐⭐⭐ 3/5</option>
+                            </select>
+                            <textarea name="Content" class="form-control rounded-0 border-dark mb-3" rows="3" placeholder="How was the quality?" required></textarea>
+                            <button type="submit" class="btn btn-dark rounded-0 px-5">Post Review</button>
+                        </form>
+                    </div>
+                }
+
+                <div class="comment-list">
+                    @foreach (var c in Model.ProductComments?.OrderByDescending(x => x.CreatedAt) ?? Enumerable.Empty<BagsWebsite.Models.ProductComment>())
+                    {
+                        <div class="comment-box shadow-sm border">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fw-bold small text-uppercase">@c.User?.FirstName</span>
+                                <span class="text-muted" style="font-size: 11px;">@c.CreatedAt?.ToString("dd MMM yyyy")</span>
+                            </div>
+                            <div class="text-warning my-1" style="font-size: 10px;">
+                                @for (int i = 0; i < (c.Rating ?? 5); i++)
+                                {
+                                    <i class="fa fa-star"></i>
+                                }
+                            </div>
+                            <p class="mb-0 text-secondary small">@c.Content</p>
+
+                            @if (sessUserRole == "Admin" || currentUserId == c.UserId)
+                            {
+                                <form asp-action="DeleteComment" asp-route-id="@c.Id" method="post" class="mt-2 text-end">
+                                    <button type="submit" class="delete-comment border-0 bg-transparent" style="margin-top:50px" onclick="return confirm('Delete this review?')">
+                                        <i class="fa fa-trash"></i> DELETE
+                                    </button>
+                                </form>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+              function changeImage(el, src) {
+            const mainImg = document.getElementById('mainDisplay');
+
+            // 1. Pehle animation class remove karein
+            mainImg.classList.remove('slide-in-left');
+
+            // 2. Browser ko force karein element "reflow" karne ke liye (Ye zaroori hai animation reset ke liye)
+            void mainImg.offsetWidth;
+
+            // 3. Naya source set karein aur animation class wapas dalein
+            mainImg.src = src;
+            mainImg.classList.add('slide-in-left');
+
+            // 4. Thumbnails ki active class manage karein
+            document.querySelectorAll('.thumb-column img').forEach(i => i.classList.remove('active'));
+            el.classList.add('active');
+        }
+        function switchTab(evt, tabId) {
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-link-custom').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+
+        function addToCart() {
+            Swal.fire({
+                title: 'Excellent Choice!',
+                text: 'Bag added to your shopping list.',
+                icon: 'success',
+                confirmButtonColor: '#111'
+            });
+        }
+    </script>
+    <script>
+                function selectColor(element, imgSrc) {
+            // 1. Database se jo code aa raha hai wo pakrein
+            const hexCode = element.getAttribute('data-color-name').toUpperCase().trim();
+            console.log("Database Hex:", hexCode);
+
+            // 2. Mapping: In codes ko names mein convert karein
+            const colorNames = {
+                "#E01010": "Bright Red",
+                "#4386A8": "Steel Blue",
+                "#000000": "Deep Black",
+                "#FFFFFF": "Pure White"
+                // Agar koi naya color code admin se add karein, toh uska naam yahan likh dein
+            };
+
+            // Agar code mapping mein hai toh naam dikhao, warna wahi code dikha do
+            const finalName = colorNames[hexCode] || hexCode;
+
+            // 3. Update Label
+            const displaySpan = document.getElementById('activeColorText');
+            if (displaySpan) {
+                displaySpan.innerText = finalName;
+            }
+
+            // 4. Circle Active Styling
+            document.querySelectorAll('.color-circle').forEach(c => {
+                c.style.border = "2px solid #ddd";
+                c.style.transform = "scale(1)";
+            });
+            element.style.border = "3px solid #111";
+            element.style.transform = "scale(1.15)";
+
+            // 5. Image & Animation
+            const mainImg = document.getElementById('mainDisplay');
+            if (mainImg) {
+                mainImg.classList.remove('slide-in-left');
+                void mainImg.offsetWidth;
+                mainImg.src = imgSrc;
+                mainImg.classList.add('slide-in-left');
+            }
+
+            // 6. Sync Thumbnails
+            document.querySelectorAll('.thumb-column img').forEach(thumb => {
+                if (thumb.src.includes(imgSrc)) {
+                    thumb.classList.add('active');
+                } else {
+                    thumb.classList.remove('active');
+                }
+            });
+        }
+    </script>
+
+}

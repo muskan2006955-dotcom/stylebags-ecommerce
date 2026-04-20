@@ -1,0 +1,44 @@
+﻿@model BagsWebsite.Models.Category
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-sm border-0 col-md-6 mx-auto">
+        <div class="card-header  text-light" style="background-color:#005555">
+            <h4 class="mb-0">Edit Category</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit">
+                <input type="hidden" asp-for="Id" />
+
+                @* Category Name Field *@
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label fw-bold">Category Name</label>
+                    <input asp-for="Name" class="form-control" placeholder="e.g. Handbags" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                @* Category Description Field (Naya Add Kiya Gaya) *@
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label fw-bold">Category Description</label>
+                    <textarea asp-for="Description" class="form-control" rows="4"
+                              placeholder="Banner ke liye description yahan likhein..."></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                    <small class="text-muted">Yeh description aapke frontend banner par nazar aayegi.</small>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary w-100 mb-2">
+                        <i class="fa fa-save"></i> Save Changes
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary w-100">
+                        <i class="fa fa-arrow-left"></i> Back to List
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

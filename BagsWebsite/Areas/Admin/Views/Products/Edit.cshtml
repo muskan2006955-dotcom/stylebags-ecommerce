@@ -1,0 +1,127 @@
+﻿@model BagsWebsite.Areas.Admin.Models.ProductViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = "_AdminLayout";
+    var currentImages = (List<BagsWebsite.Models.ProductImage>)ViewBag.CurrentImages;
+}
+
+<div class="container mt-4">
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Id" />
+        <div class="card shadow border-0">
+            <div class="card-header text-dark" style="background-color:#005555">
+                <h4 class="mb-0 text-light">Edit Product: @Model.Name</h4>
+            </div>
+            <div class="card-body p-4">
+                <div class="row mb-3 " >
+                    <div class="col-md-6">
+                        <label class="fw-bold">Name</label>
+                        <input asp-for="Name" class="form-control" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="fw-bold">Category</label>
+                        <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.CategoryList"></select>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label class="fw-bold">Price</label>
+                        <input asp-for="Price" type="number" step="0.01" class="form-control" />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="fw-bold">Stock</label>
+                        <input asp-for="Stock" type="number" class="form-control" />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="fw-bold">Discount %</label>
+                        <input asp-for="Discount" type="number" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="fw-bold text-muted">Current Gallery (Click 'X' to Remove):</label>
+                    <div class="d-flex flex-wrap gap-3 p-3 border rounded bg-light">
+                        @foreach (var imgGroup in currentImages.GroupBy(x => x.ColorCode))
+                        {
+                            <div class="border p-2 bg-white rounded shadow-sm text-center">
+                                <div class="mb-1 d-flex align-items-center gap-1 justify-content-center">
+                                    <div style="background-color:@imgGroup.Key; width:12px; height:12px; border-radius:50%; border:1px solid #ccc;"></div>
+                                    <small class="fw-bold">@imgGroup.Key</small>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    @foreach (var file in imgGroup)
+                                    {
+                                        <div class="position-relative" id="img-@file.Id">
+                                            <img src="@file.ImageUrl" style="width:65px; height:65px; object-fit:cover;" class="rounded border" />
+                                            <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 p-0"
+                                                    style="width:18px; height:18px; font-size:10px;" onclick="removeImage(@file.Id)">
+                                                ×
+                                            </button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="card p-3 bg-light border-dashed mb-3">
+                    <h6 class="fw-bold " style="color:#005555">Add New Color Variants</h6>
+                    <div id="new-groups-area">
+                        <div class="group-box border p-2 mb-2 bg-white rounded">
+                            <div class="row align-items-center">
+                                <div class="col-md-3">
+                                    <input type="color" name="ImageVariants[0].ColorCode" class="form-control form-control-color w-100" />
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="file" name="ImageVariants[0].Files" class="form-control" multiple />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" onclick="addNewEditGroup()" class="btn btn-outline-primary btn-sm mt-1">+ Add Color</button>
+                </div>
+
+                <div class="mb-3">
+                    <label class="fw-bold">Description</label>
+                    <textarea asp-for="Description" class="form-control" rows="2"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-success px-5 fw-bold w-100">UPDATE NOW</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        let gIdx = 1;
+
+        function addNewEditGroup() {
+            const html = `
+                <div class="group-box border p-2 mb-2 bg-white rounded">
+                    <div class="row align-items-center">
+                        <div class="col-md-3"><input type="color" name="ImageVariants[${gIdx}].ColorCode" class="form-control form-control-color w-100" /></div>
+                        <div class="col-md-7"><input type="file" name="ImageVariants[${gIdx}].Files" class="form-control" multiple /></div>
+                        <div class="col-md-2 text-end"><button type="button" class="btn btn-danger btn-sm" onclick="this.closest('.group-box').remove()">X</button></div>
+                    </div>
+                </div>`;
+            document.getElementById('new-groups-area').insertAdjacentHTML('beforeend', html);
+            gIdx++;
+        }
+
+        function removeImage(id) {
+            if (confirm("Delete this image permanently?")) {
+                $.post('/Admin/Products/DeleteImage', { id: id }, function (res) {
+                    if (res.success) {
+                        $(`#img-${id}`).fadeOut(300, function() { $(this).remove(); });
+                    } else {
+                        alert("Delete failed.");
+                    }
+                });
+            }
+        }
+    </script>
+}

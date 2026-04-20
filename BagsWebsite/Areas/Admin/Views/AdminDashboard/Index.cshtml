@@ -1,0 +1,200 @@
+﻿@model IEnumerable<BagsWebsite.Models.Product>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "_AdminLayout";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+<style>
+    .admin-wrapper {
+        background-color: #f4f7f6;
+        padding: 25px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Sleek Professional Cards */
+    .card-stat {
+        border: none;
+        border-radius: 12px;
+        transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+        color: white;
+        position: relative;
+        overflow: hidden;
+        min-height: 110px;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        text-decoration: none !important;
+    }
+
+        .card-stat:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            color: white;
+        }
+
+    /* Custom Gradients - Exactly matching your requirement */
+    .gradient-sales {
+        background: linear-gradient(135deg, #1cc88a 0%, #13855c 100%);
+    }
+
+    .gradient-orders {
+        background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+    }
+
+    .gradient-products {
+        background: linear-gradient(135deg, #f6c23e 0%, #dda20a 100%);
+    }
+
+    .gradient-low-stock {
+        background: linear-gradient(135deg, #e74a3b 0%, #be2617 100%);
+    }
+
+    .card-stat i {
+        position: absolute;
+        right: 15px;
+        bottom: 15px;
+        font-size: 3rem;
+        opacity: 0.2;
+    }
+
+    .table-container {
+        background: white;
+        border-radius: 15px;
+        border: none;
+        padding: 20px;
+        margin-top: 30px;
+        box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+    }
+
+    .table thead th {
+        background-color: #f8fafc;
+        color: #4e73df;
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: 1px;
+        border: none;
+        padding: 15px;
+    }
+
+    .status-pill {
+        padding: 6px 14px;
+        border-radius: 50px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+</style>
+
+<div class="admin-wrapper">
+    <div class="row mb-4 align-items-center">
+        <div class="col-md-8">
+            <h2 class="fw-bold text-dark m-0">Galaxy Bags Dashboard 🚀</h2>
+            <p class="text-muted small">Real-time inventory and sales overview.</p>
+        </div>
+        <div class="col-md-4 text-md-end">
+            <div class="d-inline-block bg-white shadow-sm p-3 rounded-4 border">
+                <i class="fa fa-calendar-alt text-primary me-2"></i>
+                <span class="text-muted small">@DateTime.Now.ToString("dd MMM, yyyy")</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-xl-3 col-lg-6">
+            <a href="#" class="card card-stat gradient-sales">
+                <div class="card-body">
+                    <div class="small fw-bold opacity-75">TOTAL REVENUE</div>
+                    <div class="h3 fw-bold mb-0">Rs. @(ViewBag.TotalRevenue ?? "0.00")</div>
+                    <i class="fa fa-sack-dollar"></i>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-xl-3 col-lg-6">
+            <a href="#" class="card card-stat gradient-orders">
+                <div class="card-body">
+                    <div class="small fw-bold opacity-75">TOTAL ORDERS</div>
+                    <div class="h3 fw-bold mb-0">@(ViewBag.OrderCount ?? "0")</div>
+                    <i class="fa fa-cart-shopping"></i>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-xl-3 col-lg-6">
+            <a href="#" class="card card-stat gradient-products">
+                <div class="card-body">
+                    <div class="small fw-bold opacity-75">PRODUCTS IN SHOP</div>
+                    <div class="h3 fw-bold mb-0">@Model.Count()</div>
+                    <i class="fa fa-bag-shopping"></i>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-xl-3 col-lg-6">
+            <a href="#" class="card card-stat gradient-low-stock">
+                <div class="card-body">
+                    <div class="small fw-bold opacity-75">LOW STOCK ALERT</div>
+                    <div class="h3 fw-bold mb-0">@Model.Count(x => x.Stock <= 5)</div>
+                    <i class="fa fa-triangle-exclamation"></i>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <div class="d-flex justify-content-between align-items-center mb-4 ps-2">
+            <h5 class="fw-bold text-dark m-0"><i class="fa fa-boxes-stacked me-2 text-primary"></i>Live Inventory Stock</h5>
+            <button class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-bold" asp-action="Index" asp-controller="Products" asp-area="Admin">Manage All</button>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th class="ps-3">ID</th>
+                        <th>Product Details</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Stock Status</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="ps-3 text-muted fw-bold">#@item.Id</td>
+                            <td>
+                                <div class="fw-bold text-dark">@item.Name</div>
+                                <div class="text-muted small">Color: @(item.Color ?? "N/A")</div>
+                            </td>
+                            <td>
+                                <span class="badge bg-light text-primary border">@(item.Category?.Name ?? "General")</span>
+                            </td>
+                            <td class="fw-bold text-success">@item.Price.ToString("C")</td>
+                            <td>
+                                @if (item.Stock <= 5)
+                                {
+                                    <span class="status-pill bg-danger-subtle text-danger border border-danger">Low: @item.Stock</span>
+                                }
+                                else
+                                {
+                                    <span class="status-pill bg-success-subtle text-success border border-success">In Stock: @item.Stock</span>
+                                }
+                            </td>
+                            <td class="text-center">
+                                <a href="#" class="text-primary mx-2"><i class="fa fa-edit"></i></a>
+                                <a href="#" class="text-danger mx-2"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

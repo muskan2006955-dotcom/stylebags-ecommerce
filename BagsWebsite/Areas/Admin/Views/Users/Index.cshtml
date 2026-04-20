@@ -1,0 +1,134 @@
+﻿@model IEnumerable<BagsWebsite.Models.User>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "User Management";
+}
+
+<div class="container-fluid mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-dark">User Management</h2>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="AdminDashboard" asp-action="Index">Dashboard</a></li>
+                <li class="breadcrumb-item active">Users</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-white py-3">
+            <h5 class="mb-0 text-secondary"><i class="fa fa-users me-2"></i>Registered Users</h5>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="ps-4">User Details</th>
+                            <th>Email Address</th>
+                            <th>Role</th>
+                            <th>Registration Date</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Any())
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="ps-4">
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar-sm me-3">
+                                                <span class="btn btn-soft-primary rounded-circle shadow-sm">
+                                                    <i class="fa fa-user"></i>
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <div class="fw-bold">@item.FirstName @item.LastName</div>
+                                                <small class="text-muted">ID: #@item.Id</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>@item.Email</td>
+                                    <td>
+                                        @if (item.Role?.Name == "Admin")
+                                        {
+                                            <span class="badge rounded-pill bg-danger px-3">Admin</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge rounded-pill bg-info px-3 text-dark">Customer</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <small class="text-muted">
+                                            @(item.CreatedAt?.ToString("dd MMM, yyyy") ?? "N/A")
+                                        </small>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="btn-group gap-2">
+                                            <a asp-action="Edit" asp-route-id="@item.Id"
+                                               class="btn btn-sm btn-outline-warning"
+                                               title="Change Role or Profile">
+                                                <i class="fa fa-edit"></i> Edit
+                                            </a>
+                                            <a asp-action="Details" asp-route-id="@item.Id"
+                                               class="btn btn-sm btn-outline-info"
+                                               title="View Full History">
+                                                <i class="fa fa-eye"></i> Details
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="5" class="text-center py-5 text-muted">
+                                    No users found in the system.
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Professional Styling */
+    .btn-soft-primary {
+        background-color: #f3e5f5; /* Light purple/luxury feel */
+        color: #3e2723; /* Matching your brown theme */
+        border: none;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .table thead th {
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 0.5px;
+        border-top: none;
+        color: #555;
+    }
+
+    .badge {
+        font-weight: 500;
+        letter-spacing: 0.3px;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #fafafa;
+        transition: 0.2s;
+    }
+</style>

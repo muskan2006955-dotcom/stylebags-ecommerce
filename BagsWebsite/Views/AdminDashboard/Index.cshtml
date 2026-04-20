@@ -1,0 +1,70 @@
+﻿@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Dashboard Overview";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card-counter bg-primary shadow">
+                <i class="fa fa-shopping-bag fa-3x float-end opacity-50"></i>
+                <h3>150+</h3>
+                <p>Total Products</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card-counter bg-success shadow">
+                <i class="fa fa-cart-arrow-down fa-3x float-end opacity-50"></i>
+                <h3>45</h3>
+                <p>New Orders</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card-counter bg-warning shadow">
+                <i class="fa fa-users fa-3x float-end opacity-50"></i>
+                <h3>1,200</h3>
+                <p>Total Users</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card-counter bg-danger shadow">
+                <i class="fa fa-dollar-sign fa-3x float-end opacity-50"></i>
+                <h3>$5,400</h3>
+                <p>Total Revenue</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-4 shadow-sm border-0">
+        <div class="card-header bg-white font-weight-bold">Recent Orders</div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Product</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#101</td>
+                        <td>Ali Khan</td>
+                        <td>Leather Handbag</td>
+                        <td>$120</td>
+                        <td><span class="badge bg-warning">Pending</span></td>
+                    </tr>
+                    <tr>
+                        <td>#102</td>
+                        <td>Sara Ahmed</td>
+                        <td>Travel Backpack</td>
+                        <td>$85</td>
+                        <td><span class="badge bg-success">Shipped</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

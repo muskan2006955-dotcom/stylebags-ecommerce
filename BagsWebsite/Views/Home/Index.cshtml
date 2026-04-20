@@ -1,0 +1,2979 @@
+﻿@model IEnumerable<BagsWebsite.Models.Product>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+
+
+<style>
+
+    /* Taake Row ke andar 5 cards wrap na hon balkay line mein rahein */
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    /* 1. Image Box (Fixed Height & Position) */
+
+    .enshee-card-img-box {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 4 / 5; /* Card ko lamba hone se rokega */
+
+        overflow: hidden;
+        background-color: #f8f8f8;
+    }
+
+
+
+        /* 2. Dono Images ki Shared Setting */
+
+        .enshee-card-img-box img {
+            position: absolute; /* Dono images ek dusre ke upar hongi */
+
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Image box mein fit rahegi */
+
+            transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+
+
+    /* Main Image Default */
+
+    .main-img {
+        opacity: 1;
+        z-index: 1;
+    }
+
+
+
+    /* Hover Image (Angle Variant) Default */
+
+    .hover-img {
+        opacity: 0;
+        z-index: 0;
+        transform: scale(1.05); /* Halki si bari taake zoom-out effect aaye */
+    }
+
+
+
+    /* --- THE HOVER ACTION --- */
+
+
+
+    /* Jab mouse card par aaye: Main gayab, Hover nazar aaye */
+
+    .product-wrapper:hover .main-img {
+        opacity: 0;
+    }
+
+
+
+    .product-wrapper:hover .hover-img {
+        opacity: 1;
+        z-index: 2;
+        transform: scale(1); /* Wapis normal size par aye */
+    }
+
+
+
+    /* Card Darkness Effect */
+
+    .card-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.08); /* Bohat halka dark shade */
+
+        opacity: 0;
+        z-index: 3; /* Images ke upar dark layer */
+
+        transition: opacity 0.4s ease;
+        pointer-events: none; /* Mouse clicks ko block na kare */
+    }
+
+
+
+    .product-wrapper:hover .card-overlay {
+        opacity: 1;
+    }
+
+
+
+    /* 3. Details (Compact) */
+
+    .product-details {
+        padding: 10px 5px;
+        text-align: center;
+    }
+
+
+
+    .product-name {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 2px !important;
+        display: block;
+        color: #333;
+    }
+
+    /* Image Box Setup */
+
+    .enshee-card-img-box {
+        position: relative;
+        aspect-ratio: 4/5;
+        overflow: hidden;
+        background-color: #f8f8f8;
+        border-radius: 4px;
+    }
+
+
+
+    /* Smooth Image Swap */
+
+    .main-img, .hover-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: all 0.9s cubic-bezier(0.4, 0, 0.2, 1); /* Luxury smooth timing */
+    }
+
+
+
+    .hover-img {
+        opacity: 0;
+        transform: scale(1.08);
+    }
+
+
+
+    .product-wrapper:hover .main-img {
+        opacity: 0;
+        transform: scale(1.08);
+    }
+
+
+
+    .product-wrapper:hover .hover-img {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+
+
+    /* Dim Overlay */
+
+    .card-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.35);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        z-index: 2;
+    }
+
+
+
+    .product-wrapper:hover .card-overlay {
+        opacity: 1;
+    }
+
+
+
+    /* Static Heart (Left Side) */
+
+    .static-heart {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        z-index: 10;
+        color: #333;
+        background: white;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+
+
+        .static-heart:hover {
+            transform: scale(1.1);
+            color: #dc3545;
+        }
+
+
+
+    /* Discount Circle (Right Side) */
+
+    .discount-circle {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        z-index: 10;
+        background: #ff4757;
+        color: white;
+        width: 42px;
+        height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-size: 10px;
+        font-weight: bold;
+        box-shadow: 0 4px 10px rgba(255, 71, 87, 0.3);
+    }
+
+
+
+    /* Oval Vertical Buttons */
+
+    /* --- 1. Image Box & Base Card --- */
+
+    .enshee-card-img-box {
+        position: relative;
+        aspect-ratio: 4 / 5;
+        overflow: hidden;
+        background-color: #f8f8f8;
+        border-radius: 4px;
+    }
+
+
+
+    .main-img, .hover-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: all 0.9s cubic-bezier(0.4, 0, 0.2, 1); /* Luxury Smooth Transition */
+    }
+
+
+
+    .hover-img {
+        opacity: 0;
+        transform: scale(1.05);
+    }
+
+
+
+    /* Hover Effects */
+
+    .product-wrapper:hover .main-img {
+        opacity: 0;
+        transform: scale(1.05);
+    }
+
+
+
+    .product-wrapper:hover .hover-img {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+
+
+    .card-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4); /* Screen Dim Effect */
+
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        z-index: 2;
+        pointer-events: none;
+    }
+
+
+
+    .product-wrapper:hover .card-overlay {
+        opacity: 1;
+    }
+
+
+
+    /* --- 2. Badges & Icons --- */
+
+    .static-heart {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        z-index: 10;
+        background: white;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        color: #333;
+        transition: 0.3s;
+    }
+
+
+
+        .static-heart:hover {
+            color: #ff4757;
+            transform: scale(1.1);
+        }
+
+
+
+    .status-badge {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        z-index: 10;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 10px;
+        font-weight: 800;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+
+
+    /* --- 3. Desktop Oval Buttons (Animated) --- */
+
+    .hover-actions-vertical {
+        position: absolute;
+        top: 55%; /* Initial position slightly lower */
+
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        z-index: 15;
+        opacity: 0;
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        width: 80%;
+    }
+
+
+
+    .product-wrapper:hover .hover-actions-vertical {
+        opacity: 1;
+        top: 50%; /* Slides up to center */
+    }
+
+
+
+    /* --- Desktop Oval Buttons (Height Fix & Icon Color) --- */
+
+    .oval-btn {
+        position: relative;
+        overflow: hidden;
+        background: #ffffff;
+        color: #000000;
+        /* Exact 50px Height as per requirement */
+
+        height: 37px !important;
+        min-width: 160px;
+        border-radius: 50px;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        text-decoration: none;
+        border: none;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    }
+
+
+
+    /* Text default color black */
+
+    .btn-text {
+        color: #000000;
+        transition: transform 0.4s ease, opacity 0.3s ease;
+    }
+
+
+
+    /* Icon default color black, hidden below */
+
+    .btn-icon {
+        position: absolute;
+        bottom: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #ffffff; /* Jab niche se nikle toh white ho */
+
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        font-size: 18px;
+    }
+
+
+
+    /* --- THE HOVER FIX --- */
+
+    .oval-btn:hover {
+        background: #000000; /* Button background black */
+    }
+
+
+
+        /* Hover par text gayab */
+
+        .oval-btn:hover .btn-text {
+            transform: translateY(-40px);
+            opacity: 0;
+        }
+
+
+
+        /* Hover par icon center mein aur WHITE nazar aaye */
+
+        .oval-btn:hover .btn-icon {
+            bottom: 16px; /* 50px height ke hisab se exact center */
+
+            color: #ffffff !important;
+        }
+
+
+
+    /* Optional: Button par thora sa lift effect */
+
+    .product-wrapper:hover .oval-btn {
+        transform: translateY(0);
+    }
+
+    /* --- 4. Mobile & Tablet Responsive --- */
+
+    /* --- 4. Mobile & Tablet Responsive (Icons Centering Fix) --- */
+
+    @@media (max-width: 991px) {
+
+        .card-overlay {
+            display: none;
+        }
+
+
+
+        .hover-actions-vertical {
+            top: auto !important;
+            bottom: 15px !important;
+            right: 10px !important;
+            left: auto !important;
+            transform: none !important;
+            width: auto !important;
+            opacity: 1 !important;
+            gap: 8px;
+            display: flex !important;
+            flex-direction: column !important;
+        }
+
+
+
+        .oval-btn {
+            width: 40px !important; /* Thora sa size barhaya taake icon pyara lage */
+
+            height: 40px !important;
+            min-width: 40px !important;
+            padding: 0 !important;
+            border-radius: 50% !important;
+            background: rgba(255, 255, 255, 0.95) !important;
+            display: flex !important;
+            align-items: center !important; /* Vertical center */
+
+            justify-content: center !important; /* Horizontal center */
+
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+
+
+        .btn-text {
+            display: none !important; /* Mobile par text bilkul khatam */
+        }
+
+
+
+        .btn-icon {
+            position: static !important; /* Absolute position khatam taake center ho sake */
+
+            margin: 0 !important;
+            padding: 0 !important;
+            font-size: 16px !important;
+            color: #333 !important;
+            display: block !important;
+            line-height: 1 !important; /* Extra space khatam */
+
+            transform: none !important; /* Purani animations reset */
+        }
+
+
+
+        .hover-img {
+            display: none !important;
+        }
+
+
+
+        .product-wrapper:hover .main-img {
+            opacity: 1 !important;
+        }
+    }
+
+    /* Mobile par screen dim nahi hogi */
+
+
+
+    /* Color dots ko hamesha clickable rakhein */
+
+    .color-palette {
+        position: relative;
+        z-index: 30; /* Sab se upar */
+    }
+
+
+
+    .color-seed {
+        transition: transform 0.2s;
+    }
+
+
+
+        .color-seed:hover {
+            transform: scale(1.2);
+            border: 1px solid #000 !important;
+        }
+
+
+
+    /* Image transition fix */
+
+    .main-img {
+        transition: opacity 0.4s ease-in-out !important;
+        z-index: 1;
+    }
+
+    /* Brown Theme Load More Button */
+    .load-more-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 45px;
+        border: 2px solid brown; /* Brown Border */
+        background: transparent;
+        color: brown; /* Brown Text */
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        transition: all 0.4s ease;
+        cursor: pointer;
+        min-width: 250px;
+        text-decoration: none !important;
+        border-radius: 5px; /* Thora sa rounded look professional lagta hai */
+    }
+
+        .load-more-btn:hover {
+            background: brown; /* Fill with Brown on hover */
+            color: #fff; /* White text on hover */
+            box-shadow: 0 5px 15px rgba(165, 42, 42, 0.3); /* Subtle brown glow */
+        }
+
+    /* Spinner Animation - Updated to Brown */
+    .spinner-loader {
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(165, 42, 42, 0.2); /* Light brown ring */
+        border-radius: 50%;
+        border-top-color: brown; /* Dark brown spinning part */
+        animation: spin 0.8s linear infinite;
+        margin-left: 10px;
+    }
+
+    /* Jab button brown ho jaye toh spinner white ho jaye */
+    .load-more-btn:hover .spinner-loader {
+        border-top-color: #fff;
+        border-right-color: transparent;
+    }
+
+    @@keyframes spin {
+        to
+
+    {
+        transform: rotate(360deg);
+    }
+
+    }
+
+    /* Product Animation Class (Fade in Up) */
+    .fade-in-up {
+        animation: fadeInUp 0.6s ease-in-out forwards;
+    }
+
+    @@keyframes fadeInUp {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    .categories__item {
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+    }
+
+    /* set-bg class ko disable karein agar conflict ho */
+    .categories__item.set-bg {
+        background-size: cover !important;
+        background-position: center !important;
+    }
+
+
+    .best-selling-section {
+        padding: 40px 0;
+        background: #fff;
+        overflow: visible;
+        position: relative;
+    }
+
+    .best-selling-header {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+        .best-selling-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .best-selling-header p {
+            color: #7f8c8d;
+            font-size: 13px;
+        }
+
+    .container-fluid {
+        position: relative;
+        overflow: visible;
+    }
+
+    .slider-outer {
+        position: relative;
+        width: 100%;
+        padding: 0 60px;
+        overflow: visible;
+    }
+
+    .slider-wrapper {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        border-radius: 12px;
+    }
+
+    .slider-track {
+        display: flex;
+        transition: transform 0.5s ease;
+        gap: 15px;
+        will-change: transform;
+    }
+
+    .slide-card {
+        flex: 0 0 calc(20% - 12px);
+        min-width: calc(20% - 12px);
+        background: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        transition: all 0.3s;
+        cursor: pointer;
+        border: 1px solid #f0f0f0;
+        position: relative;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+
+        .slide-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+    .slide-image {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+        display: block;
+        pointer-events: none;
+    }
+
+    .slide-badge {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        background: #e74c3c;
+        color: #fff;
+        padding: 3px 10px;
+        border-radius: 15px;
+        font-size: 10px;
+        font-weight: 700;
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    .slide-content {
+        padding: 12px;
+    }
+
+    .slide-title {
+        font-size: 13px;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 6px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .slide-price {
+        font-size: 15px;
+        font-weight: 700;
+        color: #e74c3c;
+    }
+
+    .slide-old-price {
+        font-size: 11px;
+        color: #95a5a6;
+        text-decoration: line-through;
+        margin-left: 5px;
+    }
+
+    .slider-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 50px;
+        height: 50px;
+        background: brown;
+        border: 3px solid #fff;
+        border-radius: 50%;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        cursor: pointer;
+        font-size: 20px;
+        color: #fff;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        pointer-events: auto;
+    }
+
+        .slider-btn:hover {
+            background: #e74c3c;
+            transform: translateY(-50%) scale(1.15);
+        }
+
+        .slider-btn.prev {
+            left: 5px;
+        }
+
+        .slider-btn.next {
+            right: 5px;
+        }
+
+    /* Responsive */
+    @@media (max-width: 1200px) {
+        .slide-card {
+            flex: 0 0 calc(25% - 12px);
+            min-width: calc(25% - 12px);
+        }
+    }
+
+    @@media (max-width: 992px) {
+        .slide-card {
+            flex: 0 0 calc(33.333% - 10px);
+            min-width: calc(33.333% - 10px);
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .slide-card {
+            flex: 0 0 calc(50% - 8px);
+            min-width: calc(50% - 8px);
+        }
+
+        .slide-image {
+            height: 140px;
+        }
+
+        .slider-outer {
+            padding: 0 50px;
+        }
+
+        .slider-btn {
+            width: 40px;
+            height: 40px;
+            font-size: 16px;
+        }
+    }
+
+    @@media (max-width: 576px) {
+        .slider-outer {
+            padding: 0 45px;
+        }
+    }
+
+
+
+    .review-section {
+        background: #fff;
+        padding: 40px 0;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .review-header {
+        font-size: 24px;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 25px;
+    }
+
+    .review-stats-box {
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 25px;
+        background: #fff;
+    }
+
+    .big-rating {
+        font-size: 48px;
+        font-weight: 700;
+        color: #333;
+        line-height: 1;
+    }
+
+    .stars {
+        color: #ffa500;
+        font-size: 18px;
+        letter-spacing: 2px;
+    }
+
+    .review-count {
+        color: #666;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    .rating-bar {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+        font-size: 13px;
+    }
+
+    .rating-label {
+        width: 50px;
+        color: #555;
+    }
+
+    .rating-progress {
+        flex: 1;
+        height: 8px;
+        background: #f0f0f0;
+        border-radius: 4px;
+        margin: 0 10px;
+        overflow: hidden;
+    }
+
+    .rating-fill {
+        height: 100%;
+        border-radius: 4px;
+    }
+
+    .rating-number {
+        width: 25px;
+        text-align: right;
+        color: #666;
+    }
+
+    .review-photos {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        max-width: 200px;
+        margin-bottom: 15px;
+    }
+
+    .review-photo {
+        width: 45px;
+        height: 45px;
+        object-fit: cover;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+        .review-photo:hover {
+            transform: scale(1.1);
+        }
+
+    .review-right-section {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        height: 100%;
+    }
+
+    .btn-write-review {
+        border: 1px solid #ccc;
+        background: #fff;
+        color: #555;
+        padding: 10px 25px;
+        font-size: 13px;
+        border-radius: 4px;
+        transition: all 0.3s;
+        cursor: pointer;
+    }
+
+        .btn-write-review:hover {
+            border-color: #333;
+            color: #333;
+        }
+
+    .review-tabs {
+        border-bottom: 1px solid #e0e0e0;
+        margin: 25px 0 20px;
+    }
+
+    .review-tab {
+        display: inline-block;
+        padding: 12px 0;
+        margin-right: 25px;
+        color: #888;
+        font-size: 15px;
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+    }
+
+        .review-tab.active {
+            color: #333;
+            border-bottom-color: #333;
+            font-weight: 600;
+        }
+
+    .review-item {
+        display: flex;
+        padding: 20px 0;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .reviewer-avatar {
+        width: 45px;
+        height: 45px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-weight: 700;
+        font-size: 14px;
+        position: relative;
+        flex-shrink: 0;
+    }
+
+    .verified-icon {
+        position: absolute;
+        bottom: -2px;
+        right: -2px;
+        color: #28a745;
+        font-size: 14px;
+        background: #fff;
+        border-radius: 50%;
+    }
+
+    .review-content {
+        margin-left: 15px;
+        flex: 1;
+    }
+
+    .reviewer-name {
+        font-weight: 600;
+        color: #333;
+        font-size: 14px;
+    }
+
+    .verified-badge {
+        display: inline-flex;
+        align-items: center;
+        color: #28a745;
+        font-size: 11px;
+        margin-top: 3px;
+    }
+
+    .review-stars {
+        color: #ffa500;
+        font-size: 12px;
+        margin: 5px 0;
+    }
+
+    .review-text {
+        color: #555;
+        font-size: 14px;
+        margin-top: 8px;
+    }
+
+    .review-date {
+        color: #999;
+        font-size: 12px;
+        float: right;
+    }
+
+    /* ===== FIXED MODAL ===== */
+    .review-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+    }
+
+        .review-modal.show {
+            display: block;
+        }
+
+    .modal-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+    }
+
+    /* FIXED: Scrollable modal */
+    .modal-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 500px;
+        max-height: 90vh; /* Screen se zyada height nahi */
+        overflow-y: auto; /* Scrolling enable */
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    .modal-header-custom {
+        padding: 20px 25px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        background: #fff;
+        z-index: 10;
+    }
+
+    .modal-body-custom {
+        padding: 25px;
+    }
+
+    .modal-title {
+        font-weight: 700;
+        font-size: 18px;
+    }
+
+    .btn-close-custom {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #666;
+    }
+
+    .star-input {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: center;
+        gap: 10px;
+        font-size: 32px;
+        margin-bottom: 20px;
+    }
+
+        .star-input input {
+            display: none;
+        }
+
+        .star-input label {
+            color: #ddd;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+            .star-input label:hover,
+            .star-input label:hover ~ label,
+            .star-input input:checked ~ label {
+                color: #ffa500;
+            }
+
+    .form-input {
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 12px;
+        width: 100%;
+        margin-bottom: 15px;
+        font-size: 14px;
+    }
+
+    /* FIXED: Upload box compact */
+    .upload-box {
+        border: 2px dashed #ccc;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        min-height: 80px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .upload-box:hover {
+            border-color: brown;
+            background: #fff5f5;
+        }
+
+    /* FIXED: Image preview inline */
+    .upload-preview {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-top: 10px;
+    }
+
+    #imgPreview {
+        max-width: 60px;
+        max-height: 60px;
+        border-radius: 6px;
+        display: none;
+    }
+
+    .submit-btn {
+        background: #ccc;
+        color: #fff;
+        border: none;
+        padding: 14px;
+        width: 100%;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: not-allowed;
+        margin-top: 15px;
+        transition: all 0.3s;
+    }
+
+        .submit-btn.active {
+            background: brown;
+            cursor: pointer;
+        }
+
+            .submit-btn.active:hover {
+                background: #8b4513;
+                transform: translateY(-2px);
+            }
+
+</style>
+
+
+@{
+    var heroSections = ViewBag.HeroSections as List<BagsWebsite.Models.HeroSection>;
+}
+
+@if (heroSections != null && heroSections.Count >= 5)
+{
+    <section class="categories">
+        <div class="container-fluid">
+            <div class="row">
+
+                <!-- LARGE: First -->
+                <div class="col-lg-6 p-0">
+                    <div class="categories__item categories__large__item"
+                         style="background-image: url('@heroSections[0].ImageUrl'); background-size: cover; background-position: center; height: 100%; min-height: 500px;">
+                        <div class="categories__text">
+                            <h1>@heroSections[0].Name</h1>
+                            <p>@heroSections[0].Description</p>
+                            <a href="/Products">Shop now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SMALL: 4 items -->
+                <div class="col-lg-6">
+                    <div class="row">
+                        @for (int i = 1; i < 5; i++)
+                        {
+                            <div class="col-lg-6 col-md-6 col-sm-6 p-0">
+                                <div class="categories__item"
+                                     style="background-image: url('@heroSections[i].ImageUrl'); background-size: cover; background-position: center; height: 250px;">
+                                    <div class="categories__text">
+                                        <h4>@heroSections[i].Name</h4>
+                                        <p>@heroSections[i].Description</p>
+                                        <a href="/Products">Shop now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+}
+else
+{
+    <div style="background: red; color: white; padding: 20px; text-align: center;">
+        ERROR: HeroSections not found in database!
+    </div>
+}
+
+<!-- BAQI SAB CONTENT (Products, Reviews, etc) -->
+<!-- Yahan aapka existing code rahega -->
+<!-- Categories Section End -->
+@{
+    var bestProducts = ViewBag.BestSelling as List<BagsWebsite.Models.Product>;
+    var categoryName = ViewBag.BestCategoryName as string;
+    var categoryId = (bestProducts?.FirstOrDefault()?.CategoryId) ?? 0;
+}
+
+
+
+<section class="best-selling-section">
+    <div class="container-fluid">
+        <div class="best-selling-header">
+            <h2>@categoryName Collection</h2>
+            <p>Our most loved styles trending now</p>
+        </div>
+
+        <button type="button" class="slider-btn prev" onclick="moveSlide(-1)">
+            <i class="fa fa-chevron-left"></i>
+        </button>
+        
+        <button type="button" class="slider-btn next" onclick="moveSlide(1)">
+            <i class="fa fa-chevron-right"></i>
+        </button>
+
+        <div class="slider-outer">
+            <div class="slider-wrapper">
+                <div class="slider-track" id="sliderTrack">
+                    @if (bestProducts != null && bestProducts.Any())
+                    {
+                        // FIXED: .Take(5) HATA DIYA! Ab saare products ayenge
+                        @foreach (var product in bestProducts)
+                        {
+                            var image = product.ProductImages?.FirstOrDefault()?.ImageUrl ?? "/uploads/products/no-image.jpg";
+                            var price = product.Price;
+                            var discount = product.Discount ?? 0;
+                            var finalPrice = price * (1 - discount / 100m);
+                            
+                            <a href="@Url.Action("Index", "Products", new { categoryId = product.CategoryId })" class="slide-card">
+                                <div style="position: relative;">
+                                    <img src="@image" alt="@product.Name" class="slide-image" loading="lazy">
+                                    @if (discount > 0)
+                                    {
+                                        <span class="slide-badge">-@discount%</span>
+                                    }
+                                </div>
+                                <div class="slide-content">
+                                    <h3 class="slide-title">@product.Name</h3>
+                                    <div>
+                                        <span class="slide-price">$@finalPrice.ToString("0")</span>
+                                        @if (discount > 0)
+                                        {
+                                            <span class="slide-old-price">$@price.ToString("0")</span>
+                                        }
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                    }
+                    else
+                    {
+                        // FIXED: Dummy bhi 10 bana diye
+                        @for (int i = 1; i <= 10; i++)
+                        {
+                            <a href="@Url.Action("Index", "Products", new { categoryId = categoryId })" class="slide-card">
+                                <div style="position: relative;">
+                                    <img src="@string.Format("/uploads/products/bag-{0}.jpg", ((i-1) % 5) + 1)" 
+                                         alt="@string.Format("Bag {0}", i)" 
+                                         class="slide-image" 
+                                         loading="lazy"
+                                         onerror="this.src='/uploads/products/no-image.jpg'">
+                                    <span class="slide-badge">HOT</span>
+                                </div>
+                                <div class="slide-content">
+                                    <h3 class="slide-title">Premium @(categoryName) @i</h3>
+                                    <div>
+                                        <span class="slide-price">$@(99 + (i % 5) * 15)</span>
+                                        <span class="slide-old-price">$@(129 + (i % 5) * 15)</span>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+<!-- Product Section Begin -->
+
+<section class="product spad">
+
+    <div class="container">
+
+
+
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="section-title">
+                    <h2 style="font-weight: 700; color:brown; margin-bottom: 15px;">Our Signature Collection</h2>
+                    <p style="color: #666; max-width: 600px; margin: 0 auto 45px;">
+                        Explore our curated selection of premium products, designed with quality and style in mind to elevate your everyday lifestyle.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row property__gallery">
+
+            @if (Model != null && Model.Count() > 0)
+
+            {
+
+                @foreach (var item in Model)
+
+                {
+
+                    @* Category-based classes added here for filtering (e.g., mix handbag) *@
+
+                    <div class="col-lg-3 col-md-4 col-6 mix @(item.Category?.Name?.ToLower() ?? "handbag")">
+
+                        <div class="product-wrapper mb-4">
+
+                            <div class="enshee-card-img-box">
+
+                                <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id">
+
+                                    <img class="main-img" src="@(item.ProductImages.FirstOrDefault()?.ImageUrl ?? "/img/no-image.jpg")">
+
+                                    <img class="hover-img" src="@(item.ProductImages.Skip(1).FirstOrDefault()?.ImageUrl ?? item.ProductImages.FirstOrDefault()?.ImageUrl)">
+
+                                    <div class="card-overlay"></div>
+
+                                </a>
+
+
+
+
+
+                                <a href="javascript:void(0)" class="static-heart" onclick="addToWishlist('@item.Id', this)" data-product-id="@item.Id">
+
+                                    <i class="fa-regular fa-heart"></i>
+
+                                </a>
+
+
+
+                                @if (item.Discount > 0)
+
+                                {
+
+                                    <div class="status-badge bg-danger">
+
+                                        <span>-@item.Discount%</span>
+
+                                    </div>
+
+                                }
+
+                                else
+
+                                {
+
+                                    <div class="status-badge bg-danger text-white">
+
+                                        <span>HOT</span>
+
+                                    </div>
+
+                                }
+
+
+
+                                <div class="hover-actions-vertical">
+
+                                    <a href="javascript:void(0)" class="oval-btn quick-view-btn" data-id="@item.Id">
+
+                                        <span class="btn-text">Quick View</span>
+
+                                        <i class="fa fa-eye btn-icon"></i>
+
+                                    </a>
+
+                                    <a href="javascript:void(0)"
+                                       onclick="addToCart(@item.Id, 1); return false;"
+                                       class="oval-btn add-to-cart">
+                                        <span class="btn-text">Add to Cart</span>
+                                        <i class="fa fa-shopping-cart btn-icon"></i>
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="product-info-footer d-flex justify-content-between align-items-end mt-2 px-1">
+
+                                <div class="product-price-section">
+
+                                    <h6 class="mb-0 fw-bold" style="font-size: 14px;">@item.Name</h6>
+
+                                    @if (item.Discount > 0)
+
+                                    {
+
+                                        <span class="text-muted text-decoration-line-through" style="font-size: 11px;">
+
+                                            Rs. @item.Price.ToString("N0")
+
+                                        </span>
+
+                                        <span class="ms-1 fw-bold text-danger" style="font-size: 13px;">
+
+                                            @{
+
+                                                decimal finalAmount = (decimal)item.Price * (1 - ((decimal)item.Discount / 100));
+
+                                            }
+
+                                            Rs. @finalAmount.ToString("N0")
+
+                                        </span>
+
+                                    }
+
+                                    else
+
+                                    {
+
+                                        <span class="fw-bold text-dark" style="font-size: 13px;">Rs. @item.Price.ToString("N0")</span>
+
+                                    }
+
+                                </div>
+
+
+
+                                <div class="color-palette-outer">
+
+                                    <div class="d-flex gap-1">
+
+                                        @foreach (var colorGroup in item.ProductImages.Where(x => !string.IsNullOrEmpty(x.ColorCode)).GroupBy(x => x.ColorCode).Take(3))
+
+                                        {
+
+                                            <div class="color-seed"
+                                                 style="background: @colorGroup.Key; width:12px; height:12px; border-radius:50%; border: 1px solid #ddd;"
+                                                 onclick="changeColorDirect(this, '@colorGroup.First().ImageUrl')">
+                                            </div>
+
+                                        }
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                }
+
+            }
+
+            else
+
+            {
+
+                <div class="col-12 text-center py-5">
+
+                    <h4 class="text-muted">Currently No Bags Available</h4>
+
+                </div>
+
+
+
+            }
+            <div class="col-lg-12 text-center mt-5">
+                <a href="javascript:void(0)" id="loadMore" class="load-more-btn" style="display: none;">
+                    <span class="btn-text">Load More Products</span>
+                    <div class="spinner-loader" id="btnLoader" style="display: none;"></div>
+                </a>
+            </div>
+
+
+    <div class="modal fade" id="quickViewModal" tabindex="-1">
+
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+
+            <div class="modal-content border-0 rounded-0 p-3">
+
+                <div class="text-end">
+                </div>
+
+
+
+                <div class="modal-body pt-0" id="quickViewContent">
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+   
+
+</section><!-- Banner Section Begin -->
+@* ===== BEST SELLING SECTION START ===== *@
+
+
+
+
+@* ===== BEST SELLING BAGS ===== *@
+@{
+    var bestSellingList = ViewBag.BestSellingBags as List<BagsWebsite.Models.Product>;
+}
+
+@if (bestSellingList != null && bestSellingList.Any())
+{
+    <section class="product spad">
+        <div class="container">
+            @* Header *@
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="section-title">
+                        <h2 style="font-weight: 700; color:brown; margin-bottom: 15px;">
+                            Best Selling Bags
+                        </h2>
+                        <p style="color: #666; max-width: 600px; margin: 0 auto 45px;">
+                            Our most loved pieces, handpicked by our community for their exceptional quality and timeless appeal.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            @* Products Grid - Pehle 12 dikhaye *@
+            <div class="row" id="bestSellingGallery">
+                @{
+                    var count = 0;
+                }
+                @foreach (var item in bestSellingList)
+                {
+                    count++;
+                    var hiddenClass = count > 8 ? "d-none extra-best-item" : "";
+
+                    <div class="col-lg-3 col-md-4 col-6 mb-4 @hiddenClass">
+                        <div class="product-wrapper">
+                            <div class="enshee-card-img-box">
+                                <a href="@Url.Action("Details", "Products", new { id = item.Id })">
+                                    @if (item.ProductImages != null && item.ProductImages.Any())
+                                    {
+                                        <img class="main-img" src="@item.ProductImages.FirstOrDefault()?.ImageUrl" alt="@item.Name">
+                                        <img class="hover-img" src="@(item.ProductImages.Skip(1).FirstOrDefault()?.ImageUrl ?? item.ProductImages.FirstOrDefault()?.ImageUrl)">
+                                    }
+                                    else
+                                    {
+                                        <img class="main-img" src="/img/no-image.jpg">
+                                    }
+                                    <div class="card-overlay"></div>
+                                </a>
+
+                                <a href="javascript:void(0)" class="static-heart" onclick="addToWishlist('@item.Id', this)" data-product-id="@item.Id">
+                                    <i class="fa-regular fa-heart"></i>
+                                </a>
+<div class="status-badge" style="background: brown !important; 
+                                width: 60px !important; 
+                                height: 60px !important; 
+                                font-size: 9px !important;
+                                line-height: 1.2 !important;
+                                display: flex !important;
+                                align-items: center !important;
+                                justify-content: center !important;
+                                text-align: center !important;
+                                border-radius: 50% !important;
+                                top: 12px !important;
+                                right: 12px !important;">
+    <span style="display: block; font-weight: bold;">BEST<br>SELLER</span>
+</div>
+
+                                <div class="hover-actions-vertical">
+                                    <a href="javascript:void(0)" class="oval-btn quick-view-btn" data-id="@item.Id">
+                                        <span class="btn-text">Quick View</span>
+                                        <i class="fa fa-eye btn-icon"></i>
+                                    </a>
+                                    <a href="javascript:void(0)" onclick="addToCart(@item.Id, 1); return false;" class="oval-btn add-to-cart">
+                                        <span class="btn-text">Add to Cart</span>
+                                        <i class="fa fa-shopping-cart btn-icon"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="product-info-footer d-flex justify-content-between align-items-end mt-2 px-1">
+                                <div class="product-price-section">
+                                    <h6 class="mb-0 fw-bold" style="font-size: 14px;">@item.Name</h6>
+                                    @if (item.Discount > 0)
+                                    {
+                                        var finalPrice = item.Price - (item.Price * item.Discount / 100);
+                                        <span class="text-muted text-decoration-line-through" style="font-size: 11px;">
+                                            Rs. @((int)item.Price)
+                                        </span>
+                                        <span class="ms-1 fw-bold text-danger" style="font-size: 13px;">
+                                            Rs. @((int)finalPrice)
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="fw-bold text-dark" style="font-size: 13px;">
+                                            Rs. @((int)item.Price)
+                                        </span>
+                                    }
+                                </div>
+
+                                <div class="color-palette-outer">
+                                    <div class="d-flex gap-1">
+                                        @if (item.ProductImages != null)
+                                        {
+                                            foreach (var colorGroup in item.ProductImages.Where(x => !string.IsNullOrEmpty(x.ColorCode)).GroupBy(x => x.ColorCode).Take(3))
+                                            {
+                                                <div class="color-seed"
+                                                     style="background: @colorGroup.Key; width:12px; height:12px; border-radius:50%; border: 1px solid #ddd;"
+                                                     onclick="changeColorDirect(this, '@colorGroup.First().ImageUrl')">
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            @* Load More Button (Sirf 12 se zyada hone par) *@
+            @if (bestSellingList.Count > 12)
+            {
+                <div class="col-lg-12 text-center mt-5">
+                    <a href="javascript:void(0)" id="loadMoreBest" class="load-more-btn" onclick="loadMoreBestSelling()">
+                        <span class="btn-text">Load More Best Sellers</span>
+                        <div class="spinner-loader" id="btnLoaderBest" style="display: none;"></div>
+                    </a>
+                </div>
+            }
+        </div>
+    </section>
+}
+<section class="banner set-bg" data-setbg="img/banner/banner-1.jpg"
+         style="background-image: url('img/banner/banner-1.jpg');
+                background-size: cover;
+                background-position: center;
+                position: relative;
+                min-height: 500px;
+                display: flex;
+                align-items: center;
+                padding: 60px 0;">
+
+    <!-- Overlay -->
+    <div style="position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(135deg, rgba(139, 69, 19, 0.7) 0%, rgba(178, 34, 34, 0.5) 100%);">
+    </div>
+
+    <!-- Container - WIDTH REDUCED -->
+    <div class="container" style="position: relative; z-index: 2; max-width: 900px;">
+        <div class="row justify-content-center">
+
+            <!-- Width reduced from col-xl-7 to col-xl-6 -->
+            <div class="col-xl-6 col-lg-7 col-md-9 col-sm-11">
+
+                <div class="banner__slider owl-carousel">
+
+                    <!-- Slide 1 -->
+                    <div class="banner__item text-center">
+                        <div class="banner__text"
+                             style="padding: 30px;
+                                    background: rgba(255, 255, 255, 0.95);
+                                    border-radius: 15px;
+                                    box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+                                    border-left: 4px solid #8B4513;
+                                    border-right: 4px solid #B22222;">
+
+                            <span style="display: inline-block;
+                                         font-size: 12px;
+                                         font-weight: 600;
+                                         text-transform: uppercase;
+                                         letter-spacing: 2px;
+                                         margin-bottom: 10px;
+                                         background: linear-gradient(90deg, #8B4513, #B22222);
+                                         -webkit-background-clip: text;
+                                         -webkit-text-fill-color: transparent;
+                                         background-clip: text;">
+                                Premium Leather Collection
+                            </span>
+
+                            <h1 style="color: #B22222;
+                                       font-size: 36px;
+                                       font-weight: 700;
+                                       margin-bottom: 15px;
+                                       line-height: 1.2;
+                                       text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">
+                                Luxury Handbags
+                            </h1>
+
+                            <p style="color: #8B4513;
+                                      font-size: 14px;
+                                      margin-bottom: 20px;
+                                      line-height: 1.5;">
+                                Discover our exclusive collection of handcrafted leather bags.
+                            </p>
+
+                            <a href="/Products"
+                               style="display: inline-block;
+                                      background: linear-gradient(135deg, #8B4513 0%, #B22222 100%);
+                                      color: white;
+                                      padding: 12px 30px;
+                                      border-radius: 25px;
+                                      text-decoration: none;
+                                      font-weight: 600;
+                                      text-transform: uppercase;
+                                      letter-spacing: 1px;
+                                      font-size: 13px;
+                                      transition: all 0.3s ease;
+                                      box-shadow: 0 8px 20px rgba(139, 69, 19, 0.4);"
+                               onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 25px rgba(139, 69, 19, 0.5)';"
+                               onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 20px rgba(139, 69, 19, 0.4)';">
+                                Shop Now
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="banner__item text-center">
+                        <div class="banner__text"
+                             style="padding: 30px;
+                                    background: rgba(255, 255, 255, 0.95);
+                                    border-radius: 15px;
+                                    box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+                                    border-left: 4px solid #B22222;
+                                    border-right: 4px solid #8B4513;">
+
+                            <span style="display: inline-block;
+                                         font-size: 12px;
+                                         font-weight: 600;
+                                         text-transform: uppercase;
+                                         letter-spacing: 2px;
+                                         margin-bottom: 10px;
+                                         background: linear-gradient(90deg, #B22222, #8B4513);
+                                         -webkit-background-clip: text;
+                                         -webkit-text-fill-color: transparent;
+                                         background-clip: text;">
+                                New Arrival 2024
+                            </span>
+
+                            <h1 style="color: #B22222;
+                                       font-size: 36px;
+                                       font-weight: 700;
+                                       margin-bottom: 15px;
+                                       line-height: 1.2;">
+                                Designer Totes
+                            </h1>
+
+                            <p style="color: #8B4513;
+                                      font-size: 14px;
+                                      margin-bottom: 20px;
+                                      line-height: 1.5;">
+                                Elevate your style with our latest designer tote bags.
+                            </p>
+
+                            <a href="/Products"
+                               style="display: inline-block;
+                                      background: linear-gradient(135deg, #B22222 0%, #8B4513 100%);
+                                      color: white;
+                                      padding: 12px 30px;
+                                      border-radius: 25px;
+                                      text-decoration: none;
+                                      font-weight: 600;
+                                      text-transform: uppercase;
+                                      letter-spacing: 1px;
+                                      font-size: 13px;
+                                      transition: all 0.3s ease;
+                                      box-shadow: 0 8px 20px rgba(178, 34, 34, 0.4);"
+                               onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 25px rgba(178, 34, 34, 0.5)';"
+                               onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 20px rgba(178, 34, 34, 0.4)';">
+                                Explore Now
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="banner__item text-center">
+                        <div class="banner__text"
+                             style="padding: 30px;
+                                    background: rgba(255, 255, 255, 0.95);
+                                    border-radius: 15px;
+                                    box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+                                    border-left: 4px solid #8B4513;
+                                    border-right: 4px solid #B22222;">
+
+                            <span style="display: inline-block;
+                                         font-size: 12px;
+                                         font-weight: 600;
+                                         text-transform: uppercase;
+                                         letter-spacing: 2px;
+                                         margin-bottom: 10px;
+                                         background: linear-gradient(90deg, #8B4513, #B22222);
+                                         -webkit-background-clip: text;
+                                         -webkit-text-fill-color: transparent;
+                                         background-clip: text;">
+                                Limited Edition
+                            </span>
+
+                            <h1 style="color: #B22222;
+                                       font-size: 36px;
+                                       font-weight: 700;
+                                       margin-bottom: 15px;
+                                       line-height: 1.2;">
+                                Exclusive Deals
+                            </h1>
+
+                            <p style="color: #8B4513;
+                                      font-size: 14px;
+                                      margin-bottom: 20px;
+                                      line-height: 1.5;">
+                                Up to 50% off on selected premium bags. Hurry!
+                            </p>
+
+                            <a href="/Products"
+                               style="display: inline-block;
+                                      background: linear-gradient(135deg, #8B4513 0%, #B22222 100%);
+                                      color: white;
+                                      padding: 12px 30px;
+                                      border-radius: 25px;
+                                      text-decoration: none;
+                                      font-weight: 600;
+                                      text-transform: uppercase;
+                                      letter-spacing: 1px;
+                                      font-size: 13px;
+                                      transition: all 0.3s ease;
+                                      box-shadow: 0 8px 20px rgba(139, 69, 19, 0.4);"
+                               onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 25px rgba(139, 69, 19, 0.5)';"
+                               onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 20px rgba(139, 69, 19, 0.4)';">
+                                Shop Sale
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@{
+    var reviews = ViewBag.Reviews as List<BagsWebsite.Models.ProductReview>;
+    var reviewImages = ViewBag.ReviewImages as List<string>;
+}
+
+
+
+
+<section class="review-section">
+    <div class="container">
+        <h2 class="review-header">Customer Reviews</h2>
+
+        <!-- Stats Row -->
+        <div class="row review-stats-box">
+            <!-- Left: Big Rating -->
+            <div class="col-md-3 text-center border-end">
+                <div class="big-rating" id="avgRating">5.0</div>
+                <div class="stars">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                </div>
+                <div class="review-count" id="totalReviews">81 reviews</div>
+            </div>
+
+            <!-- Middle: Progress Bars -->
+            <div class="col-md-5 px-4">
+                <div class="rating-bar">
+                    <span class="rating-label">5 Star</span>
+                    <div class="rating-progress">
+                        <div class="rating-fill" style="width: 97%; background: #ffa500;"></div>
+                    </div>
+                    <span class="rating-number" id="count5">79</span>
+                </div>
+                <div class="rating-bar">
+                    <span class="rating-label">4 Star</span>
+                    <div class="rating-progress">
+                        <div class="rating-fill" style="width: 3%; background: #ddd;"></div>
+                    </div>
+                    <span class="rating-number" id="count4">2</span>
+                </div>
+                <div class="rating-bar">
+                    <span class="rating-label">3 Star</span>
+                    <div class="rating-progress">
+                        <div class="rating-fill" style="width: 0%; background: #ddd;"></div>
+                    </div>
+                    <span class="rating-number" id="count3">0</span>
+                </div>
+                <div class="rating-bar">
+                    <span class="rating-label">2 Star</span>
+                    <div class="rating-progress">
+                        <div class="rating-fill" style="width: 0%; background: #ddd;"></div>
+                    </div>
+                    <span class="rating-number" id="count2">0</span>
+                </div>
+                <div class="rating-bar">
+                    <span class="rating-label">1 Star</span>
+                    <div class="rating-progress">
+                        <div class="rating-fill" style="width: 0%; background: #ddd;"></div>
+                    </div>
+                    <span class="rating-number" id="count1">0</span>
+                </div>
+            </div>
+
+            <!-- Right: Photos & Button -->
+            <div class="col-md-4">
+                <div class="review-right-section">
+                    <div class="review-photos" id="reviewPhotos">
+                        @if (reviewImages != null && reviewImages.Any())
+                        {
+                            @foreach (var img in reviewImages.Take(8))
+                            {
+                                <img src="@img" class="review-photo" onerror="this.style.display='none'">
+                            }
+                        }
+                        else
+                        {
+                            @for (int i = 1; i <= 8; i++)
+                            {
+                                <div class="review-photo" style="background: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #999; font-size: 10px;">
+                                    <i class="fa fa-image"></i>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <button type="button" class="btn-write-review" onclick="openReviewModal()">
+                        <i class="fa fa-pen me-2"></i>Write a store review
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="review-tabs">
+            <span class="review-tab active" onclick="switchTab('reviews')">Reviews (<span id="tabCount">81</span>)</span>
+            <span class="review-tab" onclick="switchTab('store')">Store reviews (0)</span>
+        </div>
+
+        <!-- Reviews List - DYNAMIC -->
+        <div class="reviews-list" id="reviewsList">
+            @if (reviews != null && reviews.Any())
+            {
+                @foreach (var review in reviews)
+                {
+                    var initials = string.Join("", review.CustomerName.Split(' ').Take(2).Select(n => n[0]));
+
+                    <div class="review-item" data-id="@review.Id">
+                        <div class="reviewer-avatar">
+                            @initials
+                            <i class="fa fa-check-circle verified-icon"></i>
+                        </div>
+                        <div class="review-content">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <div class="reviewer-name">@review.CustomerName</div>
+                                    <div class="verified-badge">
+                                        <i class="fa fa-check-circle me-1"></i>Verified purchase
+                                    </div>
+                                </div>
+                                <span class="review-date">@review.CreatedAt?.ToString("dd/MM/yyyy")</span>
+                            </div>
+                            <div class="review-stars">
+                                @for (int i = 0; i < review.Rating; i++)
+                                {
+                                    <i class="fa fa-star"></i>
+                                }
+                            </div>
+                            <div class="review-text">@review.Message</div>
+                            @if (!string.IsNullOrEmpty(review.ImageUrl))
+                            {
+                                <img src="@review.ImageUrl" style="max-width: 80px; border-radius: 6px; margin-top: 10px;">
+                            }
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <!-- Default review show hoga -->
+                <div class="review-item">
+                    <div class="reviewer-avatar">SS</div>
+                    <div class="review-content">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <div class="reviewer-name">Sana S.</div>
+                                <div class="verified-badge">
+                                    <i class="fa fa-check-circle me-1"></i>Verified purchase
+                                </div>
+                            </div>
+                            <span class="review-date">04/06/2026</span>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                        </div>
+                        <div class="review-text">Pretty gud...</div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- FIXED MODAL - Scrollable & Compact -->
+<div id="reviewModal" class="review-modal">
+    <div class="modal-overlay" onclick="closeReviewModal()"></div>
+    <div class="modal-container">
+        <div class="modal-header-custom">
+            <h5 class="modal-title"><i class="fa fa-star text-warning me-2"></i>Write a Review</h5>
+            <button type="button" class="btn-close-custom" onclick="closeReviewModal()">&times;</button>
+        </div>
+        <div class="modal-body-custom">
+            <form id="reviewForm" enctype="multipart/form-data">
+                <!-- Star Rating -->
+                <div class="star-input">
+                    <input type="radio" name="Rating" value="5" id="star5" required>
+                    <label for="star5"><i class="fa fa-star"></i></label>
+                    <input type="radio" name="Rating" value="4" id="star4">
+                    <label for="star4"><i class="fa fa-star"></i></label>
+                    <input type="radio" name="Rating" value="3" id="star3">
+                    <label for="star3"><i class="fa fa-star"></i></label>
+                    <input type="radio" name="Rating" value="2" id="star2">
+                    <label for="star2"><i class="fa fa-star"></i></label>
+                    <input type="radio" name="Rating" value="1" id="star1">
+                    <label for="star1"><i class="fa fa-star"></i></label>
+                </div>
+
+                <input type="text" name="CustomerName" id="revName" class="form-input" placeholder="Your Name *" required>
+                <input type="email" name="Email" id="revEmail" class="form-input" placeholder="Your Email *" required>
+                <textarea name="Message" id="revMessage" class="form-input" rows="3" placeholder="Your review *" required></textarea>
+
+                <!-- FIXED: Compact Upload -->
+                <div class="upload-box" id="uploadBox" onclick="document.getElementById('revFile').click()">
+                    <div id="uploadContent">
+                        <i class="fa fa-camera" style="font-size: 24px; color: #999;"></i>
+                        <p style="color: #666; margin: 5px 0 0; font-size: 13px;">Click to upload photo</p>
+                    </div>
+                    <div class="upload-preview" id="uploadPreview" style="display: none;">
+                        <img id="imgPreview">
+                        <span style="color: #666; font-size: 13px; cursor: pointer;" onclick="removeImage(event)">
+                            <i class="fa fa-trash text-danger"></i> Remove
+                        </span>
+                    </div>
+                    <input type="file" name="imageFile" id="revFile" accept="image/*" style="display:none" onchange="previewImage(this)">
+                </div>
+
+                <button type="submit" id="revSubmit" class="submit-btn" disabled>
+                    <i class="fa fa-paper-plane me-2"></i>Send Review
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Services Section Begin -->
+
+<section class="services spad">
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-3 col-md-4 col-sm-6">
+
+                <div class="services__item">
+
+                    <i class="fa fa-car"></i>
+
+                    <h6>Free Shipping</h6>
+
+                    <p>For all oder over $99</p>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6">
+
+                <div class="services__item">
+
+                    <i class="fa fa-money"></i>
+
+                    <h6>Money Back Guarantee</h6>
+
+                    <p>If good have Problems</p>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6">
+
+                <div class="services__item">
+
+                    <i class="fa fa-support"></i>
+
+                    <h6>Online Support 24/7</h6>
+
+                    <p>Dedicated support</p>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6">
+
+                <div class="services__item">
+
+                    <i class="fa fa-headphones"></i>
+
+                    <h6>Payment Secure</h6>
+
+                    <p>100% secure payment</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+@section Scripts {
+
+               <script>
+
+                   $(document).ready(function () {
+
+                       // Quick View Button Click
+
+                       $('.quick-view-btn').on('click', function (e) {
+
+                           e.preventDefault
+
+                           var productId = $(this).data('id');
+
+
+
+                           // Show modal and loading spinner
+
+                           $('#quickViewModal').modal('show');
+
+                           $('#quickViewContent').html('<div class="text-center py-5"><div class="spinner-border text-dark"></div><p class="mt-2">Fetching details...</p></div>');
+
+
+
+                           // Call Controller Action
+
+                           $.get('/Products/GetQuickView/' + productId, function (data) {
+
+                               $('#quickViewContent').html(data);
+
+                           }).fail(function () {
+
+                               $('#quickViewContent').html('<p class="text-danger text-center">Sorry, could not load product details.</p>');
+
+                           });
+
+                       });
+
+                   });
+
+                                   $(document).on('click', '[data-bs-dismiss="modal"]', function() {
+
+                       $('#quickViewModal').modal('hide');
+
+                   });
+
+
+
+                   // Popup ke andar image change karne ka function
+
+                   function changeQuickViewImage(src, element) {
+
+                       $('#qvMainDisplay').attr('src', src);
+
+                       $('.qv-thumb').css('opacity', '0.5').css('border-color', 'transparent');
+
+                       $(element).css('opacity', '1').css('border-color', '#111');
+
+                   }
+
+                         function changeColorDirect(element, newImageUrl) {
+
+                    // 1. Us specific card ka container dhoondein
+
+                    var wrapper = element.closest('.product-wrapper');
+
+
+
+                    // 2. Us card ki main aur hover images dhoondein
+
+                    var mainImg = wrapper.querySelector('.main-img');
+
+                    var hoverImg = wrapper.querySelector('.hover-img');
+
+
+
+                    if (mainImg) {
+
+                        // Smooth transition ke liye halki si opacity kam karein (Optional)
+
+                        mainImg.style.opacity = '0.5';
+
+
+
+                        // Nayi image set karein
+
+                        mainImg.src = newImageUrl;
+
+
+
+                        // Jab image load ho jaye toh wapis full opacity
+
+                        mainImg.onload = function() {
+
+                            mainImg.style.opacity = '1';
+
+                        };
+
+                    }
+
+
+
+                    // Agar aap chahte hain ke hover karne par bhi wahi color dikhe
+
+                    if (hoverImg) {
+
+                        hoverImg.src = newImageUrl;
+
+                    }
+
+                }
+
+                        $(document).ready(function () {
+
+                // 1. Shuru mein kitne dikhane hain aur baad mein kitne
+
+                var initialItems = 12;
+
+                var nextItems = 8;
+
+
+
+                // 2. Saary items ko select karein
+
+                var $galleryItems = $(".property__gallery .mix");
+
+
+
+                // 3. Agar items initial limit se kam hain toh button hide kar dein
+
+                if ($galleryItems.length <= initialItems) {
+
+                    $("#loadMore").hide();
+
+                }
+
+
+
+                // 4. Shuru mein sirf pehle 12 show karein, baqi hide
+
+                $galleryItems.hide();
+
+                $galleryItems.slice(0, initialItems).show();
+
+
+
+                // 5. Click Event
+
+                $("#loadMore").on('click', function (e) {
+
+                    e.preventDefault();
+
+
+
+                    // Check karein kitne abhi hide hain
+
+                    var $hiddenItems = $galleryItems.filter(":hidden");
+
+
+
+                    // Agle 8 items show karein
+
+                    $hiddenItems.slice(0, nextItems).fadeIn();
+
+
+
+                    // Agar mazeed koi hidden nahi bacha toh button gayab kar dein
+
+                    if ($hiddenItems.length <= nextItems) {
+
+                        $("#loadMore").fadeOut();
+
+                    }
+
+                });
+
+            });
+
+
+
+ 
+
+
+
+           $(document).ready(function () {
+
+               // Quick View Button Click
+
+               $('.quick-view-btn').on('click', function (e) {
+
+                   e.preventDefault
+
+                   var productId = $(this).data('id');
+
+
+
+                   // Show modal and loading spinner
+
+                   $('#quickViewModal').modal('show');
+
+                   $('#quickViewContent').html('<div class="text-center py-5"><div class="spinner-border text-dark"></div><p class="mt-2">Fetching details...</p></div>');
+
+
+
+                   // Call Controller Action
+
+                   $.get('/Products/GetQuickView/' + productId, function (data) {
+
+                       $('#quickViewContent').html(data);
+
+                   }).fail(function () {
+
+                       $('#quickViewContent').html('<p class="text-danger text-center">Sorry, could not load product details.</p>');
+
+                   });
+
+               });
+
+           });
+
+                           $(document).on('click', '[data-bs-dismiss="modal"]', function() {
+
+               $('#quickViewModal').modal('hide');
+
+           });
+
+
+
+           // Popup ke andar image change karne ka function
+
+           function changeQuickViewImage(src, element) {
+
+               $('#qvMainDisplay').attr('src', src);
+
+               $('.qv-thumb').css('opacity', '0.5').css('border-color', 'transparent');
+
+               $(element).css('opacity', '1').css('border-color', '#111');
+
+           }
+
+                 function changeColorDirect(element, newImageUrl) {
+
+            // 1. Us specific card ka container dhoondein
+
+            var wrapper = element.closest('.product-wrapper');
+
+
+
+            // 2. Us card ki main aur hover images dhoondein
+
+            var mainImg = wrapper.querySelector('.main-img');
+
+            var hoverImg = wrapper.querySelector('.hover-img');
+
+
+
+            if (mainImg) {
+
+                // Smooth transition ke liye halki si opacity kam karein (Optional)
+
+                mainImg.style.opacity = '0.5';
+
+
+
+                // Nayi image set karein
+
+                mainImg.src = newImageUrl;
+
+
+
+                // Jab image load ho jaye toh wapis full opacity
+
+                mainImg.onload = function() {
+
+                    mainImg.style.opacity = '1';
+
+                };
+
+            }
+
+
+
+            // Agar aap chahte hain ke hover karne par bhi wahi color dikhe
+
+            if (hoverImg) {
+
+                hoverImg.src = newImageUrl;
+
+            }
+
+        }
+
+
+        //load button logic
+
+        $(document).ready(function () {
+            // 1. Shuruati settings
+            var showLimit = 8;
+            var $items = $('.property__gallery .mix');
+            var $btn = $('#loadMore');
+
+            // 2. Pehle saare hide karo, phir sirf pehle 8 dikhao
+            $items.hide();
+            $items.slice(0, showLimit).show();
+
+            // 3. Agar items 8 se kam hain toh button shuru mein hi uda do
+            if ($items.length <= showLimit) {
+                $btn.hide();
+            } else {
+                $btn.css('display', 'inline-flex'); // Force show if more than 8
+            }
+
+            // 4. Click Event
+            $btn.on('click', function (e) {
+                e.preventDefault();
+
+                // Loading state
+                var $loader = $('#btnLoader');
+                var $text = $btn.find('.btn-text');
+
+                $text.text("Loading...");
+                $loader.show();
+                $btn.css('pointer-events', 'none'); // Double click rokne ke liye
+
+                // Thora delay taake "real" feel aaye
+                setTimeout(function () {
+                    var $hidden = $('.property__gallery .mix:hidden');
+
+                    // Agle 8 items dikhao
+                    $hidden.slice(0, 8).fadeIn(600).addClass('fade-in-up');
+
+                    // Reset button
+                    $text.text("Load More Products");
+                    $loader.hide();
+                    $btn.css('pointer-events', 'auto');
+
+                    // Agar mazeed hidden nahi hain toh button khatam
+                    if ($('.property__gallery .mix:hidden').length === 0) {
+                        $btn.parent().fadeOut();
+                    }
+                }, 800);
+            });
+        });
+
+
+
+
+
+
+
+                $("#reviewForm").on("submit", function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: '/Home/SubmitReview', // Is action ko controller mein banana hoga
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(res) {
+                    if(res.success) {
+                        alert("Thank you! Your review is submitted for approval.");
+                        $("#writeReviewModal").modal('hide');
+                        $("#reviewForm")[0].reset();
+                    }
+                }
+            });
+        });
+
+
+
+
+    
+        (function() {
+            const track = document.getElementById('sliderTrack');
+            let currentSlide = 0;
+            let autoSlideInterval;
+
+            const config = {
+                gap: 15,
+                autoplayDelay: 3000,
+                slidesToScroll: 5, // 5 cards ek baar mein
+                transitionDuration: 500
+            };
+
+            function getVisibleCards() {
+                const width = window.innerWidth;
+                if (width < 576) return 2;
+                if (width < 768) return 2;
+                if (width < 992) return 3;
+                if (width < 1200) return 4;
+                return 5;
+            }
+
+            function getTotalCards() {
+                return track?.children?.length || 0;
+            }
+
+            function getCardWidth() {
+                if (!track || !track.children[0]) return 0;
+                const card = track.children[0];
+                return card.offsetWidth + config.gap;
+            }
+
+            function getMaxSlide() {
+                const total = getTotalCards();
+                const visible = getVisibleCards();
+
+                if (total <= visible) return 0;
+
+                // FIXED: Kitni slides possible hain
+                return total - visible;
+            }
+
+            function updateSlider() {
+                const maxSlide = getMaxSlide();
+                const visible = getVisibleCards();
+
+                // FIXED: Loop slider
+                if (currentSlide < 0) {
+                    currentSlide = maxSlide;
+                }
+                if (currentSlide > maxSlide) {
+                    currentSlide = 0;
+                }
+
+                const cardWidth = getCardWidth();
+                if (cardWidth > 0) {
+                    track.style.transform = `translateX(-${currentSlide * cardWidth}px)`;
+                }
+
+                updateButtonStates(maxSlide);
+            }
+
+            function updateButtonStates(maxSlide) {
+                const prevBtn = document.querySelector('.slider-btn.prev');
+                const nextBtn = document.querySelector('.slider-btn.next');
+
+                if (prevBtn && nextBtn) {
+                    const hasMore = getTotalCards() > getVisibleCards();
+                    prevBtn.style.opacity = hasMore ? '1' : '0.3';
+                    nextBtn.style.opacity = hasMore ? '1' : '0.3';
+                    prevBtn.style.pointerEvents = hasMore ? 'auto' : 'none';
+                    nextBtn.style.pointerEvents = hasMore ? 'auto' : 'none';
+                }
+            }
+
+            window.moveSlide = function(direction) {
+                console.log('Move slide:', direction, 'Current:', currentSlide);
+
+                const visible = getVisibleCards();
+                // FIXED: 5 cards move karo har baar
+                currentSlide += (direction * visible);
+                updateSlider();
+            };
+
+            function startAutoSlide() {
+                stopAutoSlide();
+                if (getTotalCards() > getVisibleCards()) {
+                    autoSlideInterval = setInterval(() => window.moveSlide(1), config.autoplayDelay);
+                }
+            }
+
+            function stopAutoSlide() {
+                if (autoSlideInterval) {
+                    clearInterval(autoSlideInterval);
+                    autoSlideInterval = null;
+                }
+            }
+
+            let resizeTimeout;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(function() {
+                    currentSlide = 0;
+                    updateSlider();
+                }, 250);
+            });
+
+            const outer = document.querySelector('.slider-outer');
+            if (outer) {
+                outer.addEventListener('mouseenter', stopAutoSlide);
+                outer.addEventListener('mouseleave', startAutoSlide);
+            }
+
+            function init() {
+                if (track && track.children.length > 0) {
+                    updateSlider();
+                    startAutoSlide();
+                    console.log('Slider ready - Total cards:', track.children.length, 'Visible:', getVisibleCards());
+                } else {
+                    setTimeout(init, 100);
+                }
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+
+            window.addEventListener('load', init);
+        })();
+    </script>
+
+
+
+
+<script>
+        // ===== MODAL FUNCTIONS =====
+        function openReviewModal() {
+            document.getElementById('reviewModal').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeReviewModal() {
+            document.getElementById('reviewModal').classList.remove('show');
+            document.body.style.overflow = '';
+            resetForm();
+        }
+
+        function resetForm() {
+            document.getElementById('reviewForm').reset();
+            document.getElementById('uploadContent').style.display = 'block';
+            document.getElementById('uploadPreview').style.display = 'none';
+            document.getElementById('imgPreview').src = '';
+            document.getElementById('revSubmit').disabled = true;
+            document.getElementById('revSubmit').classList.remove('active');
+        }
+
+        // ===== IMAGE HANDLING =====
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('uploadContent').style.display = 'none';
+                    document.getElementById('uploadPreview').style.display = 'flex';
+                    document.getElementById('imgPreview').src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function removeImage(e) {
+            e.stopPropagation();
+            document.getElementById('revFile').value = '';
+            document.getElementById('uploadContent').style.display = 'block';
+            document.getElementById('uploadPreview').style.display = 'none';
+            document.getElementById('imgPreview').src = '';
+        }
+
+        // ===== FORM VALIDATION =====
+        const form = document.getElementById('reviewForm');
+        const submitBtn = document.getElementById('revSubmit');
+
+        function validateForm() {
+            const rating = document.querySelector('input[name="Rating"]:checked');
+            const name = document.getElementById('revName').value.trim();
+            const email = document.getElementById('revEmail').value.trim();
+            const message = document.getElementById('revMessage').value.trim();
+            const emailValid = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/.test(email);
+
+            if (rating && name.length >= 2 && emailValid && message.length >= 5) {
+                submitBtn.disabled = false;
+                submitBtn.classList.add('active');
+            } else {
+                submitBtn.disabled = true;
+                submitBtn.classList.remove('active');
+            }
+        }
+
+        form.addEventListener('input', validateForm);
+        form.addEventListener('change', validateForm);
+
+        // ===== FORM SUBMIT - DYNAMIC =====
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin me-2"></i>Sending...';
+            submitBtn.disabled = true;
+
+            var formData = new FormData(this);
+
+            fetch('/Home/CreateReview', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Add new review to list dynamically
+                    addReviewToList({
+                        customerName: document.getElementById('revName').value,
+                        rating: document.querySelector('input[name="Rating"]:checked').value,
+                        message: document.getElementById('revMessage').value,
+                        imageUrl: document.getElementById('imgPreview').src.startsWith('data:') ? null : document.getElementById('imgPreview').src,
+                        createdAt: new Date().toISOString()
+                    });
+
+                    alert(data.message);
+                    closeReviewModal();
+                } else {
+                    alert(data.message);
+                    submitBtn.innerHTML = '<i class="fa fa-paper-plane me-2"></i>Send Review';
+                    submitBtn.disabled = false;
+                    submitBtn.classList.add('active');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Something went wrong!');
+                submitBtn.innerHTML = '<i class="fa fa-paper-plane me-2"></i>Send Review';
+                submitBtn.disabled = false;
+            });
+        });
+
+        // ===== ADD REVIEW DYNAMICALLY =====
+        function addReviewToList(review) {
+            var initials = review.customerName.split(' ').map(n => n[0]).join('').substring(0, 2);
+            var stars = '';
+            for (var i = 0; i < parseInt(review.rating); i++) {
+                stars += '<i class="fa fa-star"></i>';
+            }
+
+            var imageHtml = review.imageUrl ? `<img src="${review.imageUrl}" style="max-width: 80px; border-radius: 6px; margin-top: 10px;">` : '';
+
+            var html = `
+                <div class="review-item" style="animation: fadeIn 0.5s;">
+                    <div class="reviewer-avatar">
+                        ${initials}
+                        <i class="fa fa-check-circle verified-icon"></i>
+                    </div>
+                    <div class="review-content">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <div class="reviewer-name">${review.customerName}</div>
+                                <div class="verified-badge">
+                                    <i class="fa fa-check-circle me-1"></i>Verified purchase
+                                </div>
+                            </div>
+                            <span class="review-date">Just now</span>
+                        </div>
+                        <div class="review-stars">${stars}</div>
+                        <div class="review-text">${review.message}</div>
+                        ${imageHtml}
+                    </div>
+                </div>
+            `;
+
+            // Add to top of list
+            var list = document.getElementById('reviewsList');
+            list.insertAdjacentHTML('afterbegin', html);
+
+            // Update count
+            var count = parseInt(document.getElementById('tabCount').innerText) + 1;
+            document.getElementById('tabCount').innerText = count;
+            document.getElementById('totalReviews').innerText = count + ' reviews';
+        }
+
+        // ===== TAB SWITCH =====
+        function switchTab(tab) {
+            document.querySelectorAll('.review-tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // Close on Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeReviewModal();
+        });
+
+        // Add animation style
+        var style = document.createElement('style');
+        style.innerHTML = `
+            @@keyframes fadeIn {
+                from { opacity: 0; transform: translateY(-20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+
+
+    <script>
+        $(document).ready(function() {
+            // Theme ke set-bg ko disable karein categories ke liye
+            $('.categories__item').each(function() {
+                var bg = $(this).attr('data-setbg');
+                if (bg) {
+                    $(this).css('background-image', 'url(' + bg + ')');
+                }
+            });
+        });
+
+
+        // ===== BEST SELLING LOAD MORE =====
+        // ===== BEST SELLING LOAD MORE =====
+               // ===== BEST SELLING LOAD MORE =====
+        function loadMoreBestSelling() {
+            var hiddenItems = document.querySelectorAll('.extra-best-item.d-none');
+            var btn = document.getElementById('loadMoreBest');
+            var btnText = btn.querySelector('.btn-text');
+            var btnLoader = document.getElementById('btnLoaderBest');
+
+            // Loading state
+            btnText.textContent = "Loading...";
+            btnLoader.style.display = "inline-block";
+            btn.style.pointerEvents = "none";
+
+            // 8 items show karein
+            var shown = 0;
+            hiddenItems.forEach(function(item) {
+                if (shown < 8) {
+                    item.classList.remove('d-none');
+                    item.style.animation = "fadeInUp 0.5s ease";
+                    shown++;
+                }
+            });
+
+            // Reset button
+            setTimeout(function() {
+                btnText.textContent = "Load More Best Sellers";
+                btnLoader.style.display = "none";
+                btn.style.pointerEvents = "auto";
+
+                // Agar sab show ho gaye toh button hide
+                if (document.querySelectorAll('.extra-best-item.d-none').length === 0) {
+                    btn.parentElement.style.display = "none";
+                }
+            }, 600);
+        }  // ✅ YEH BRACKET ZAROORI HAI - CHECK KAREIN KOI EXTRA NA HO
+    </script>
+
+
+    
+}
+

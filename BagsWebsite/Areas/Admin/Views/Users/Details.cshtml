@@ -1,0 +1,90 @@
+﻿@model BagsWebsite.Models.User
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "User Details";
+}
+<style>
+    body{
+        background-color: var(--bg-soft);
+    }
+</style>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 text-center p-4">
+                <div class="mb-3">
+                    <i class="fa fa-user-circle fa-5x" style="color: #3e2723;"></i>
+                </div>
+                <h4 class="fw-bold">@Model.FirstName @Model.LastName</h4>
+                <p class="badge bg-info text-dark">@Model.Role?.Name</p>
+                <hr />
+                <div class="text-start">
+                    <p class="mb-2"><strong>Email:</strong> <br /> @Model.Email</p>
+                    <p class="mb-2"><strong>Joined:</strong> <br /> @(Model.CreatedAt?.ToString("dd MMM yyyy") ?? "N/A")</p>
+                    <p class="mb-0 text-muted small">User ID: #@Model.Id</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Order History</h5>
+                    <span class="badge rounded-pill bg-dark">@Model.Orders?.Count() Orders</span>
+                </div>
+                <div class="card-body">
+                    @if (Model.Orders != null && Model.Orders.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th class="text-end">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var order in Model.Orders)
+                                    {
+                                        <tr>
+                                            <td><span class="fw-bold">#@order.Id</span></td>
+                                            <td>@(order.OrderDate?.ToString("dd/MM/yyyy") ?? "N/A")</td>
+                                            <td>
+                                                <span class="badge @(order.Status == "Completed" ? "bg-success" : "bg-warning text-dark")">
+                                                    @order.Status
+                                                </span>
+                                            </td>
+                                            <td class="text-end">
+                                                <a href="#" class="btn btn-sm btn-outline-primary">View</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center py-4">
+                            <i class="fa fa-shopping-bag fa-3x text-light mb-3"></i>
+                            <p class="text-muted mb-0">This user hasn't placed any orders yet.</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="fa fa-arrow-left"></i> Back to Users
+        </a>
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning px-4 ms-2">
+            <i class="fa fa-edit"></i> Edit User
+        </a>
+    </div>
+</div>

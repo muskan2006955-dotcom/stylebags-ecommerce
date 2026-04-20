@@ -1,0 +1,222 @@
+﻿@model IEnumerable<BagsWebsite.Models.Category>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Category Management";
+    Layout = "_AdminLayout";
+}
+
+<style>
+    .glass-card {
+        border-radius: 12px;
+        background: #ffffff;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        border: 1px solid #f1f5f9;
+        overflow: hidden;
+    }
+
+    .search-section {
+        background: #f8fafc;
+        border-bottom: 1px solid #e2e8f0;
+        padding: 20px;
+    }
+
+    /* Table Styling */
+    .table thead th {
+        background-color: #ffffff;
+        color: #64748b;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 11px;
+        padding: 15px;
+        border-bottom: 2px solid #f1f5f9;
+    }
+
+    .category-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .category-id {
+        font-size: 10px;
+        color: #94a3b8;
+        font-weight: 700;
+    }
+
+    .product-count-badge {
+        background: #eff6ff;
+        color: #1e40af;
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 600;
+        display: inline-block;
+    }
+
+    /* Action Buttons Style */
+    .btn-action-sm {
+        font-size: 11px;
+        font-weight: 600;
+        padding: 5px 15px;
+        border-radius: 6px;
+        text-decoration: none;
+        transition: 0.2s;
+        border: none;
+    }
+
+    .btn-edit-soft {
+        background: #3b82f6;
+        color: white !important;
+    }
+
+    .btn-view-soft {
+        background: #8b5cf6;
+        color: white !important;
+    }
+
+    .btn-delete-soft {
+        background: #ef4444;
+        color: white !important;
+    }
+
+    .btn-action-sm:hover {
+        transform: translateY(-1px);
+        opacity: 0.9;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .desc-truncate {
+        max-width: 300px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 13px;
+        color: #64748b;
+    }
+</style>
+
+<div class="container-fluid px-4 mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold text-dark mb-0">Category Management</h3>
+            <p class="text-muted mb-0">Organize your bag collections and product types</p>
+        </div>
+        <a asp-action="Create" class="btn btn-success px-4 py-2 shadow-sm" style="border-radius: 8px; font-weight: 500;">
+            <i class="fa fa-plus me-2"></i>Add New Category
+        </a>
+    </div>
+
+    <div class="glass-card">
+        <div class="search-section">
+            <form method="get" asp-action="Index" class="row g-2">
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white border-end-0 text-muted">
+                            <i class="fa fa-tags"></i>
+                        </span>
+                        <input type="text" name="searchTerm" class="form-control border-start-0 shadow-none"
+                               placeholder="Search categories..."
+                               value="@Context.Request.Query["searchTerm"]">
+                    </div>
+                </div>
+                <div class="col-md-4 d-flex gap-2">
+                    <button type="submit" class="btn btn-dark flex-grow-1">Search</button>
+
+                    <a asp-action="Index" class="btn btn-outline-secondary px-3" title="Reset Filter">
+                        <i class="fa fa-sync-alt"></i>
+                    </a>
+                </div>
+            </form>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Category Name</th>
+                        <th>Description</th>
+                        <th>Associated Products</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="4" class="text-center py-5 text-muted">
+                                <i class="fa fa-folder-open d-block mb-2 fs-3"></i>
+                                No categories found.
+                            </td>
+                        </tr>
+                    }
+                    @foreach (var item in Model)
+                    {
+                        <tr id="row-@item.Id">
+                            <td>
+                                <div class="category-info">
+                                    <span class="category-id">ID: #@item.Id</span>
+                                    <span class="fw-bold text-dark">@item.Name</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="desc-truncate" title="@item.Description">
+                                    @(string.IsNullOrEmpty(item.Description) ? "No description provided." : item.Description)
+                                </div>
+                            </td>
+                            <td>
+                                <div class="product-count-badge">
+                                    <i class="fa fa-shopping-bag me-1"></i>
+                                    @item.Products?.Count() Products
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center gap-2">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn-action-sm btn-edit-soft">
+                                        Edit
+                                    </a>
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn-action-sm btn-view-soft">
+                                        View
+                                    </a>
+                                    <button onclick="deleteCategory(@item.Id)" class="btn-action-sm btn-delete-soft">
+                                        Delete
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function deleteCategory(id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Deleting this category might affect linked products!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ef4444',
+                cancelButtonColor: '#64748b',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '@Url.Action("Delete", "Categories")/' + id,
+                        type: 'POST',
+                        success: function (response) {
+                            if (response.success) {
+                                $('#row-' + id).fadeOut();
+                                Swal.fire('Deleted!', 'Category has been removed.', 'success');
+                            } else {
+                                Swal.fire('Error!', response.message, 'error');
+                            }
+                        }
+                    });
+                }
+            })
+        }
+    </script>
+}

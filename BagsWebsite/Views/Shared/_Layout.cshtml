@@ -1,0 +1,2280 @@
+﻿@using Microsoft.AspNetCore.Http
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ashion Template">
+    <meta name="keywords" content="Ashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ashion | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/style.css" type="text/css">
+
+
+<style>
+
+        /* Cart Sidebar Styling */
+    .cart-sidebar-wrapper {
+        position: fixed;
+        right: -400px; /* Initially hidden */
+        top: 0;
+        width: 400px;
+        height: 100%;
+        background: #ffffff;
+        z-index: 9999;
+        padding: 30px;
+        transition: all 0.4s ease;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .cart-sidebar-wrapper.active {
+        right: 0; /* Show sidebar */
+    }
+
+    .cart-sidebar-overlay {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 9998;
+        visibility: hidden;
+        opacity: 0;
+        transition: 0.3s;
+    }
+
+    .cart-sidebar-overlay.active {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .cart-sidebar__close {
+        font-size: 30px;
+        cursor: pointer;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+
+    .cart-sidebar__title {
+        font-weight: 700;
+        font-size: 20px;
+        margin-bottom: 30px;
+        border-bottom: 1px solid #ebebeb;
+        padding-bottom: 15px;
+    }
+
+    .cart-sidebar__footer {
+        margin-top: auto;
+        border-top: 1px solid #ebebeb;
+        padding-top: 20px;
+    }
+
+    .checkout-btn {
+        display: block;
+        text-align: center;
+        margin-top: 10px;
+        padding: 12px;
+        color: white !important;
+    }
+
+    /* Responsiveness */
+    @@media only screen and (max-width: 479px) {
+        .cart-sidebar-wrapper {
+            width: 100%; /* Full screen on mobile */
+            right: -100%;
+        }
+    }
+
+    .top-bar {
+        background-color: brown; /* Brown Background */
+        height: 40px; /* Fixed Height */
+        display: flex;
+        align-items: center; /* Vertically Center */
+        color: #ffffff; /* White Text Color */
+        font-size: 13px; /* Clean Font Size */
+        font-family: sans-serif;
+    }
+
+        .top-bar .container-fluid {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .top-bar a {
+            color: #ffffff !important;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+            .top-bar a:hover {
+                opacity: 0.8;
+            }
+
+        /* Icons ke darmiyan thora gap */
+        .top-bar i {
+            margin-right: 5px;
+        }
+
+    /* Center text ko thora bold karne ke liye */
+    .top-bar-center span {
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* --- Mobile Responsive Fix --- */
+    @@media (max-width: 768px) {
+        /* Mobile par sirf center text dikhayen ya size chota kar dein */
+        .top-bar-left, .top-bar-right
+
+    {
+        display: none; /* Mobile par number/email hide (optional) */
+    }
+
+    .top-bar-center {
+        width: 100%;
+        text-align: center;
+        font-size: 11px;
+    }
+
+    }
+    /* Header Size Reduction */
+    /* Header Height adjustment */
+    /* Header Padding to reduce overall size */
+    /* --- Header General Fix --- */
+    .header {
+        padding: 11px 0;
+        height: 50px; /* Fixed height ki wajah se links niche girte hain, auto behtar hai */
+        min-height: 90px;
+        display: flex;
+        align-items: center;
+            /* background: linear-gradient(to right, #ffe6f0, #fff0e6); */
+        }
+
+    /* Header ke links ko ek line mein rakhne ke liye wrapper */
+    .header__right__auth {
+        display: inline-flex !important;
+        align-items: center;
+        vertical-align: middle;
+        gap: 15px; /* Links ke darmiyan gap */
+        font-size: 0; /* Stray characters (/) hide karne ke liye */
+    }
+
+        .header__right__auth * {
+            font-size: 14px; /* Text wapis show karne ke liye */
+        }
+
+    /* --- User Dropdown Style --- */
+    .user-profile-dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .user-trigger {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none !important;
+        color: #111 !important;
+        cursor: pointer;
+        padding: 5px 0;
+    }
+
+        .user-trigger i {
+            font-size: 20px;
+            color: #333;
+        }
+
+    .user-name-label {
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    /* Professional Dropdown Card */
+    .user-dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 190px;
+        background: #fff;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        padding: 10px 0;
+        z-index: 1000;
+        margin-top: 5px;
+        border: 1px solid #eee;
+    }
+
+    /* Hover Logic with Bridge */
+    .user-profile-dropdown:hover .user-dropdown-menu {
+        display: block;
+    }
+
+    /* Invisible Bridge: Mouse gap fill karne ke liye */
+    .user-profile-dropdown::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 100%;
+        height: 15px;
+    }
+
+    /* Dropdown Content */
+    .dropdown-user-info {
+        padding: 5px 15px 10px;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 5px;
+    }
+
+        .dropdown-user-info strong {
+            display: block;
+            font-size: 14px;
+            color: #111;
+        }
+
+        .dropdown-user-info span {
+            font-size: 11px;
+            color: #888;
+        }
+
+    .user-dropdown-menu a {
+        display: block;
+        padding: 8px 15px;
+        color: #444 !important;
+        font-size: 13px !important;
+        text-decoration: none !important;
+        transition: 0.2s;
+    }
+
+        .user-dropdown-menu a i {
+            margin-right: 8px;
+            width: 14px;
+            color: #777;
+        }
+
+        .user-dropdown-menu a:hover {
+            background: #fdf5f5;
+            color: brown !important;
+        }
+
+    .logout-text {
+        color: #d9534f !important;
+    }
+
+    /* --- Mobile Fixes --- */
+    @@media (max-width: 991px) {
+        .header__right__auth
+
+    {
+        display: none !important; /* Mobile main header se gayab */
+    }
+
+    }
+
+    .offcanvas__auth {
+        border-top: 1px solid #ebebeb;
+        padding-top: 20px;
+        margin-top: 20px;
+    }
+
+        .offcanvas__auth a {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: #111;
+            text-decoration: none;
+        }
+</style>
+</head>
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+    <div class="top-bar">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <div class="top-bar-left">
+                <a href="tel:+923001234567"><i class="fa fa-phone"></i> +92 300 1234567</a>
+            </div>
+
+            <div class="top-bar-center">
+                <span>BUNDLE DEAL LIVE MORE BAG</span>
+            </div>
+
+            <div class="top-bar-right">
+                <a href="mailto:info@yourdomain.com"><i class="fa fa-envelope"></i> info@yourdomain.com</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Offcanvas Menu Begin -->
+    <div class="offcanvas-menu-overlay" style=""></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="offcanvas__close">+</div>
+        <ul class="offcanvas__widget">
+            <!-- FIXED: onclick added -->
+            <li><span class="icon_search search-switch" onclick="openSearch()"></span></li>
+            <li>
+                <a href="#">
+                    <span class="icon_heart_alt"></span>
+                    <div class="tip">2</div>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" onclick="openCartSidebar()">
+                    <span class="icon_bag_alt"></span>
+                    <div class="tip">0</div>
+                </a>
+            </li>
+        </ul>
+        <div class="offcanvas__logo">
+            <a href="./index.html"><img src="~/img/logo.png" alt=""></a>
+        </div>
+        <div id="mobile-menu-wrap"></div>
+        <div class="offcanvas__auth">
+            @if (Context.Session.GetString("UserId") != null)
+            {
+                <div style="margin-bottom: 15px;">
+                    <i class="fa fa-user"></i> <strong>@Context.Session.GetString("UserName")</strong>
+                </div>
+                <a asp-action="Profile" asp-controller="Account">My Profile</a>
+                <a asp-action="Logout" asp-controller="Account" style="color: brown;">Logout</a>
+            }
+            else
+            {
+                <a asp-action="Login" asp-controller="Account"><i class="fa fa-sign-in"></i> Login</a>
+                <a asp-action="Register" asp-controller="Account"><i class="fa fa-user-plus"></i> Register</a>
+            }
+        </div>
+    </div>
+
+    <!-- Search Modal (Same as before) -->
+    <div class="search-modal" id="searchModal" style="display:none;">
+        <div class="search-overlay" onclick="closeSearch()"></div>
+
+        <div class="search-container">
+            <div class="search-close" onclick="closeSearch()">×</div>
+
+            <div class="search-box">
+                <i class="fa fa-search search-icon"></i>
+                <input type="text"
+                       id="searchInput"
+                       placeholder="Search products & categories..."
+                       autocomplete="off">
+            </div>
+
+            <div id="searchResults" class="search-results"></div>
+        </div>
+    </div>
+
+    <style>
+        /* Offcanvas Styles */
+        .offcanvas-menu-wrapper {
+            /* Your existing styles */
+        }
+
+        .search-switch {
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+            .search-switch:hover {
+                color: #667eea;
+                transform: scale(1.1);
+            }
+
+        /* Search Modal Styles */
+        .search-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 999999; /* Higher than offcanvas */
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 100px;
+        }
+
+            .search-modal.active {
+                display: flex;
+            }
+
+        .search-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .search-container {
+            position: relative;
+            width: 90%;
+            max-width: 600px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .search-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 30px;
+            cursor: pointer;
+            color: #999;
+            z-index: 10;
+            line-height: 1;
+        }
+
+            .search-close:hover {
+                color: #e74c3c;
+            }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .search-icon {
+            font-size: 20px;
+            color: #667eea;
+            margin-right: 15px;
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            font-size: 18px;
+            outline: none;
+            padding: 10px 0;
+        }
+
+        .search-results {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        /* Result styles same as before */
+        .result-section {
+            padding: 10px 20px;
+            background: #f8f9fa;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .result-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+            .result-item:hover {
+                background: #f8f9fa;
+            }
+
+            .result-item img {
+                width: 50px;
+                height: 50px;
+                object-fit: cover;
+                border-radius: 8px;
+                margin-right: 15px;
+            }
+
+        .result-info {
+            flex: 1;
+        }
+
+            .result-info h4 {
+                margin: 0 0 5px 0;
+                font-size: 15px;
+                color: #2c3e50;
+            }
+
+            .result-info p {
+                margin: 0;
+                font-size: 12px;
+                color: #7f8c8d;
+            }
+
+        .result-price {
+            font-size: 16px;
+            font-weight: 700;
+            color: #e74c3c;
+        }
+
+        .view-all {
+            display: block;
+            text-align: center;
+            padding: 15px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+            .view-all:hover {
+                background: #5a6fd6;
+            }
+
+        .no-results {
+            padding: 40px;
+            text-align: center;
+            color: #7f8c8d;
+        }
+        /* Cart Badge in Navbar */
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #111;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+
+
+
+        .enshee-card-img-box {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 5; /* Card ko lamba hone se rokega */
+
+            overflow: hidden;
+            background-color: #f8f8f8;
+        }
+
+
+
+            /* 2. Dono Images ki Shared Setting */
+
+            .enshee-card-img-box img {
+                position: absolute; /* Dono images ek dusre ke upar hongi */
+
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover; /* Image box mein fit rahegi */
+
+                transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+
+
+        /* Main Image Default */
+
+        .main-img {
+            opacity: 1;
+            z-index: 1;
+        }
+
+
+
+        /* Hover Image (Angle Variant) Default */
+
+        .hover-img {
+            opacity: 0;
+            z-index: 0;
+            transform: scale(1.05); /* Halki si bari taake zoom-out effect aaye */
+        }
+
+
+
+        /* --- THE HOVER ACTION --- */
+
+
+
+        /* Jab mouse card par aaye: Main gayab, Hover nazar aaye */
+
+        .product-wrapper:hover .main-img {
+            opacity: 0;
+        }
+
+
+
+        .product-wrapper:hover .hover-img {
+            opacity: 1;
+            z-index: 2;
+            transform: scale(1); /* Wapis normal size par aye */
+        }
+
+
+
+        /* Card Darkness Effect */
+
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.08); /* Bohat halka dark shade */
+
+            opacity: 0;
+            z-index: 3; /* Images ke upar dark layer */
+
+            transition: opacity 0.4s ease;
+            pointer-events: none; /* Mouse clicks ko block na kare */
+        }
+
+
+
+        .product-wrapper:hover .card-overlay {
+            opacity: 1;
+        }
+
+
+
+        /* 3. Details (Compact) */
+
+        .product-details {
+            padding: 10px 5px;
+            text-align: center;
+        }
+
+
+
+        .product-name {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 2px !important;
+            display: block;
+            color: #333;
+        }
+
+        /* Image Box Setup */
+
+        .enshee-card-img-box {
+            position: relative;
+            aspect-ratio: 4/5;
+            overflow: hidden;
+            background-color: #f8f8f8;
+            border-radius: 4px;
+        }
+
+
+
+        /* Smooth Image Swap */
+
+        .main-img, .hover-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: all 0.9s cubic-bezier(0.4, 0, 0.2, 1); /* Luxury smooth timing */
+        }
+
+
+
+        .hover-img {
+            opacity: 0;
+            transform: scale(1.08);
+        }
+
+
+
+        .product-wrapper:hover .main-img {
+            opacity: 0;
+            transform: scale(1.08);
+        }
+
+
+
+        .product-wrapper:hover .hover-img {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+
+
+        /* Dim Overlay */
+
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.35);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 2;
+        }
+
+
+
+        .product-wrapper:hover .card-overlay {
+            opacity: 1;
+        }
+
+
+
+        /* Static Heart (Left Side) */
+
+        .static-heart {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 10;
+            color: #333;
+            background: white;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+
+
+            .static-heart:hover {
+                transform: scale(1.1);
+                color: #dc3545;
+            }
+
+
+
+        /* Discount Circle (Right Side) */
+
+        .discount-circle {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            z-index: 10;
+            background: #ff4757;
+            color: white;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 10px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(255, 71, 87, 0.3);
+        }
+
+
+
+        /* Oval Vertical Buttons */
+
+        /* --- 1. Image Box & Base Card --- */
+
+        .enshee-card-img-box {
+            position: relative;
+            aspect-ratio: 4 / 5;
+            overflow: hidden;
+            background-color: #f8f8f8;
+            border-radius: 4px;
+        }
+
+
+
+        .main-img, .hover-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: all 0.9s cubic-bezier(0.4, 0, 0.2, 1); /* Luxury Smooth Transition */
+        }
+
+
+
+        .hover-img {
+            opacity: 0;
+            transform: scale(1.05);
+        }
+
+
+
+        /* Hover Effects */
+
+        .product-wrapper:hover .main-img {
+            opacity: 0;
+            transform: scale(1.05);
+        }
+
+
+
+        .product-wrapper:hover .hover-img {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+
+
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); /* Screen Dim Effect */
+
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+
+
+        .product-wrapper:hover .card-overlay {
+            opacity: 1;
+        }
+
+
+
+        /* --- 2. Badges & Icons --- */
+
+        .static-heart {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 10;
+            background: white;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            color: #333;
+            transition: 0.3s;
+        }
+
+
+
+            .static-heart:hover {
+                color: #ff4757;
+                transform: scale(1.1);
+            }
+
+
+
+        .status-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            z-index: 10;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+            font-weight: 800;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+
+
+        /* --- 3. Desktop Oval Buttons (Animated) --- */
+
+        .hover-actions-vertical {
+            position: absolute;
+            top: 55%; /* Initial position slightly lower */
+
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 15;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 80%;
+        }
+
+
+
+        .product-wrapper:hover .hover-actions-vertical {
+            opacity: 1;
+            top: 50%; /* Slides up to center */
+        }
+
+
+
+        /* --- Desktop Oval Buttons (Height Fix & Icon Color) --- */
+
+        .oval-btn {
+            position: relative;
+            overflow: hidden;
+            background: #ffffff;
+            color: #000000;
+            /* Exact 50px Height as per requirement */
+
+            height: 37px !important;
+            min-width: 160px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+
+
+
+        /* Text default color black */
+
+        .btn-text {
+            color: #000000;
+            transition: transform 0.4s ease, opacity 0.3s ease;
+        }
+
+
+
+        /* Icon default color black, hidden below */
+
+        .btn-icon {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ffffff; /* Jab niche se nikle toh white ho */
+
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 18px;
+        }
+
+
+
+        /* --- THE HOVER FIX --- */
+
+        .oval-btn:hover {
+            background: #000000; /* Button background black */
+        }
+
+
+
+            /* Hover par text gayab */
+
+            .oval-btn:hover .btn-text {
+                transform: translateY(-40px);
+                opacity: 0;
+            }
+
+
+
+            /* Hover par icon center mein aur WHITE nazar aaye */
+
+            .oval-btn:hover .btn-icon {
+                bottom: 16px; /* 50px height ke hisab se exact center */
+
+                color: #ffffff !important;
+            }
+
+
+
+        /* Optional: Button par thora sa lift effect */
+
+        .product-wrapper:hover .oval-btn {
+            transform: translateY(0);
+        }
+
+        /* --- 4. Mobile & Tablet Responsive --- */
+
+        /* --- 4. Mobile & Tablet Responsive (Icons Centering Fix) --- */
+
+        @@media (max-width: 991px) {
+
+            .card-overlay {
+                display: none;
+            }
+
+
+
+            .hover-actions-vertical {
+                top: auto !important;
+                bottom: 15px !important;
+                right: 10px !important;
+                left: auto !important;
+                transform: none !important;
+                width: auto !important;
+                opacity: 1 !important;
+                gap: 8px;
+                display: flex !important;
+                flex-direction: column !important;
+            }
+
+
+
+            .oval-btn {
+                width: 40px !important; /* Thora sa size barhaya taake icon pyara lage */
+
+                height: 40px !important;
+                min-width: 40px !important;
+                padding: 0 !important;
+                border-radius: 50% !important;
+                background: rgba(255, 255, 255, 0.95) !important;
+                display: flex !important;
+                align-items: center !important; /* Vertical center */
+
+                justify-content: center !important; /* Horizontal center */
+
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+
+
+
+            .btn-text {
+                display: none !important; /* Mobile par text bilkul khatam */
+            }
+
+
+
+            .btn-icon {
+                position: static !important; /* Absolute position khatam taake center ho sake */
+
+                margin: 0 !important;
+                padding: 0 !important;
+                font-size: 16px !important;
+                color: #333 !important;
+                display: block !important;
+                line-height: 1 !important; /* Extra space khatam */
+
+                transform: none !important; /* Purani animations reset */
+            }
+
+
+
+            .hover-img {
+                display: none !important;
+            }
+
+
+
+            .product-wrapper:hover .main-img {
+                opacity: 1 !important;
+            }
+        }
+
+        /* Mobile par screen dim nahi hogi */
+
+
+
+        /* Color dots ko hamesha clickable rakhein */
+
+        .color-palette {
+            position: relative;
+            z-index: 30; /* Sab se upar */
+        }
+
+
+
+        .color-seed {
+            transition: transform 0.2s;
+        }
+
+
+
+            .color-seed:hover {
+                transform: scale(1.2);
+                border: 1px solid #000 !important;
+            }
+
+
+
+        /* Image transition fix */
+
+        .main-img {
+            transition: opacity 0.4s ease-in-out !important;
+            z-index: 1;
+        }
+
+        /* Brown Theme Load More Button */
+        .load-more-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 45px;
+            border: 2px solid brown; /* Brown Border */
+            background: transparent;
+            color: brown; /* Brown Text */
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            min-width: 250px;
+            text-decoration: none !important;
+            border-radius: 5px; /* Thora sa rounded look professional lagta hai */
+        }
+
+            .load-more-btn:hover {
+                background: brown; /* Fill with Brown on hover */
+                color: #fff; /* White text on hover */
+                box-shadow: 0 5px 15px rgba(165, 42, 42, 0.3); /* Subtle brown glow */
+            }
+
+        /* Spinner Animation - Updated to Brown */
+        .spinner-loader {
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(165, 42, 42, 0.2); /* Light brown ring */
+            border-radius: 50%;
+            border-top-color: brown; /* Dark brown spinning part */
+            animation: spin 0.8s linear infinite;
+            margin-left: 10px;
+        }
+
+        /* Jab button brown ho jaye toh spinner white ho jaye */
+        .load-more-btn:hover .spinner-loader {
+            border-top-color: #fff;
+            border-right-color: transparent;
+        }
+
+        @@keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Product Animation Class (Fade in Up) */
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-in-out forwards;
+        }
+
+        @@keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .categories__item {
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+        }
+
+            /* set-bg class ko disable karein agar conflict ho */
+            .categories__item.set-bg {
+                background-size: cover !important;
+                background-position: center !important;
+            }
+
+
+        .best-selling-section {
+            padding: 40px 0;
+            background: #fff;
+            overflow: visible;
+            position: relative;
+        }
+
+        .best-selling-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+            .best-selling-header h2 {
+                font-size: 24px;
+                font-weight: 700;
+                color: #2c3e50;
+                margin-bottom: 8px;
+                text-transform: uppercase;
+            }
+
+            .best-selling-header p {
+                color: #7f8c8d;
+                font-size: 13px;
+            }
+
+        .container-fluid {
+            position: relative;
+            overflow: visible;
+        }
+
+        .slider-outer {
+            position: relative;
+            width: 100%;
+            padding: 0 60px;
+            overflow: visible;
+        }
+
+        .slider-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .slider-track {
+            display: flex;
+            transition: transform 0.5s ease;
+            gap: 15px;
+            will-change: transform;
+        }
+
+        .slide-card {
+            flex: 0 0 calc(20% - 12px);
+            min-width: calc(20% - 12px);
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 1px solid #f0f0f0;
+            position: relative;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+            .slide-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            }
+
+        .slide-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            display: block;
+            pointer-events: none;
+        }
+
+        .slide-badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: #e74c3c;
+            color: #fff;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 10px;
+            font-weight: 700;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .slide-content {
+            padding: 12px;
+        }
+
+        .slide-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .slide-price {
+            font-size: 15px;
+            font-weight: 700;
+            color: #e74c3c;
+        }
+
+        .slide-old-price {
+            font-size: 11px;
+            color: #95a5a6;
+            text-decoration: line-through;
+            margin-left: 5px;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: brown;
+            border: 3px solid #fff;
+            border-radius: 50%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            cursor: pointer;
+            font-size: 20px;
+            color: #fff;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            pointer-events: auto;
+        }
+
+            .slider-btn:hover {
+                background: #e74c3c;
+                transform: translateY(-50%) scale(1.15);
+            }
+
+            .slider-btn.prev {
+                left: 5px;
+            }
+
+            .slider-btn.next {
+                right: 5px;
+            }
+
+        /* Responsive */
+        @@media (max-width: 1200px) {
+            .slide-card {
+                flex: 0 0 calc(25% - 12px);
+                min-width: calc(25% - 12px);
+            }
+        }
+
+        @@media (max-width: 992px) {
+            .slide-card {
+                flex: 0 0 calc(33.333% - 10px);
+                min-width: calc(33.333% - 10px);
+            }
+        }
+
+        @@media (max-width: 768px) {
+            .slide-card {
+                flex: 0 0 calc(50% - 8px);
+                min-width: calc(50% - 8px);
+            }
+
+            .slide-image {
+                height: 140px;
+            }
+
+            .slider-outer {
+                padding: 0 50px;
+            }
+
+            .slider-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+        }
+
+        @@media (max-width: 576px) {
+            .slider-outer {
+                padding: 0 45px;
+            }
+        }
+
+    </style>    <!-- Offcanvas Menu End -->
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-3 col-lg-2">
+                    <div class="header__logo">
+                        <a asp-controller="Home" asp-action="Index"><img src="~/img/logo.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-7">
+                    <nav class="header__menu">
+                        <ul>
+                            <li class="active"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                            
+                            <li><a asp-action="Index" asp-controller="Products">Shop</a></li>
+                            <li><a asp-action="Index" asp-controller="Reviews">Reviews</a></li>
+                            <li>
+                                <a asp-controller="About" asp-action="Index">about</a>
+                            </li>
+                            <li><a href="./blog.html">Blog</a></li>
+                            <li><a href="./contact.html">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3">
+                    <div class="header__right">
+                        <ul class="header__right__widget">
+                            <li class="user-li-container">
+                                <div class="user-profile-dropdown">
+                                    <a href="javascript:void(0)" class="user-trigger">
+                                        <i class="fa fa-user-circle-o"></i>
+                                        @if (Context.Session.GetString("UserId") != null)
+                                        {
+                                            <span class="user-name-label">@Context.Session.GetString("UserName")</span>
+                                        }
+                                    </a>
+                                    <div class="user-dropdown-menu">
+                                        @if (Context.Session.GetString("UserId") != null)
+                                        {
+                                            <div class="dropdown-user-info">
+                                                <strong>@Context.Session.GetString("UserName")</strong>
+                                                <span>Customer</span>
+                                            </div>
+                                            <a asp-action="Profile" asp-controller="Account"><i class="fa fa-user-o"></i> Profile</a>
+                                            <a asp-action="Logout" asp-controller="Account" class="logout-text"><i class="fa fa-power-off"></i> Logout</a>
+                                        }
+                                        else
+                                        {
+                                            <a asp-action="Login" asp-controller="Account">Login</a>
+                                            <a asp-action="Register" asp-controller="Account">Register</a>
+                                        }
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li><span class="icon_search search-switch"></span></li>
+                            <li>
+                                <a asp-controller="Wishlist" asp-action="Index">
+                                    <span class="icon_heart_alt"></span>
+                                    @* <div class="tip"></div> *@
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="icon_bag_alt"></span>
+                                    @* <div class="tip">0</div> *@
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="canvas__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    @RenderBody()
+    <div class="cart-sidebar-overlay"></div>
+    <partial name="_CartPartialView"/>
+       <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-7">
+                    <div class="footer__about">
+                        <div class="footer__logo">
+                            <a href="./index.html"><img src="~/img/logo.png" alt=""></a>
+                        </div>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                            cilisis.
+                        </p>
+                        <div class="footer__payment">
+                            <a href="#"><img src="~/img/payment/payment-1.png" alt=""></a>
+                            <a href="#"><img src="~/img/payment/payment-2.png" alt=""></a>
+                            <a href="#"><img src="~/img/payment/payment-3.png" alt=""></a>
+                            <a href="#"><img src="~/img/payment/payment-4.png" alt=""></a>
+                            <a href="#"><img src="~/img/payment/payment-5.png" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-5">
+                    <div class="footer__widget">
+                        <h6>Quick links</h6>
+                        <ul>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Blogs</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-4">
+                    <div class="footer__widget">
+                        <h6>Account</h6>
+                        <ul>
+                            <li><a href="#">My Account</a></li>
+                            <li><a href="#">Orders Tracking</a></li>
+                            <li><a href="#">Checkout</a></li>
+                            <li><a asp-controller="Wishlist" asp-action="Index">Wishlist</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-8 col-sm-8">
+                    <div class="footer__newslatter">
+                        <h6>NEWSLETTER</h6>
+                        <form action="#">
+                            <input type="text" placeholder="Email">
+                            <button type="submit" class="site-btn">Subscribe</button>
+                        </form>
+                        <div class="footer__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-youtube-play"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    <div class="footer__copyright__text">
+                        <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                    </div>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+    <!-- Search Begin -->
+
+    <!-- Search Modal -->
+    <div class="search-modal" id="searchModal" style="display:none;">
+        <div class="search-overlay" onclick="closeSearch()"></div>
+
+        <div class="search-container">
+            <div class="search-close" onclick="closeSearch()">×</div>
+
+            <div class="search-box">
+                <i class="fa fa-search search-icon"></i>
+                <input type="text"
+                       id="searchInput"
+                       placeholder="Search products & categories..."
+                       autocomplete="off">
+            </div>
+
+            <!-- Results Dropdown -->
+            <div id="searchResults" class="search-results"></div>
+        </div>
+    </div>
+
+    <style>
+        .search-trigger {
+            cursor: pointer;
+            padding: 10px 15px;
+            background: #667eea;
+            color: white;
+            border-radius: 25px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+            .search-trigger:hover {
+                background: #e74c3c;
+                transform: scale(1.05);
+            }
+
+        .search-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 99999;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 100px;
+        }
+
+        .search-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+        }
+
+        .search-container {
+            position: relative;
+            width: 90%;
+            max-width: 600px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .search-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 30px;
+            cursor: pointer;
+            color: #999;
+            z-index: 10;
+        }
+
+            .search-close:hover {
+                color: #e74c3c;
+            }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .search-icon {
+            font-size: 20px;
+            color: #667eea;
+            margin-right: 15px;
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            font-size: 18px;
+            outline: none;
+            padding: 10px 0;
+        }
+
+        .search-results {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .result-section {
+            padding: 10px 20px;
+            background: #f8f9fa;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .result-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+            .result-item:hover {
+                background: #f8f9fa;
+            }
+
+            .result-item img {
+                width: 50px;
+                height: 50px;
+                object-fit: cover;
+                border-radius: 8px;
+                margin-right: 15px;
+            }
+
+        .result-info {
+            flex: 1;
+        }
+
+            .result-info h4 {
+                margin: 0 0 5px 0;
+                font-size: 15px;
+                color: #2c3e50;
+            }
+
+            .result-info p {
+                margin: 0;
+                font-size: 12px;
+                color: #7f8c8d;
+            }
+
+        .result-price {
+            font-size: 16px;
+            font-weight: 700;
+            color: #e74c3c;
+        }
+
+        .result-badge {
+            background: #667eea;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 11px;
+        }
+
+        .view-all {
+            display: block;
+            text-align: center;
+            padding: 15px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+            .view-all:hover {
+                background: #5a6fd6;
+            }
+
+        .no-results {
+            padding: 40px;
+            text-align: center;
+            color: #7f8c8d;
+        }
+    </style>
+
+    <!-- Search End -->
+    <!-- Js Plugins -->
+    <script src="~/js/jquery-3.3.1.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/js/jquery-ui.min.js"></script>
+    <script src="~/js/mixitup.min.js"></script>
+    <script src="~/js/jquery.countdown.min.js"></script>
+    <script src="~/js/jquery.slicknav.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/jquery.nicescroll.min.js"></script>
+    <script src="~/js/main.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <!-- ========================================== -->
+    <!-- CART SCRIPT - LAST MEIN -->
+    <!-- ========================================== -->
+    <script>
+        $(document).ready(function() {
+            console.log('🛒 Cart Initializing...');
+
+            // Check if user is logged in
+            var userId = '@Context.Session.GetString("UserId")';
+            console.log('User ID:', userId);
+
+            if (!userId) {
+                console.log('User not logged in');
+                $('#cartSidebarContent').html(
+                    '<div class="text-center py-5">' +
+                    '<i class="fa fa-lock fa-3x text-muted mb-3"></i>' +
+                    '<p>Please login to view cart</p>' +
+                    '<a href="/Account/Login" class="btn btn-dark btn-sm">Login</a>' +
+                    '</div>'
+                );
+                return;
+            }
+
+            // Load cart on page load
+            loadCartSummary();
+        });
+
+        // Load Cart Summary (Badge)
+        function loadCartSummary() {
+            $.ajax({
+                url: '/Cart/GetCartSummary',
+                type: 'GET',
+                cache: false,
+                success: function(data) {
+                    console.log('Cart Summary:', data);
+                    updateCartBadge(data.count);
+
+                    if (data.count > 0) {
+                        loadCartItems();
+                    } else {
+                        showEmptyCart();
+                    }
+                },
+                error: function(xhr) {
+                    console.error('Error loading summary:', xhr.status, xhr.responseText);
+                    $('#cartSidebarContent').html(
+                        '<div class="text-center py-5 text-danger">' +
+                        '<p>Error loading cart (' + xhr.status + ')</p>' +
+                        '</div>'
+                    );
+                }
+            });
+        }
+
+        // Load Cart Items
+        function loadCartItems() {
+            $.ajax({
+                url: '/Cart/GetCartItems',
+                type: 'GET',
+                cache: false,
+                success: function(data) {
+                    console.log('Cart Items:', data);
+
+                    if (data.success && data.items && data.items.length > 0) {
+                        renderCartItems(data);
+                    } else {
+                        showEmptyCart();
+                    }
+                },
+                error: function(xhr) {
+                    console.error('Error loading items:', xhr.status);
+                    $('#cartSidebarContent').html(
+                        '<div class="text-center py-5 text-danger">' +
+                        '<p>Failed to load items</p>' +
+                        '</div>'
+                    );
+                }
+            });
+        }
+
+        // Render Cart Items
+        function renderCartItems(data) {
+            var html = '';
+
+            for (var i = 0; i < data.items.length; i++) {
+                var item = data.items[i];
+                var price = parseFloat(item.price) || 0;
+
+                html += '<div class="cart-item" style="display:flex;padding:15px;border-bottom:1px solid #ebebeb;gap:15px;align-items:center;">' +
+                    '<img src="' + (item.imageUrl || '/img/no-image.jpg') + '" style="width:70px;height:70px;object-fit:cover;border-radius:8px;" onerror="this.src=\'/img/no-image.jpg\'">' +
+                    '<div style="flex:1;">' +
+                    '<div style="font-weight:600;font-size:14px;margin-bottom:5px;">' + item.productName + '</div>' +
+                    '<div style="color:#c0392b;font-weight:700;font-size:14px;margin-bottom:8px;">Rs. ' + price.toLocaleString() + '</div>' +
+                    '<div style="display:flex;align-items:center;gap:10px;">' +
+                    '<div style="display:flex;align-items:center;border:1px solid #ddd;border-radius:20px;overflow:hidden;height:28px;">' +
+                    '<button onclick="updateQuantity(' + item.cartItemId + ', ' + (item.quantity - 1) + ')" style="background:none;border:none;width:28px;cursor:pointer;">−</button>' +
+                    '<input type="text" value="' + item.quantity + '" readonly style="width:35px;text-align:center;border:none;font-size:13px;font-weight:600;">' +
+                    '<button onclick="updateQuantity(' + item.cartItemId + ', ' + (item.quantity + 1) + ')" style="background:none;border:none;width:28px;cursor:pointer;">+</button>' +
+                    '</div>' +
+                    '<span onclick="removeItem(' + item.cartItemId + ')" style="color:#999;cursor:pointer;font-size:16px;margin-left:auto;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:50%;">' +
+                    '<i class="fa fa-trash"></i>' +
+                    '</span>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
+            }
+
+            $('#cartSidebarContent').html(html);
+            $('#cartSidebarFooter').show();
+            $('#cartTotalPrice').text('Rs. ' + (parseFloat(data.total) || 0).toLocaleString());
+        }
+
+        // Show Empty Cart
+        function showEmptyCart() {
+            $('#cartSidebarContent').html(
+                '<div class="text-center py-5">' +
+                '<i class="fa fa-shopping-bag fa-3x text-muted mb-3"></i>' +
+                '<p>Your cart is empty</p>' +
+                '<button class="btn btn-dark btn-sm" onclick="closeCartSidebar()">Continue Shopping</button>' +
+                '</div>'
+            );
+            $('#cartSidebarFooter').hide();
+        }
+
+        // Update Quantity
+        function updateQuantity(cartItemId, newQty) {
+            if (newQty < 1) {
+                if (!confirm('Remove this item?')) return;
+            }
+
+            $.post('/Cart/UpdateQuantity', { cartItemId: cartItemId, quantity: newQty }, function(data) {
+                if (data.success) {
+                    updateCartBadge(data.itemCount);
+                    if (data.itemCount > 0) {
+                        loadCartItems();
+                    } else {
+                        showEmptyCart();
+                    }
+                }
+            });
+        }
+
+        // Remove Item
+        function removeItem(cartItemId) {
+            if (!confirm('Remove this item?')) return;
+
+            $.post('/Cart/RemoveItem', { cartItemId: cartItemId }, function(data) {
+                if (data.success) {
+                    updateCartBadge(data.itemCount);
+                    if (data.itemCount > 0) {
+                        loadCartItems();
+                    } else {
+                        showEmptyCart();
+                    }
+                }
+            });
+        }
+
+        // Update Badge
+        function updateCartBadge(count) {
+            // Header badge
+            var $headerBadge = $('.header__right__widget .icon_bag_alt').siblings('.tip');
+            if ($headerBadge.length === 0) {
+                $('.header__right__widget .icon_bag_alt').after('<div class="tip">0</div>');
+                $headerBadge = $('.header__right__widget .icon_bag_alt').siblings('.tip');
+            }
+
+            // Offcanvas badge
+            var $offcanvasBadge = $('.offcanvas__widget .icon_bag_alt').siblings('.tip');
+            if ($offcanvasBadge.length === 0) {
+                $('.offcanvas__widget .icon_bag_alt').after('<div class="tip">0</div>');
+                $offcanvasBadge = $('.offcanvas__widget .icon_bag_alt').siblings('.tip');
+            }
+
+            // Update both
+            $headerBadge.text(count || 0).toggle(count > 0);
+            $offcanvasBadge.text(count || 0).toggle(count > 0);
+
+            // Style
+            $('.tip').css({
+                'position': 'absolute',
+                'top': '-8px',
+                'right': '-8px',
+                'background': 'linear-gradient(135deg, #c0392b 0%, #8b4513 100%)',
+                'color': 'white',
+                'font-size': '11px',
+                'font-weight': 'bold',
+                'min-width': '20px',
+                'height': '20px',
+                'border-radius': '50%',
+                'display': count > 0 ? 'flex' : 'none',
+                'align-items': 'center',
+                'justify-content': 'center'
+            });
+        }
+
+        // Open Sidebar
+        function openCartSidebar() {
+            console.log('Opening sidebar...');
+            $('.cart-sidebar-overlay').addClass('active');
+            $('#cartSidebarWrapper').addClass('active');
+            $('body').css('overflow', 'hidden');
+
+            // Reload items when opening
+            var userId = '@Context.Session.GetString("UserId")';
+            if (userId) {
+                loadCartItems();
+            }
+        }
+
+        // Close Sidebar
+        function closeCartSidebar() {
+            $('.cart-sidebar-overlay').removeClass('active');
+            $('#cartSidebarWrapper').removeClass('active');
+            $('body').css('overflow', '');
+        }
+
+        // Add to Cart
+        function addToCart(productId, qty) {
+            if (!qty) qty = 1;
+
+            $.post('/Cart/AddToCart', { productId: productId, quantity: qty }, function(data) {
+                if (data.success) {
+                    updateCartBadge(data.count);
+                    openCartSidebar();
+                } else if (data.redirectUrl) {
+                    window.location.href = data.redirectUrl;
+                } else {
+                    alert(data.message);
+                }
+            });
+        }
+
+        // Event Bindings
+        $(document).on('click', '.icon_bag_alt', function(e) {
+            e.preventDefault();
+            openCartSidebar();
+        });
+
+        $(document).on('keydown', function(e) {
+            if (e.key === 'Escape') closeCartSidebar();
+        });
+    </script>
+</body>
+</html>
+<script>
+    // 1. Wishlist Logic (Global)
+    function addToWishlist(productId, btn) {
+        let pId = productId.toString().trim();
+        let wishlist = JSON.parse(localStorage.getItem('guestWishlist')) || [];
+        let index = wishlist.indexOf(pId);
+
+        if (index === -1) {
+            wishlist.push(pId);
+            console.log("Added to Wishlist:", pId);
+        } else {
+            wishlist.splice(index, 1);
+            console.log("Removed from Wishlist:", pId);
+        }
+
+        localStorage.setItem('guestWishlist', JSON.stringify(wishlist));
+
+        // Aik hi waqt mein pure page ke hearts ko update karein
+        renderHearts();
+    }
+
+    // 2. UI Rendering Logic (Hamesha isi se UI update hogi)
+    function renderHearts() {
+        let wishlist = JSON.parse(localStorage.getItem('guestWishlist')) || [];
+
+        // Saare elements dhondein jin ke paas data-product-id hai
+        let allHearts = document.querySelectorAll('[data-product-id]');
+
+        allHearts.forEach(el => {
+            let currentId = el.getAttribute('data-product-id').toString().trim();
+            let icon = el.querySelector('i');
+
+            if (wishlist.includes(currentId)) {
+                // Agar wishlist mein hai toh RED Solid karein
+                if(icon) icon.className = 'fa-solid fa-heart text-danger';
+                el.classList.add('is-active');
+            } else {
+                // Agar nahi hai toh Regular Gray karein
+                if(icon) icon.className = 'fa-regular fa-heart';
+                el.classList.remove('is-active', 'text-danger');
+            }
+        });
+    }
+
+    // 3. Auto-Execution on Every Page Event
+    $(document).ready(function() {
+        // 1. Refresh par
+        setTimeout(renderHearts, 500);
+
+        // 2. Jab Quick View Modal khule
+        $(document).on('shown.bs.modal', function () {
+            renderHearts();
+        });
+    });
+
+    // 3. Jab user 'Back' button se aaye
+    window.addEventListener('pageshow', function() {
+        renderHearts();
+    });
+
+    // 4. Double check for safety
+    window.onload = renderHearts;
+</script>
+<script>
+        // Isay Layout ki script ke bilkul end mein paste karein
+    $(document).ready(function() {
+        syncWishlistToDatabase();
+    });
+
+      function syncWishlistToDatabase() {
+        var userId = '@Context.Session.GetString("UserId")';
+        if (userId !== "") {
+            let guestWishlist = JSON.parse(localStorage.getItem("guestWishlist")) || [];
+
+            // IDs ko numbers mein convert karlein taake Controller ko asani ho
+            let numericIds = guestWishlist.map(id => parseInt(id)).filter(id => !isNaN(id));
+
+            if (numericIds.length > 0) {
+                console.log("Attempting to sync:", numericIds);
+
+                fetch('/Wishlist/SyncWishlist', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(numericIds)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Success! Database updated.");
+                        localStorage.removeItem("guestWishlist"); // Sirf success par delete karein
+                        renderHearts(); // Hearts update karein
+                    } else {
+                        console.error("Server Error:", data.message);
+                    }
+                })
+                .catch(err => console.error("Network Error:", err));
+            }
+        }
+    }
+</script>
+<script>
+    // Open Search Function
+    function openSearch() {
+        console.log('Opening search...');
+
+        // Close offcanvas first (agar open ho)
+        var offcanvas = document.querySelector('.offcanvas-menu-wrapper');
+        if (offcanvas && offcanvas.classList.contains('active')) {
+            offcanvas.classList.remove('active');
+        }
+
+        // Open search modal
+        var modal = document.getElementById('searchModal');
+        if (modal) {
+            modal.classList.add('active');
+            modal.style.display = 'flex';
+            document.getElementById('searchInput').focus();
+        }
+    }
+
+    // Close Search Function
+    function closeSearch() {
+        var modal = document.getElementById('searchModal');
+        if (modal) {
+            modal.classList.remove('active');
+            modal.style.display = 'none';
+        }
+        document.getElementById('searchInput').value = '';
+        document.getElementById('searchResults').innerHTML = '';
+    }
+
+    // Live Search
+    var searchTimeout;
+    var searchInput = document.getElementById('searchInput');
+    var resultsDiv = document.getElementById('searchResults');
+
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            var query = this.value.trim();
+
+            if (query.length < 2) {
+                resultsDiv.innerHTML = '';
+                return;
+            }
+
+            resultsDiv.innerHTML = '<div style="padding:20px;text-align:center;"><i class="fa fa-spinner fa-spin"></i> Searching...</div>';
+
+            searchTimeout = setTimeout(function() {
+                fetch('/Home/Search?term=' + encodeURIComponent(query))
+                    .then(function(response) {
+                        if (!response.ok) throw new Error('HTTP ' + response.status);
+                        return response.json();
+                    })
+                    .then(function(data) {
+                        displayResults(data, query);
+                    })
+                    .catch(function(err) {
+                        console.error('Search error:', err);
+                        resultsDiv.innerHTML = '<div class="no-results">Search failed. Please try again.</div>';
+                    });
+            }, 300);
+        });
+    }
+
+    // Display Results
+    function displayResults(data, query) {
+        if (!data || data.length === 0) {
+            resultsDiv.innerHTML = '<div class="no-results"><i class="fa fa-search" style="font-size:40px;display:block;margin-bottom:15px;"></i>No results for "' + escapeHtml(query) + '"</div>';
+            return;
+        }
+
+        var categories = data.filter(function(x) { return x.type === 'category'; });
+        var products = data.filter(function(x) { return x.type === 'product'; });
+
+        var html = '';
+
+        // Categories
+        if (categories.length > 0) {
+            html += '<div class="result-section">Categories</div>';
+            categories.forEach(function(c) {
+                html += '<a href="' + c.url + '" class="result-item">';
+                html += '<div class="result-info" style="flex:1;">';
+                html += '<h4>' + highlight(c.name, query) + '</h4>';
+                html += '<p>' + c.productCount + ' products</p>';
+                html += '</div>';
+                html += '<span style="background:#667eea;color:white;padding:3px 10px;border-radius:15px;font-size:11px;">Category</span>';
+                html += '</a>';
+            });
+        }
+
+        // Products
+        if (products.length > 0) {
+            html += '<div class="result-section">Products</div>';
+            products.forEach(function(p) {
+                var priceHtml = p.discount > 0
+                    ? '<span style="text-decoration:line-through;color:#999;font-size:12px;">$' + p.price + '</span> $' + p.finalPrice.toFixed(0)
+                    : '$' + p.price;
+
+                html += '<a href="' + p.url + '" class="result-item">';
+                html += '<img src="' + (p.image || '/uploads/products/no-image.jpg') + '" onerror="this.src=\'/uploads/products/no-image.jpg\'">';
+                html += '<div class="result-info">';
+                html += '<h4>' + highlight(p.name, query) + '</h4>';
+                html += '<p>' + p.category + '</p>';
+                html += '</div>';
+                html += '<div class="result-price">' + priceHtml + '</div>';
+                html += '</a>';
+            });
+        }
+
+        // View All
+        html += '<a href="/Home/SearchResults?term=' + encodeURIComponent(query) + '" class="view-all">View All Results <i class="fa fa-arrow-right"></i></a>';
+
+        resultsDiv.innerHTML = html;
+    }
+
+    // Helpers
+    function highlight(text, query) {
+        var regex = new RegExp('(' + escapeHtml(query) + ')', 'gi');
+        return text.replace(regex, '<mark style="background:#ffe4e9;padding:0 2px;">$1</mark>');
+    }
+
+    function escapeHtml(text) {
+        var div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // Close on Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeSearch();
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        // Theme ka existing JS override karo
+        $('.search-switch').on('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            openSearch();
+        });
+    });
+</script>

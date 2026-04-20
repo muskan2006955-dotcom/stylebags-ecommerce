@@ -1,0 +1,251 @@
+﻿@model BagsWebsite.Models.ViewModels.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Create Account";
+}
+
+<style>
+    @@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+    :root {
+        --primary-brown: brown;
+        --secondary-red: #b71c1c;
+        --bg-soft: #f4f1f0;
+    }
+
+    body {
+        background-color: var(--bg-soft);
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .reg-container {
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .reg-card {
+        width: 100%;
+        max-width: 550px;
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(62, 39, 35, 0.1);
+        overflow: hidden;
+        border: none;
+    }
+
+    .reg-header {
+        background: var(--primary-brown);
+        padding: 30px;
+        text-align: center;
+        color: #fff;
+        border-bottom: 4px solid #d4af37; /* Gold touch */
+    }
+
+    .reg-body {
+        padding: 40px;
+    }
+
+    .form-label-custom {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--primary-brown);
+        text-transform: uppercase;
+        margin-bottom: 7px;
+        display: block;
+    }
+
+    .form-control-custom {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #eee;
+        border-radius: 10px;
+        transition: 0.3s;
+        background: #fafafa;
+    }
+
+        .form-control-custom:focus {
+            border-color: var(--primary-brown);
+            background: #fff;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(62, 39, 35, 0.05);
+        }
+
+    .btn-reg {
+        width: 100%;
+        padding: 14px;
+        background: var(--secondary-red);
+        color: #fff;
+        border: none;
+        border-radius: 30px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 20px;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+
+        .btn-reg:hover {
+            background: #961515;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(183, 28, 28, 0.3);
+        }
+
+    .reg-footer {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 13px;
+    }
+
+        .reg-footer a {
+            color: var(--secondary-red);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+    .spinner-border-sm {
+        margin-right: 8px;
+    }
+
+    #otpSection {
+        display: none;
+    }
+    /* Shuru mein hidden rahega *
+</style>
+
+<div class="reg-container">
+    <div class="reg-card">
+        <div class="reg-header">
+            <h3 class="m-0 text-white">Create Account</h3>
+            <p class="small mb-0 opacity-75 text-white">Join our luxury bags collection</p>
+        </div>
+        <div class="reg-body">
+
+            <div id="registrationFields">
+                <form id="regForm">
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label-custom">First Name</label>
+                            <input asp-for="FirstName" id="fName" class="form-control-custom" placeholder="e.g. Ali" required />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label-custom">Last Name</label>
+                            <input asp-for="LastName" id="lName" class="form-control-custom" placeholder="e.g. Khan" required />
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label-custom">Email Address</label>
+                        <input asp-for="Email" id="email" type="email" class="form-control-custom" placeholder="name@example.com" required />
+                        <small class="text-muted" style="font-size: 11px; margin-top: 5px; display: block;">
+                            <i class="fas fa-info-circle me-1"></i> Please enter your active Google account email to receive the OTP.
+                        </small>
+                        </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label-custom">Password</label>
+                            <input asp-for="Password" id="pass" type="password" class="form-control-custom" placeholder="••••••••" required />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label-custom">Confirm</label>
+                            <input asp-for="ConfirmPassword" id="cPass" type="password" class="form-control-custom" placeholder="••••••••" required />
+                        </div>
+                    </div>
+
+                    <button type="button" onclick="sendSignupOTP()" id="btnSendOTP" class="btn-reg">Verify Email & Continue</button>
+                </form>
+            </div>
+
+            <div id="otpSection" class="text-center">
+                <div class="mb-4">
+                    <i class="fas fa-envelope-open-text fa-3x mb-3" style="color: var(--primary-brown);"></i>
+                    <h5>Check Your Email</h5>
+                    <p class="small text-muted">Humnay aapki email par 6-digits ka code bheja hai.</p>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label-custom text-center">Verification Code</label>
+                    <input type="text" id="userInputOTP" class="form-control-custom text-center fw-bold"
+                           placeholder="000000" maxlength="6" style="font-size: 24px; letter-spacing: 5px;" />
+                </div>
+
+                <button type="button" onclick="verifyAndRegister()" id="btnFinal" class="btn-reg">Confirm Registration</button>
+
+                <div class="mt-3">
+                    <a href="javascript:void(0)" onclick="location.reload()" class="small text-muted text-decoration-none">
+                        <i class="fas fa-arrow-left"></i> Edit Details
+                    </a>
+                </div>
+            </div>
+
+            <div class="reg-footer">
+                Already have an account? <a asp-action="Login">Login here</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // 1. Send OTP Logic
+        function sendSignupOTP() {
+            let email = $("#email").val();
+            let pass = $("#pass").val();
+            let cPass = $("#cPass").val();
+
+            if (!email || !pass || pass !== cPass) {
+                Swal.fire('Error', 'Please fill all fields correctly. Passwords must match!', 'error');
+                return;
+            }
+
+            $("#btnSendOTP").prop('disabled', true).html('Sending OTP...');
+
+            $.post("/Account/SendSignupOTP", { email: email }, function (res) {
+                if (res.success) {
+                    $("#registrationFields").fadeOut(300, function () {
+                        $("#otpSection").fadeIn();
+                    });
+                } else {
+                    Swal.fire('Failed', res.message, 'error');
+                    $("#btnSendOTP").prop('disabled', false).text('Verify Email & Continue');
+                }
+            });
+        }
+
+        // 2. Final Verify and Save
+        function verifyAndRegister() {
+            let userData = {
+                FirstName: $("#fName").val(),
+                LastName: $("#lName").val(),
+                Email: $("#email").val(),
+                Password: $("#pass").val()
+            };
+            let otp = $("#userInputOTP").val();
+
+            if (otp.length < 6) {
+                Swal.fire('Invalid', 'Please enter 6-digit code', 'warning');
+                return;
+            }
+
+            $("#btnFinal").prop('disabled', true).html('Creating Account...');
+
+            $.post("/Account/FinalRegister", { model: userData, userOTP: otp }, function (res) {
+                if (res.success) {
+                    Swal.fire('Success!', 'Your account is ready.', 'success').then(() => {
+                        window.location.href = "/Account/Login";
+                    });
+                } else {
+                    Swal.fire('Error', res.message, 'error');
+                    $("#btnFinal").prop('disabled', false).text('Confirm Registration');
+                }
+            });
+        }
+    </script>
+}
